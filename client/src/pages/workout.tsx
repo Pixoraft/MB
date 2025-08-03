@@ -18,25 +18,26 @@ export default function Workout() {
   const [editingExercise, setEditingExercise] = useState<Exercise | undefined>();
   const [isWeeklyMode, setIsWeeklyMode] = useState(false);
   const [selectedDay, setSelectedDay] = useState(getCurrentDayName());
+  const [selectedWorkoutType, setSelectedWorkoutType] = useState<string>("Full Body");
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const today = getTodayString();
 
-  // Initialize 7-day workout routine
-  const initializeWorkoutRoutine = useMutation({
+  // Initialize 7-day Full Body workout routine
+  const initializeFullBodyRoutine = useMutation({
     mutationFn: async () => {
       const workoutRoutines: InsertExercise[] = [
         // Day 1 – Push (Chest, Shoulders, Triceps, Abs)
-        { name: "Normal Push-Ups", sets: 4, reps: "25", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
-        { name: "Incline Push-Ups", sets: 3, reps: "25", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
-        { name: "Pike Push-Ups", sets: 3, reps: "15", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
-        { name: "Diamond Push-Ups", sets: 2, reps: "15", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
-        { name: "Bench Dips", sets: 3, reps: "25", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
-        { name: "Russian Twists", sets: 3, reps: "30", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
-        { name: "Plank", sets: 1, reps: "5 min", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
+        { name: "Normal Push-Ups", sets: 4, reps: "25", day: "monday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Incline Push-Ups", sets: 3, reps: "25", day: "monday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Pike Push-Ups", sets: 3, reps: "15", day: "monday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Diamond Push-Ups", sets: 2, reps: "15", day: "monday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Bench Dips", sets: 3, reps: "25", day: "monday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Russian Twists", sets: 3, reps: "30", day: "monday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Plank", sets: 1, reps: "5 min", day: "monday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
 
         // Day 2 – Pull (Back, Biceps, Forearms, Grip)
-        { name: "Pull-Ups / Assisted", sets: 4, reps: "12", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
+        { name: "Pull-Ups / Assisted", sets: 4, reps: "12", day: "tuesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
         { name: "Towel Rows", sets: 3, reps: "20", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
         { name: "Towel Bicep Curls", sets: 3, reps: "20", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
         { name: "Reverse Curls", sets: 3, reps: "15", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
@@ -92,10 +93,77 @@ export default function Workout() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/exercises"] });
-      toast({ title: "7-Day workout routine added successfully! 💪" });
+      toast({ title: "Full Body workout routine added successfully!" });
     },
     onError: () => {
-      toast({ title: "Failed to add workout routine", variant: "destructive" });
+      toast({ title: "Failed to add Full Body routine", variant: "destructive" });
+    },
+  });
+
+  // Initialize Arms & Grip workout routine 
+  const initializeArmsRoutine = useMutation({
+    mutationFn: async () => {
+      const armsRoutines: InsertExercise[] = [
+        // Monday – High-Volume Gripper
+        { name: "Gripper Fast Reps", sets: 4, reps: "50 each hand", day: "monday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Slow Squeeze Gripper", sets: 3, reps: "15 (3 sec hold)", day: "monday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Towel Twist", sets: 2, reps: "1 min", day: "monday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Wrist Rotations with Bottle", sets: 2, reps: "15", day: "monday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+
+        // Tuesday – Strength + Static Hold
+        { name: "Heavy Gripper", sets: 3, reps: "10 slow", day: "tuesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Gripper Close-Hold", sets: 3, reps: "30 sec hold", day: "tuesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Pinch Grip Hold", sets: 3, reps: "30 sec", day: "tuesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Wrist Curl", sets: 3, reps: "15", day: "tuesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Reverse Curl", sets: 3, reps: "15", day: "tuesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Finger Wall Pushups", sets: 2, reps: "20 sec hold", day: "tuesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+
+        // Wednesday – Recovery + Light Pump
+        { name: "Easy Gripper", sets: 2, reps: "30", day: "wednesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Towel Squeeze Light", sets: 1, reps: "1 min", day: "wednesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Wrist Mobility Circles", sets: 1, reps: "2 min", day: "wednesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Finger Flex-Extend", sets: 1, reps: "50", day: "wednesday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+
+        // Thursday – Mixed Monster Circuit
+        { name: "Gripper Explosives", sets: 3, reps: "20", day: "thursday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Gripper Slow Hold", sets: 3, reps: "15", day: "thursday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Wrist Curl Circuit", sets: 3, reps: "15", day: "thursday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Reverse Curl Circuit", sets: 3, reps: "15", day: "thursday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Pinch Grip Circuit", sets: 3, reps: "30 sec", day: "thursday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Farmer Carry", sets: 3, reps: "1 min walk", day: "thursday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Towel Twists Finish", sets: 2, reps: "1 min", day: "thursday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+
+        // Friday – Reverse Focus
+        { name: "Rubber Band Finger Opens", sets: 3, reps: "20", day: "friday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Wall Finger Push", sets: 3, reps: "15", day: "friday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Reverse Wrist Curl", sets: 3, reps: "20", day: "friday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Forearm Extensor Stretch", sets: 1, reps: "1 min each arm", day: "friday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Light Gripper Recovery", sets: 2, reps: "20", day: "friday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+
+        // Saturday – Max Test & Burnout
+        { name: "Gripper Max Reps Test", sets: 1, reps: "to failure", day: "saturday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Close & Hold Max", sets: 1, reps: "45 sec", day: "saturday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Farmer's Hold Max", sets: 1, reps: "1 min", day: "saturday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Pinch Hold Max", sets: 1, reps: "45 sec", day: "saturday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Bucket Walk", sets: 2, reps: "10 steps", day: "saturday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Gripper Burnout", sets: 1, reps: "to failure", day: "saturday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+
+        // Sunday – Rest/Recovery
+        { name: "Light Hand Circles", sets: 1, reps: "2 min", day: "sunday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+        { name: "Forearm Stretch", sets: 1, reps: "3 min", day: "sunday", workoutType: "Arms & Grip", isWeekly: true, date: today, completed: false },
+      ];
+      
+      const promises = armsRoutines.map(workout => 
+        apiRequest("POST", "/api/exercises", workout)
+      );
+      await Promise.all(promises);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/exercises"] });
+      toast({ title: "Arms & Grip workout routine added successfully!" });
+    },
+    onError: () => {
+      toast({ title: "Failed to add Arms routine", variant: "destructive" });
     },
   });
 
@@ -117,16 +185,25 @@ export default function Workout() {
     },
   });
 
-  // Initialize workout routine only once
-  const [hasInitializedWorkout, setHasInitializedWorkout] = useState(false);
+  // Initialize workout routines only once
+  const [hasInitializedFullBody, setHasInitializedFullBody] = useState(false);
+  const [hasInitializedArms, setHasInitializedArms] = useState(false);
   
   useEffect(() => {
     // Only initialize if no weekly workouts exist and we haven't already initialized
-    if (weeklyExercises.length === 0 && !hasInitializedWorkout && !initializeWorkoutRoutine.isPending) {
-      setHasInitializedWorkout(true);
-      initializeWorkoutRoutine.mutate();
+    const fullBodyWorkouts = weeklyExercises.filter((ex: Exercise) => ex.workoutType === "Full Body");
+    const armsWorkouts = weeklyExercises.filter((ex: Exercise) => ex.workoutType === "Arms & Grip");
+    
+    if (fullBodyWorkouts.length === 0 && !hasInitializedFullBody && !initializeFullBodyRoutine.isPending) {
+      setHasInitializedFullBody(true);
+      initializeFullBodyRoutine.mutate();
     }
-  }, [weeklyExercises.length, hasInitializedWorkout]);
+    
+    if (armsWorkouts.length === 0 && !hasInitializedArms && !initializeArmsRoutine.isPending) {
+      setHasInitializedArms(true);
+      initializeArmsRoutine.mutate();
+    }
+  }, [weeklyExercises.length, hasInitializedFullBody, hasInitializedArms]);
 
   // Create exercise mutation
   const createExerciseMutation = useMutation({
@@ -179,11 +256,26 @@ export default function Workout() {
   const completedWeeklyExercises = weeklyExercises.filter((ex: Exercise) => ex.completed).length;
   const weeklyProgressPerformance = calculatePerformance(completedWeeklyExercises, weeklyExercises.length);
 
-  // Filter exercises by selected day for weekly view
-  const selectedDayExercises = weeklyExercises.filter((ex: Exercise) => ex.day === selectedDay);
-  const missedExercises = weeklyExercises.filter((ex: Exercise) => 
-    ex.day !== getCurrentDayName() && !ex.completed
+  // Filter exercises by selected day and workout type for weekly view
+  const selectedDayExercises = weeklyExercises.filter((ex: Exercise) => 
+    ex.day === selectedDay && ex.workoutType === selectedWorkoutType
   );
+  // Only show missed workouts from when the user started using the app
+  // Check if user has any completed workouts to determine app start date
+  const hasCompletedWorkouts = weeklyExercises.some((ex: Exercise) => ex.completed);
+  const firstWorkoutDate = hasCompletedWorkouts 
+    ? weeklyExercises
+        .filter((ex: Exercise) => ex.completed)
+        .sort((a: Exercise, b: Exercise) => new Date(a.date).getTime() - new Date(b.date).getTime())[0]?.date
+    : today;
+  
+  const missedExercises = weeklyExercises.filter((ex: Exercise) => {
+    const exerciseDate = new Date(ex.date);
+    const startDate = new Date(firstWorkoutDate);
+    return ex.day !== getCurrentDayName() && 
+           !ex.completed && 
+           exerciseDate >= startDate;
+  });
 
   const handleExerciseToggle = (exercise: Exercise) => {
     updateExerciseMutation.mutate({
@@ -296,120 +388,293 @@ export default function Workout() {
 
             {/* Daily Workout Tab */}
             <TabsContent value="daily" className="p-8">
-              {dailyExercises.length === 0 ? (
-                <div className="text-center py-12">
-                  <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
-                    <span className="text-4xl">🏋️‍♂️</span>
-                  </div>
-                  <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">No exercises scheduled for today</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Click the + button to add your first exercise!</p>
-                </div>
-              ) : (
-                <div className="space-y-6">
-                  {dailyExercises.map((exercise: Exercise) => (
-                    <div
-                      key={exercise.id}
-                      className="exercise-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="flex items-center justify-between relative z-10">
-                        <div className="flex items-center space-x-6 flex-1">
-                          <Checkbox
-                            checked={exercise.completed}
-                            onCheckedChange={() => handleExerciseToggle(exercise)}
-                            className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
-                          />
-                          <div className="flex-1">
-                            <div className={`text-lg font-semibold ${exercise.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors`}>
-                              {exercise.name}
-                            </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
-                              💪 {exercise.sets} sets × {exercise.reps} • ⏱️ {exercise.duration} min
-                            </div>
-                          </div>
-                        </div>
-                        <ThreeDotMenu
-                          onEdit={() => handleEditExercise(exercise)}
-                          onDelete={() => handleDeleteExercise(exercise.id)}
-                        />
+              {/* Daily Workout Type Selection */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                {/* Full Body Daily Workouts */}
+                <Card className="premium-card">
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                        <span className="text-white text-lg">💪</span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold">Full Body Daily</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Today's routine</p>
                       </div>
                     </div>
-                ))}
+                    <div className="space-y-3">
+                      {dailyExercises.filter((ex: Exercise) => ex.workoutType === "Full Body").length === 0 ? (
+                        <p className="text-sm text-gray-500">No Full Body exercises today</p>
+                      ) : (
+                        dailyExercises.filter((ex: Exercise) => ex.workoutType === "Full Body").map((exercise: Exercise) => (
+                          <div key={exercise.id} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <Checkbox
+                              checked={exercise.completed}
+                              onCheckedChange={() => handleExerciseToggle(exercise)}
+                              className="w-5 h-5"
+                            />
+                            <div className="flex-1">
+                              <div className={`font-medium ${exercise.completed ? 'line-through text-gray-500' : ''}`}>
+                                {exercise.name}
+                              </div>
+                              <div className="text-xs text-gray-600 dark:text-gray-400">
+                                {exercise.sets} sets × {exercise.reps}
+                              </div>
+                            </div>
+                            <ThreeDotMenu
+                              onEdit={() => handleEditExercise(exercise)}
+                              onDelete={() => handleDeleteExercise(exercise.id)}
+                            />
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Arms & Grip Daily Workouts */}
+                <Card className="premium-card">
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                        <span className="text-white text-lg">💥</span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold">Arms & Grip Daily</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Today's routine</p>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      {dailyExercises.filter((ex: Exercise) => ex.workoutType === "Arms & Grip").length === 0 ? (
+                        <p className="text-sm text-gray-500">No Arms & Grip exercises today</p>
+                      ) : (
+                        dailyExercises.filter((ex: Exercise) => ex.workoutType === "Arms & Grip").map((exercise: Exercise) => (
+                          <div key={exercise.id} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <Checkbox
+                              checked={exercise.completed}
+                              onCheckedChange={() => handleExerciseToggle(exercise)}
+                              className="w-5 h-5"
+                            />
+                            <div className="flex-1">
+                              <div className={`font-medium ${exercise.completed ? 'line-through text-gray-500' : ''}`}>
+                                {exercise.name}
+                              </div>
+                              <div className="text-xs text-gray-600 dark:text-gray-400">
+                                {exercise.sets} sets × {exercise.reps}
+                              </div>
+                            </div>
+                            <ThreeDotMenu
+                              onEdit={() => handleEditExercise(exercise)}
+                              onDelete={() => handleDeleteExercise(exercise.id)}
+                            />
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
-            )}
-          </TabsContent>
+
+              {/* Other Daily Exercises */}
+              {dailyExercises.filter((ex: Exercise) => !ex.workoutType || (ex.workoutType !== "Full Body" && ex.workoutType !== "Arms & Grip")).length > 0 && (
+                <Card className="premium-card">
+                  <CardHeader>
+                    <CardTitle>Other Daily Exercises</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {dailyExercises.filter((ex: Exercise) => !ex.workoutType || (ex.workoutType !== "Full Body" && ex.workoutType !== "Arms & Grip")).map((exercise: Exercise) => (
+                        <div
+                          key={exercise.id}
+                          className="exercise-item premium-card p-4 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-4 flex-1">
+                              <Checkbox
+                                checked={exercise.completed}
+                                onCheckedChange={() => handleExerciseToggle(exercise)}
+                                className="w-5 h-5"
+                              />
+                              <div className="flex-1">
+                                <div className={`font-semibold ${exercise.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>
+                                  {exercise.name}
+                                </div>
+                                <div className="text-sm text-gray-600 dark:text-gray-400">
+                                  💪 {exercise.sets} sets × {exercise.reps} • ⏱️ {exercise.duration} min
+                                </div>
+                              </div>
+                            </div>
+                            <ThreeDotMenu
+                              onEdit={() => handleEditExercise(exercise)}
+                              onDelete={() => handleDeleteExercise(exercise.id)}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
 
             {/* Weekly Workout Tab */}
             <TabsContent value="weekly" className="p-8">
-              {/* Day Tabs */}
-              <div className="border-b border-gray-200/20 dark:border-gray-700/20 mb-8">
-                <div className="flex space-x-2 overflow-x-auto pb-4">
-                  {days.map((day) => (
-                    <Button
-                      key={day.value}
-                      variant={selectedDay === day.value ? "default" : "ghost"}
-                      size="lg"
-                      onClick={() => setSelectedDay(day.value)}
-                      className={`flex-shrink-0 premium-button font-semibold px-6 py-3 ${
-                        selectedDay === day.value 
-                          ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg' 
-                          : 'hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10'
-                      }`}
-                    >
-                      {day.label}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Weekly Exercises */}
-              <div className="space-y-6 mb-12">
-                {selectedDayExercises.length === 0 ? (
-                  <div className="text-center py-12">
-                    <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
-                      <span className="text-4xl">📅</span>
-                    </div>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">
-                      No exercises scheduled for {days.find(d => d.value === selectedDay)?.label}
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Click the + button to add exercises!</p>
-                  </div>
-                ) : (
-                  selectedDayExercises.map((exercise: Exercise) => (
-                    <div
-                      key={exercise.id}
-                      className="exercise-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="flex items-center justify-between relative z-10">
-                        <div className="flex items-center space-x-6 flex-1">
-                          <Checkbox
-                            checked={exercise.completed}
-                            onCheckedChange={() => handleExerciseToggle(exercise)}
-                            disabled={selectedDay !== getCurrentDayName()}
-                            className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent disabled:opacity-50"
-                          />
-                          <div className="flex-1">
-                            <div className={`text-lg font-semibold ${exercise.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors`}>
-                              {exercise.workoutType && (
-                                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-bold">{exercise.workoutType} - </span>
-                              )}
-                              {exercise.name}
-                            </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
-                              💪 {exercise.sets} sets × {exercise.reps} • ⏱️ {exercise.duration} min
-                            </div>
-                          </div>
+              {/* Workout Type Selection */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                {/* Full Body Workout Box */}
+                <Card className="premium-card cursor-pointer hover:shadow-lg transition-all duration-300 group" 
+                      onClick={() => setSelectedWorkoutType("Full Body")}>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                          <span className="text-white text-xl">💪</span>
                         </div>
-                        <ThreeDotMenu
-                          onEdit={() => handleEditExercise(exercise)}
-                          onDelete={() => handleDeleteExercise(exercise.id)}
-                        />
+                        <div>
+                          <h3 className="text-xl font-bold">Full Body</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">Complete 7-day routine</p>
+                        </div>
+                      </div>
+                      <div className={`w-6 h-6 rounded-full border-2 ${
+                        selectedWorkoutType === "Full Body" 
+                          ? 'bg-green-500 border-green-500' 
+                          : 'border-gray-300 dark:border-gray-600'
+                      }`}>
+                        {selectedWorkoutType === "Full Body" && (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
+                        )}
                       </div>
                     </div>
-                ))
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Completed:</span>
+                        <span className="font-semibold">{weeklyExercises.filter((ex: Exercise) => ex.workoutType === "Full Body" && ex.completed).length}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Total:</span>
+                        <span className="font-semibold">{weeklyExercises.filter((ex: Exercise) => ex.workoutType === "Full Body").length}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Arms & Grip Workout Box */}
+                <Card className="premium-card cursor-pointer hover:shadow-lg transition-all duration-300 group" 
+                      onClick={() => setSelectedWorkoutType("Arms & Grip")}>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                          <span className="text-white text-xl">💥</span>
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold">Arms & Grip</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">30-day forearm focus</p>
+                        </div>
+                      </div>
+                      <div className={`w-6 h-6 rounded-full border-2 ${
+                        selectedWorkoutType === "Arms & Grip" 
+                          ? 'bg-blue-500 border-blue-500' 
+                          : 'border-gray-300 dark:border-gray-600'
+                      }`}>
+                        {selectedWorkoutType === "Arms & Grip" && (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Completed:</span>
+                        <span className="font-semibold">{weeklyExercises.filter((ex: Exercise) => ex.workoutType === "Arms & Grip" && ex.completed).length}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span>Total:</span>
+                        <span className="font-semibold">{weeklyExercises.filter((ex: Exercise) => ex.workoutType === "Arms & Grip").length}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Day Tabs */}
+              {selectedWorkoutType && (
+                <div className="border-b border-gray-200/20 dark:border-gray-700/20 mb-8">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-2xl font-bold">
+                      {selectedWorkoutType} - Weekly Schedule
+                    </h3>
+                  </div>
+                  <div className="flex space-x-2 overflow-x-auto pb-4">
+                    {days.map((day) => (
+                      <Button
+                        key={day.value}
+                        variant={selectedDay === day.value ? "default" : "ghost"}
+                        size="lg"
+                        onClick={() => setSelectedDay(day.value)}
+                        className={`flex-shrink-0 premium-button font-semibold px-6 py-3 ${
+                          selectedDay === day.value 
+                            ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg' 
+                            : 'hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10'
+                        }`}
+                      >
+                        {day.label}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
               )}
-            </div>
+
+              {/* Weekly Exercises */}
+              {selectedWorkoutType && (
+                <div className="space-y-6 mb-12">
+                  {selectedDayExercises.length === 0 ? (
+                    <div className="text-center py-12">
+                      <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
+                        <span className="text-4xl">📅</span>
+                      </div>
+                      <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">
+                        No {selectedWorkoutType} exercises for {days.find(d => d.value === selectedDay)?.label}
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Switch workout type or add new exercises!</p>
+                    </div>
+                  ) : (
+                    selectedDayExercises.map((exercise: Exercise) => (
+                      <div
+                        key={exercise.id}
+                        className="exercise-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="flex items-center justify-between relative z-10">
+                          <div className="flex items-center space-x-6 flex-1">
+                            <Checkbox
+                              checked={exercise.completed}
+                              onCheckedChange={() => handleExerciseToggle(exercise)}
+                              disabled={selectedDay !== getCurrentDayName()}
+                              className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent disabled:opacity-50"
+                            />
+                            <div className="flex-1">
+                              <div className={`text-lg font-semibold ${exercise.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors`}>
+                                {exercise.name}
+                              </div>
+                              <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
+                                💪 {exercise.sets} sets × {exercise.reps} • ⏱️ {exercise.duration} min
+                              </div>
+                            </div>
+                          </div>
+                          <ThreeDotMenu
+                            onEdit={() => handleEditExercise(exercise)}
+                            onDelete={() => handleDeleteExercise(exercise.id)}
+                          />
+                        </div>
+                      </div>
+                  ))
+                )}
+              </div>
+              )}
 
               {/* Missed Workouts Section */}
               {missedExercises.length > 0 && (
