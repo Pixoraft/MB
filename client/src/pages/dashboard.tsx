@@ -179,183 +179,191 @@ export default function Dashboard() {
     setShowPerformanceModal(true);
   };
 
+  // Helper function to calculate performance score for each category
+  const getPerformanceScore = (category: string) => {
+    switch (category) {
+      case "Tasks":
+        return totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+      case "Workout":
+        return totalWorkouts > 0 ? Math.round((completedWorkouts / totalWorkouts) * 100) : 0;
+      case "Mind":
+        return totalMindActivities > 0 ? Math.round((completedMindActivities / totalMindActivities) * 100) : 0;
+      case "Routine":
+        return totalRoutines > 0 ? Math.round((completedRoutines / totalRoutines) * 100) : 0;
+      case "Dev":
+        return totalDevGoals > 0 ? Math.round((completedDevGoals / totalDevGoals) * 100) : 0;
+      default:
+        return 0;
+    }
+  };
+
   const selectedDatePerformance = performanceData.find((p: any) => p.date === selectedDate);
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="text-5xl font-black text-gradient-primary mb-4">Dashboard</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your overall progress and maintain your streaks with beautiful insights</p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+        <div className="mb-8">
+          <h1 className="page-title text-gradient-primary">Dashboard</h1>
+          <p className="text-gray-600 dark:text-gray-400">Track your overall progress and maintain your streaks</p>
         </div>
 
         {/* Top Section - Streaks and Performance */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Streak Cards */}
-          <Card className="premium-card relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full"></div>
-            <CardHeader>
-              <CardTitle className="flex items-center text-2xl text-gradient-primary">
-                🔥 Streak Tracking
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center relative">
-                  <div className="text-4xl font-black text-gradient-primary mb-2">{streak.current}</div>
-                  <div className="text-sm font-medium text-gray-600 dark:text-gray-400">Current Streak</div>
-                  <div className="absolute -top-2 -right-2 w-3 h-3 bg-gradient-to-r from-primary to-accent rounded-full animate-pulse"></div>
-                </div>
-                <div className="text-center relative">
-                  <div className="text-4xl font-black text-gradient-secondary mb-2">{streak.highest}</div>
-                  <div className="text-sm font-medium text-gray-600 dark:text-gray-400">Highest Streak</div>
-                  <div className="absolute -top-2 -right-2 w-3 h-3 bg-gradient-to-r from-secondary to-accent rounded-full animate-pulse"></div>
-                </div>
+          <div className="card-clean">
+            <h2 className="section-title flex items-center">
+              🔥 Streak Tracking
+            </h2>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gradient-primary mb-2">{streak.current}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Current Streak</div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gradient-secondary mb-2">{streak.highest}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Highest Streak</div>
+              </div>
+            </div>
+          </div>
 
           {/* Today's Performance */}
-          <Card className="premium-card relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-accent/10 to-transparent rounded-br-full"></div>
-            <CardHeader>
-              <CardTitle className="text-2xl text-gradient-primary">📊 Today's Performance</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <BarChart
-                data={todayPerformanceData}
-                labels={todayPerformanceLabels}
-                colors={['#8B5DFF', '#22C55E', '#3B82F6', '#EF4444', '#F59E0B']}
-              />
-            </CardContent>
-          </Card>
+          <div className="card-clean">
+            <h2 className="section-title">📊 Today's Performance</h2>
+            <div className="grid grid-cols-5 gap-4">
+              {["Tasks", "Workout", "Mind", "Routine", "Dev"].map((category, index) => {
+                const percentage = getPerformanceScore(category);
+                return (
+                  <div key={category} className="text-center">
+                    <div className="text-2xl font-bold text-gradient-primary mb-1">{percentage}%</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">{category}</div>
+                    <div className="progress-clean h-2 mt-2">
+                      <div 
+                        className="progress-fill h-full"
+                        style={{ width: `${percentage}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Charts Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="card-clean">
+            <h2 className="section-title">Today's Progress</h2>
+            <BarChart
+              data={todayPerformanceData}
+              labels={todayPerformanceLabels}
+              colors={['#8B5DFF', '#22C55E', '#3B82F6', '#EF4444', '#F59E0B']}
+            />
+          </div>
+          <div className="card-clean">
+            <h2 className="section-title">Weekly Trend</h2>
+            <BarChart
+              data={weeklyData}
+              labels={weeklyLabels}
+              type="line"
+              colors={['#8B5DFF']}
+            />
+          </div>
         </div>
 
         {/* Monthly Calendar */}
-        <div className="mb-12">
+        <div className="mb-8">
           <MonthlyCalendar 
             performanceData={calendarPerformanceData}
             onDateClick={handleDateClick}
           />
         </div>
 
-        {/* Bottom Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Weekly Summary */}
-          <Card className="premium-card relative overflow-hidden">
-            <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-primary/10 to-transparent rounded-tl-full"></div>
-            <CardHeader>
-              <CardTitle className="text-2xl text-gradient-primary">📈 Weekly Summary</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <BarChart
-                data={weeklyData}
-                labels={weeklyLabels}
-                type="line"
-                colors={['#8B5DFF']}
-              />
-            </CardContent>
-          </Card>
-
-          {/* Dev Progress */}
-          <Card className="premium-card relative overflow-hidden">
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-secondary/10 to-transparent rounded-tr-full"></div>
-            <CardHeader>
-              <CardTitle className="text-2xl text-gradient-primary">💻 Development Progress</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div className="relative">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Weekly Goal</span>
-                    <span className="text-sm font-bold text-gradient-primary">{devPerformance}%</span>
-                  </div>
-                  <div className="progress-bar h-3">
-                    <div 
-                      className="progress-fill h-full rounded-full" 
-                      style={{ width: `${devPerformance}%` }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="relative">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Monthly Goal</span>
-                    <span className="text-sm font-bold text-gradient-secondary">67%</span>
-                  </div>
-                  <div className="progress-bar h-3">
-                    <div 
-                      className="h-full rounded-full transition-all duration-1000 ease-out"
-                      style={{ 
-                        width: '67%',
-                        background: 'linear-gradient(90deg, #F59E0B, #EAB308)'
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="relative">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Yearly Goal</span>
-                    <span className="text-sm font-bold text-blue-500">42%</span>
-                  </div>
-                  <div className="progress-bar h-3">
-                    <div 
-                      className="h-full rounded-full transition-all duration-1000 ease-out"
-                      style={{ 
-                        width: '42%',
-                        background: 'linear-gradient(90deg, #3B82F6, #1D4ED8)'
-                      }}
-                    ></div>
-                  </div>
-                </div>
+        {/* Development Progress */}
+        <div className="card-clean">
+          <h2 className="section-title">💻 Development Progress</h2>
+          <div className="space-y-4">
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Weekly Goal</span>
+                <span className="text-sm font-semibold text-gradient-primary">{devPerformance}%</span>
               </div>
-            </CardContent>
-          </Card>
+              <div className="progress-clean h-3">
+                <div 
+                  className="progress-fill h-full" 
+                  style={{ width: `${devPerformance}%` }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Monthly Goal</span>
+                <span className="text-sm font-semibold text-gradient-secondary">67%</span>
+              </div>
+              <div className="progress-clean h-3">
+                <div 
+                  className="h-full bg-gradient-to-r from-yellow-500 to-yellow-600"
+                  style={{ width: '67%' }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Yearly Goal</span>
+                <span className="text-sm font-semibold text-blue-500">42%</span>
+              </div>
+              <div className="progress-clean h-3">
+                <div 
+                  className="h-full bg-gradient-to-r from-blue-500 to-blue-600"
+                  style={{ width: '42%' }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Performance Breakdown Modal */}
         <Dialog open={showPerformanceModal} onOpenChange={setShowPerformanceModal}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Performance Breakdown</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <h4 className="font-semibold">Performance for {selectedDate}</h4>
-            {selectedDatePerformance ? (
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span>Tasks</span>
-                  <span className="font-medium">{selectedDatePerformance.tasks}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Workout</span>
-                  <span className="font-medium">{selectedDatePerformance.workout}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Mind Workout</span>
-                  <span className="font-medium">{selectedDatePerformance.mindWorkout}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Routine</span>
-                  <span className="font-medium">{selectedDatePerformance.routine}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Development</span>
-                  <span className="font-medium">{selectedDatePerformance.dev}%</span>
-                </div>
-                <div className="border-t pt-2 mt-2">
-                  <div className="flex justify-between font-semibold">
-                    <span>Overall</span>
-                    <span>{selectedDatePerformance.overall}%</span>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Performance Breakdown</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <h4 className="font-semibold">Performance for {selectedDate}</h4>
+              {selectedDatePerformance ? (
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span>Tasks</span>
+                    <span className="font-medium">{selectedDatePerformance.tasks}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Workout</span>
+                    <span className="font-medium">{selectedDatePerformance.workout}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Mind Workout</span>
+                    <span className="font-medium">{selectedDatePerformance.mindWorkout}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Routine</span>
+                    <span className="font-medium">{selectedDatePerformance.routine}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Development</span>
+                    <span className="font-medium">{selectedDatePerformance.dev}%</span>
+                  </div>
+                  <div className="border-t pt-2 mt-2">
+                    <div className="flex justify-between font-semibold">
+                      <span>Overall</span>
+                      <span>{selectedDatePerformance.overall}%</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <p className="text-gray-600 dark:text-gray-400">No data available for this date.</p>
-            )}
-          </div>
-        </DialogContent>
+              ) : (
+                <p className="text-gray-600 dark:text-gray-400">No data available for this date.</p>
+              )}
+            </div>
+          </DialogContent>
         </Dialog>
       </div>
     </div>

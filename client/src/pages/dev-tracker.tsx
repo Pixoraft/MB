@@ -712,23 +712,20 @@ export default function DevTracker() {
   );
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="text-5xl font-black text-gradient-primary mb-4">Dev Tracker</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your development goals from weekly to yearly objectives with beautiful insights</p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+        <div className="mb-8">
+          <h1 className="page-title text-gradient-primary">Dev Tracker</h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">Track your development goals from weekly to yearly objectives</p>
           
           {/* Daily Performance Score */}
-          <div className="mt-8 max-w-md mx-auto">
-            <div className="premium-card p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
-              <div className="text-center">
-                <div className="text-4xl font-black text-gradient-primary mb-2">{dailyPerformanceScore}%</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Today's Performance Impact</div>
-                <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                  (Tasks + Workouts + Mind + Routines)
-                </div>
+          <div className="card-clean max-w-sm">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gradient-primary mb-2">{dailyPerformanceScore}%</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Today's Performance Impact</div>
+              <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                (Tasks + Workouts + Mind + Routines)
               </div>
             </div>
           </div>

@@ -172,117 +172,98 @@ export default function DailyTask() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="text-5xl font-black text-gradient-primary mb-4">Daily Tasks</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Manage your daily tasks and track your progress with beautiful insights</p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+        <div className="mb-8">
+          <h1 className="page-title text-gradient-primary">Daily Tasks</h1>
+          <p className="text-gray-600 dark:text-gray-400">Manage your daily tasks and track your progress</p>
         </div>
 
         {/* Top Charts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Task Completion Chart */}
-          <Card className="premium-card relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full"></div>
-            <CardHeader>
-              <CardTitle className="text-2xl text-gradient-primary">📋 Task Completion</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <PieChart
-                data={[taskCompletionRate, 100 - taskCompletionRate]}
-                colors={['#8B5DFF', '#E2E8F0']}
-              />
-              <div className="text-center mt-6">
-                <span className="text-4xl font-black text-gradient-primary mb-2 block">{taskCompletionRate}%</span>
-                <div className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed Today</div>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="card-clean">
+            <h2 className="section-title">📋 Task Completion</h2>
+            <PieChart
+              data={[taskCompletionRate, 100 - taskCompletionRate]}
+              colors={['#8B5DFF', '#E2E8F0']}
+            />
+            <div className="text-center mt-4">
+              <span className="text-3xl font-bold text-gradient-primary">{taskCompletionRate}%</span>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Completed Today</div>
+            </div>
+          </div>
 
           {/* Water Intake Chart */}
-          <Card className="premium-card relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-accent/10 to-transparent rounded-br-full"></div>
-            <CardHeader>
-              <CardTitle className="text-2xl text-gradient-primary">💧 Water Intake</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <PieChart
-                data={[waterPercentage, 100 - waterPercentage]}
-                colors={['#22C55E', '#E2E8F0']}
-              />
-              <div className="text-center mt-6">
-                <span className="text-4xl font-black text-gradient-secondary mb-2 block">{waterPercentage}%</span>
-                <div className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  of Daily Goal ({waterIntake?.goal || 2400}ml)
-                </div>
+          <div className="card-clean">
+            <h2 className="section-title">💧 Water Intake</h2>
+            <PieChart
+              data={[waterPercentage, 100 - waterPercentage]}
+              colors={['#22C55E', '#E2E8F0']}
+            />
+            <div className="text-center mt-4">
+              <span className="text-3xl font-bold text-gradient-secondary">{waterPercentage}%</span>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                of Daily Goal ({waterIntake?.goal || 2400}ml)
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
         {/* Tasks List */}
-        <Card className="premium-card relative overflow-hidden mb-8">
-          <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-primary/5 to-transparent rounded-tl-full"></div>
-          <CardHeader>
-            <CardTitle className="text-2xl text-gradient-primary">✅ Today's Tasks</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {tasks.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
-                  <span className="text-4xl">📝</span>
-                </div>
-                <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">No tasks for today</p>
-                <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Click the + button to add your first task!</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {tasks.map((task: Task) => (
-                  <div
-                    key={task.id}
-                    className="task-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="flex items-center justify-between relative z-10">
-                      <div className="flex items-center space-x-6 flex-1">
-                        <Checkbox
-                          checked={task.completed}
-                          onCheckedChange={() => handleTaskToggle(task)}
-                          className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
-                        />
-                        <div className="flex-1">
-                          <div className={`text-lg font-semibold ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors`}>
-                            {task.title}
-                          </div>
-                          {task.time && (
-                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
-                              ⏰ {task.time}
-                              {task.duration && ` • ⏱️ ${task.duration} min`}
-                            </div>
-                          )}
-                          {task.description && (
-                            <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                              {task.description}
-                            </div>
-                          )}
+        <div className="card-clean">
+          <h2 className="section-title">✅ Today's Tasks</h2>
+          {tasks.length === 0 ? (
+            <div className="text-center py-8">
+              <div className="text-4xl mb-4">📝</div>
+              <p className="text-gray-600 dark:text-gray-400">No tasks for today</p>
+              <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Click the + button to add your first task!</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {tasks.map((task: Task) => (
+                <div
+                  key={task.id}
+                  className="item-clean"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4 flex-1">
+                      <Checkbox
+                        checked={task.completed}
+                        onCheckedChange={() => handleTaskToggle(task)}
+                        className="w-5 h-5"
+                      />
+                      <div className="flex-1">
+                        <div className={`text-base font-medium ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>
+                          {task.title}
                         </div>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        {getStatusBadge(task.status)}
-                        <ThreeDotMenu
-                          onEdit={() => handleEditTask(task)}
-                          onDelete={() => handleDeleteTask(task.id)}
-                        />
+                        {task.time && (
+                          <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                            ⏰ {task.time}
+                            {task.duration && ` • ⏱️ ${task.duration} min`}
+                          </div>
+                        )}
+                        {task.description && (
+                          <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                            {task.description}
+                          </div>
+                        )}
                       </div>
                     </div>
+                    <div className="flex items-center space-x-3">
+                      {getStatusBadge(task.status)}
+                      <ThreeDotMenu
+                        onEdit={() => handleEditTask(task)}
+                        onDelete={() => handleDeleteTask(task.id)}
+                      />
+                    </div>
                   </div>
+                </div>
               ))}
             </div>
           )}
-          </CardContent>
-        </Card>
+        </div>
 
         {/* Floating Add Button */}
         <FloatingButton
