@@ -38,6 +38,12 @@ Integration preference: Add new features to existing pages rather than creating 
 
 - **Removed Missed Workouts Feature**: Simplified workout interface by removing missed workout tracking and display (August 3, 2025)
 
+- **Enhanced Current Day Highlighting**: Added visual indicators for current day across all day-based interfaces (August 3, 2025):
+  - Workout page weekly day tabs: Ring border and blue dot indicator for today
+  - Routine modal day checkboxes: Special background and "Today" badge for current day
+  - Workout modal day dropdown: Highlighted current day option with blue styling
+  - Calendar component: Already had excellent current day highlighting with gradient and ring
+
 - **Professional Interface**: Clean, Microsoft/Google-style design with minimal animations and better visual hierarchy
 
 ### August 3, 2025 - Skincare Routine Integration

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Exercise, InsertExercise } from "@shared/schema";
-import { getTodayString, getCurrentDayName } from "@/lib/date-utils";
+import { getTodayString, getCurrentDayName, isCurrentDay } from "@/lib/date-utils";
 
 interface WorkoutModalProps {
   open: boolean;
@@ -120,11 +120,19 @@ export function WorkoutModal({ open, onOpenChange, onSave, exercise, isWeekly = 
                   <SelectValue placeholder="Select day" />
                 </SelectTrigger>
                 <SelectContent>
-                  {days.map((day) => (
-                    <SelectItem key={day.value} value={day.value}>
-                      {day.label}
-                    </SelectItem>
-                  ))}
+                  {days.map((day) => {
+                    const isToday = isCurrentDay(day.value);
+                    return (
+                      <SelectItem key={day.value} value={day.value} className={
+                        isToday ? 'bg-blue-50 dark:bg-blue-900/20 font-semibold text-blue-700 dark:text-blue-300' : ''
+                      }>
+                        {day.label}
+                        {isToday && (
+                          <span className="ml-2 text-xs bg-blue-500 text-white px-1 py-0.5 rounded">Today</span>
+                        )}
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             </div>

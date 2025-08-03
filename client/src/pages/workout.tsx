@@ -9,7 +9,7 @@ import { FloatingButton } from "@/components/ui/floating-button";
 import { ThreeDotMenu } from "@/components/ui/three-dot-menu";
 import { WorkoutModal } from "@/components/modals/workout-modal";
 import { Exercise, InsertExercise } from "@shared/schema";
-import { getTodayString, getCurrentDayName, calculatePerformance } from "@/lib/date-utils";
+import { getTodayString, getCurrentDayName, calculatePerformance, isCurrentDay } from "@/lib/date-utils";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
@@ -594,21 +594,33 @@ export default function Workout() {
                     </h3>
                   </div>
                   <div className="flex space-x-2 overflow-x-auto pb-4">
-                    {days.map((day) => (
-                      <Button
-                        key={day.value}
-                        variant={selectedDay === day.value ? "default" : "ghost"}
-                        size="lg"
-                        onClick={() => setSelectedDay(day.value)}
-                        className={`flex-shrink-0 premium-button font-semibold px-6 py-3 ${
-                          selectedDay === day.value 
-                            ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg' 
-                            : 'hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10'
-                        }`}
-                      >
-                        {day.label}
-                      </Button>
-                    ))}
+                    {days.map((day) => {
+                      const isToday = isCurrentDay(day.value);
+                      const isSelected = selectedDay === day.value;
+                      
+                      return (
+                        <Button
+                          key={day.value}
+                          variant={isSelected ? "default" : "ghost"}
+                          size="lg"
+                          onClick={() => setSelectedDay(day.value)}
+                          className={`flex-shrink-0 premium-button font-semibold px-6 py-3 relative ${
+                            isSelected 
+                              ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg' 
+                              : 'hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10'
+                          } ${
+                            isToday && !isSelected 
+                              ? 'ring-2 ring-blue-400 ring-offset-2 ring-offset-background' 
+                              : ''
+                          }`}
+                        >
+                          {day.label}
+                          {isToday && (
+                            <span className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full border-2 border-background"></span>
+                          )}
+                        </Button>
+                      );
+                    })}
                   </div>
                 </div>
               )}

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RoutineItem, InsertRoutineItem } from "@shared/schema";
-import { getTodayString } from "@/lib/date-utils";
+import { getTodayString, isCurrentDay } from "@/lib/date-utils";
 
 interface RoutineModalProps {
   open: boolean;
@@ -121,18 +121,28 @@ export function RoutineModal({ open, onOpenChange, onSave, routine }: RoutineMod
             <div>
               <Label>Select Days</Label>
               <div className="grid grid-cols-2 gap-2 mt-2">
-                {weekDays.map((day) => (
-                  <div key={day.value} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`day-${day.value}`}
-                      checked={(formData.days || []).includes(day.value as any)}
-                      onCheckedChange={(checked) => handleDayToggle(day.value, !!checked)}
-                    />
-                    <Label htmlFor={`day-${day.value}`} className="text-sm">
-                      {day.label}
-                    </Label>
-                  </div>
-                ))}
+                {weekDays.map((day) => {
+                  const isToday = isCurrentDay(day.value);
+                  return (
+                    <div key={day.value} className={`flex items-center space-x-2 p-2 rounded-lg transition-colors ${
+                      isToday ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800' : ''
+                    }`}>
+                      <Checkbox
+                        id={`day-${day.value}`}
+                        checked={(formData.days || []).includes(day.value as any)}
+                        onCheckedChange={(checked) => handleDayToggle(day.value, !!checked)}
+                      />
+                      <Label htmlFor={`day-${day.value}`} className={`text-sm cursor-pointer ${
+                        isToday ? 'font-semibold text-blue-700 dark:text-blue-300' : ''
+                      }`}>
+                        {day.label}
+                        {isToday && (
+                          <span className="ml-1 text-xs bg-blue-500 text-white px-1 py-0.5 rounded">Today</span>
+                        )}
+                      </Label>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
