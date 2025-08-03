@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { FloatingButton } from "@/components/ui/floating-button";
 import { ThreeDotMenu } from "@/components/ui/three-dot-menu";
@@ -259,15 +260,72 @@ export default function DevTracker() {
     },
   });
 
+  // Clear duplicate goals mutation
+  const clearDuplicateGoals = useMutation({
+    mutationFn: async () => {
+      // Get all goals first
+      const weeklyResponse = await fetch("/api/goals?type=weekly");
+      const monthlyResponse = await fetch("/api/goals?type=monthly");
+      const yearlyResponse = await fetch("/api/goals?type=yearly");
+      
+      const allWeeklyGoals = await weeklyResponse.json();
+      const allMonthlyGoals = await monthlyResponse.json();
+      const allYearlyGoals = await yearlyResponse.json();
+      
+      const allGoals = [...allWeeklyGoals, ...allMonthlyGoals, ...allYearlyGoals];
+      
+      // Find duplicates by title
+      const titleCounts: Record<string, Goal[]> = {};
+      allGoals.forEach((goal: Goal) => {
+        if (!titleCounts[goal.title]) {
+          titleCounts[goal.title] = [];
+        }
+        titleCounts[goal.title].push(goal);
+      });
+      
+      // Delete all but the first occurrence of each duplicate
+      const deletePromises: Promise<any>[] = [];
+      Object.values(titleCounts).forEach((duplicates) => {
+        if (duplicates.length > 1) {
+          // Keep the first, delete the rest
+          for (let i = 1; i < duplicates.length; i++) {
+            deletePromises.push(apiRequest("DELETE", `/api/goals/${duplicates[i].id}`));
+          }
+        }
+      });
+      
+      if (deletePromises.length > 0) {
+        await Promise.all(deletePromises);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/goals"] });
+      toast({ title: "Duplicate goals cleaned up!" });
+    },
+    onError: () => {
+      toast({ title: "Failed to clean duplicates", variant: "destructive" });
+    },
+  });
+
   // Initialize goals only once
-  const [hasInitialized, setHasInitialized] = useState(false);
+  const [hasInitialized, setHasInitialized] = useState(() => {
+    // Check localStorage to prevent re-initialization
+    return localStorage.getItem('devGoalsInitialized') === 'true';
+  });
   
   useEffect(() => {
-    // Only initialize if no goals exist at all and we haven't already initialized
     const totalGoals = weeklyGoals.length + monthlyGoals.length + yearlyGoals.length;
     
+    // If we have goals but they seem like duplicates (more than 16 total), clean them first
+    if (totalGoals > 16) {
+      clearDuplicateGoals.mutate();
+      return;
+    }
+    
+    // Only initialize if no goals exist and we haven't already initialized
     if (totalGoals === 0 && !hasInitialized && !initializeDevGoals.isPending) {
       setHasInitialized(true);
+      localStorage.setItem('devGoalsInitialized', 'true');
       initializeDevGoals.mutate();
     }
   }, [weeklyGoals.length, monthlyGoals.length, yearlyGoals.length, hasInitialized]);
@@ -437,8 +495,23 @@ export default function DevTracker() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h2 className="text-5xl font-black text-gradient-primary mb-4">Dev Tracker</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your development goals from weekly to yearly objectives with beautiful insights</p>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex-1">
+              <h2 className="text-5xl font-black text-gradient-primary mb-4">Dev Tracker</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your development goals from weekly to yearly objectives with beautiful insights</p>
+            </div>
+            {(weeklyGoals.length + monthlyGoals.length + yearlyGoals.length > 0) && (
+              <Button
+                onClick={() => clearDuplicateGoals.mutate()}
+                disabled={clearDuplicateGoals.isPending}
+                variant="outline"
+                size="sm"
+                className="bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950/40"
+              >
+                {clearDuplicateGoals.isPending ? "Cleaning..." : "🧹 Clean Duplicates"}
+              </Button>
+            )}
+          </div>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
         </div>
 
