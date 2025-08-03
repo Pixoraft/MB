@@ -495,23 +495,8 @@ export default function DevTracker() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="mb-12 text-center">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex-1">
-              <h2 className="text-5xl font-black text-gradient-primary mb-4">Dev Tracker</h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your development goals from weekly to yearly objectives with beautiful insights</p>
-            </div>
-            {(weeklyGoals.length + monthlyGoals.length + yearlyGoals.length > 0) && (
-              <Button
-                onClick={() => clearDuplicateGoals.mutate()}
-                disabled={clearDuplicateGoals.isPending}
-                variant="outline"
-                size="sm"
-                className="bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-950/40"
-              >
-                {clearDuplicateGoals.isPending ? "Cleaning..." : "🧹 Clean Duplicates"}
-              </Button>
-            )}
-          </div>
+          <h2 className="text-5xl font-black text-gradient-primary mb-4">Dev Tracker</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your development goals from weekly to yearly objectives with beautiful insights</p>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
         </div>
 
