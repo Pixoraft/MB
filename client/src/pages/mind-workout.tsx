@@ -203,15 +203,22 @@ export default function MindWorkout() {
     }
   ];
 
-  // State to track default activity completion 
-  const [defaultActivityStates, setDefaultActivityStates] = useState<{[key: string]: boolean}>({});
+  // State to track default activity completion with localStorage persistence
+  const getStoredActivityStates = () => {
+    const stored = localStorage.getItem(`mindActivityStates_${today}`);
+    return stored ? JSON.parse(stored) : {};
+  };
+
+  const [defaultActivityStates, setDefaultActivityStates] = useState<{[key: string]: boolean}>(getStoredActivityStates);
   
   // Handle default activity toggle
   const handleDefaultActivityToggle = (activityId: string) => {
-    setDefaultActivityStates(prev => ({
-      ...prev,
-      [activityId]: !prev[activityId]
-    }));
+    const newStates = {
+      ...defaultActivityStates,
+      [activityId]: !defaultActivityStates[activityId]
+    };
+    setDefaultActivityStates(newStates);
+    localStorage.setItem(`mindActivityStates_${today}`, JSON.stringify(newStates));
   };
 
   // Merge real activities with default activities with current state

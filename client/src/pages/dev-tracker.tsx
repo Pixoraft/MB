@@ -625,17 +625,6 @@ export default function DevTracker() {
 
         {/* Goal Sections */}
         <div className="space-y-12">
-          {/* Temporary debug button */}
-          <div className="text-center">
-            <Button 
-              onClick={handleReinitialize} 
-              variant="outline"
-              disabled={clearAllGoals.isPending || initializeDevGoals.isPending}
-            >
-              {clearAllGoals.isPending || initializeDevGoals.isPending ? "Reinitializing..." : "Reinitialize Goals"}
-            </Button>
-          </div>
-          
           <GoalSection
             title="Weekly Plan"
             icon="🗓️"

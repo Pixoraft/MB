@@ -116,7 +116,6 @@ export const performanceSchema = z.object({
   workout: z.number().min(0).max(100).default(0),
   mindWorkout: z.number().min(0).max(100).default(0),
   routine: z.number().min(0).max(100).default(0),
-  dev: z.number().min(0).max(100).default(0),
   overall: z.number().min(0).max(100).default(0),
 });
 

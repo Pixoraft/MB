@@ -141,8 +141,8 @@ export default function Dashboard() {
   const completedWeeklyGoals = currentWeekGoals.filter((goal: any) => goal.completed).length;
   const devPerformance = calculatePerformance(completedWeeklyGoals, currentWeekGoals.length);
 
-  const todayPerformanceData = [taskPerformance, workoutPerformance, mindPerformance, routinePerformance, devPerformance];
-  const todayPerformanceLabels = ['Tasks', 'Workout', 'Mind', 'Routine', 'Dev'];
+  const todayPerformanceData = [taskPerformance, workoutPerformance, mindPerformance, routinePerformance];
+  const todayPerformanceLabels = ['Tasks', 'Workout', 'Mind', 'Routine'];
 
   // Generate sample weekly data (in real app, this would come from API)
   const weeklyData = [85, 78, 92, 85, 88, 76, 90];
