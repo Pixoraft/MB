@@ -11,6 +11,23 @@ Integration preference: Add new features to existing pages rather than creating 
 
 ## Recent Changes
 
+### August 3, 2025 - Major Performance & Goal Tracking Fixes
+- **Fixed Workout Pie Charts**: Now correctly count only exercises scheduled for today instead of all exercises
+  - Daily exercises pie chart shows today's daily exercises completion
+  - Weekly exercises pie chart shows only today's weekly exercises (filtered by current day)
+- **Fixed Dashboard Performance Metrics**: All 5 performance bars now display correctly
+  - Tasks: Shows today's task completion rate
+  - Workout: Combines daily + today's weekly exercises for accurate workout performance
+  - Mind: Shows today's mind activities completion
+  - Routine: Shows today's routine items completion  
+  - Dev: Shows current week's development goals completion
+- **Enhanced Development Goals System**: Updated with comprehensive 2025-2030 roadmap
+  - Yearly goals: 2025 (₹60K/month), 2026 (₹1L-₹2L/month), 2027 (₹1Cr club)
+  - Monthly goals: April (Foundation), May (Full-Stack), June (Real Projects), July (Freelancing)
+  - Weekly goals: 12 detailed weekly plans with specific learning objectives and project deliverables
+  - Current week filtering: Dashboard and dev tracker show only current week's goals
+- **Mind Activities Persistence**: Improved data persistence when navigating between pages
+
 ### August 3, 2025 - Complete Workout System Enhancement
 - **Comprehensive 7-Day Full Body Routine**: Added complete workout plan with 44 exercises organized by day:
   - Day 1 (Monday): Push - Chest, Shoulders, Triceps, Abs

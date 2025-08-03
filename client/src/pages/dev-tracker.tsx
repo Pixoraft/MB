@@ -107,12 +107,28 @@ export default function DevTracker() {
       };
 
       const devGoals: InsertGoal[] = [
-        // Yearly Goal 2025
+        // Yearly Goals (2025-2030 Roadmap)
         {
-          title: "Become ₹60K/month Full-Stack Developer",
-          description: "Master React, Node.js, MongoDB. Build portfolio. Start freelancing. Land remote job or create SaaS.",
+          title: "2025: Hit ₹60K/month as Full-Stack Developer",
+          description: "Master HTML, CSS, JS, React, Node.js, MongoDB. Build real-world projects, GitHub presence, freelance ₹60K-₹1L/month",
           type: "yearly",
           targetDate: "2025-12-31",
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "2026: ₹1L-₹2L/month Income + Recognition",
+          description: "TypeScript, Next.js, PostgreSQL, GraphQL, Docker. Freelance portfolio, paid SaaS, weekly content, open source contributions",
+          type: "yearly",
+          targetDate: "2026-12-31",
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "2027: 6-Figure Year (₹1 Cr Club)",
+          description: "Break ₹8L-₹10L/month via remote job, micro-SaaS, or freelancing+YouTube. 20K+ GitHub stars, 50K+ audience",
+          type: "yearly",
+          targetDate: "2027-12-31",
           completed: false,
           progress: 0,
         },
@@ -120,7 +136,7 @@ export default function DevTracker() {
         // Monthly Goals for 2025
         {
           title: "April 2025 - Foundation & Setup",
-          description: "Master JavaScript, learn React basics, start Node.js, build portfolio, setup GitHub/LinkedIn",
+          description: "Master JavaScript (promises, async/await, array methods), Learn React.js basics to hooks, Start Node.js + Express, Build portfolio, Setup GitHub/LinkedIn/resume",
           type: "monthly",
           targetDate: getMonthEnd(0),
           completed: false,
@@ -128,7 +144,7 @@ export default function DevTracker() {
         },
         {
           title: "May 2025 - Full Stack Fundamentals", 
-          description: "Deep dive React + Express, learn MongoDB, build 2 full-stack projects, start blogging",
+          description: "Deep dive React + Express.js, Learn MongoDB with Mongoose, Build 2 full-stack projects, Start blogs + LinkedIn posts, Master Postman + Git",
           type: "monthly",
           targetDate: getMonthEnd(1),
           completed: false,
@@ -136,35 +152,51 @@ export default function DevTracker() {
         },
         {
           title: "June 2025 - Real World Projects",
-          description: "Build major projects with auth, admin dashboards, payments. Start freelance profiles.",
+          description: "Make 2 major real-world projects, Use JWT authentication, Role-based dashboards (Admin/User), Host on Vercel/Render, Start Upwork/Freelancer profiles",
           type: "monthly",
           targetDate: getMonthEnd(2),
           completed: false,
           progress: 0,
         },
-
-        // Current Month Weekly Goals (April 2025)
         {
-          title: "Week 1: JavaScript Deep Dive",
-          description: "Master promises, async/await, array methods. Complete 5 advanced JS challenges daily.",
+          title: "July 2025 - Freelancing + Interviews",
+          description: "Get small freelance gigs (₹2-10k), Apply to internships, Practice coding interviews (DSA), Create payment project (Razorpay), Start cold emailing startups",
+          type: "monthly",
+          targetDate: getMonthEnd(3),
+          completed: false,
+          progress: 0,
+        },
+
+        // August 2025 Weekly Goals (Current Month)
+        {
+          title: "Week 1: Advanced JavaScript Mastery",
+          description: "3 Days: Deep dive promises, async/await, array methods, closures. 2 Days: Build calculator + todo app. 1 Day: GitHub pushes + LinkedIn post. 1 Day: Practice DSA problems.",
           type: "weekly",
           targetDate: getWeekStart(0),
           completed: false,
           progress: 0,
         },
         {
-          title: "Week 2: React Fundamentals",
-          description: "Learn React basics, components, props, state. Build 3 small React projects.",
+          title: "Week 2: React.js Foundation",
+          description: "3 Days: Components, props, state, hooks, event handling. 2 Days: Build weather app + portfolio site. 1 Day: Deploy to Vercel + write blog. 1 Day: Review + UI/UX study.",
           type: "weekly", 
           targetDate: getWeekStart(1),
           completed: false,
           progress: 0,
         },
         {
-          title: "Week 3: Node.js & Express Setup",
-          description: "Learn Node.js basics, Express framework. Build REST API with 5 endpoints.",
+          title: "Week 3: Node.js & Backend Setup", 
+          description: "3 Days: Node.js, Express, middleware, routing. 2 Days: Build REST API with CRUD operations. 1 Day: Connect to MongoDB + test with Postman. 1 Day: Git workflow practice.",
           type: "weekly",
           targetDate: getWeekStart(2),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 4: Full-Stack Integration",
+          description: "3 Days: Connect React frontend to Node backend. 2 Days: Add authentication (JWT), user registration/login. 1 Day: Deploy full-stack app. 1 Day: Portfolio update + networking.",
+          type: "weekly",
+          targetDate: getWeekStart(3),
           completed: false,
           progress: 0,
         },
@@ -330,9 +362,30 @@ export default function DevTracker() {
     }
   }, [weeklyGoals.length, monthlyGoals.length, yearlyGoals.length, hasInitialized]);
 
+  // Filter weekly goals for current week only
+  const getCurrentWeekStart = () => {
+    const today = new Date();
+    const currentWeekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+    return currentWeekStart.toISOString().split('T')[0];
+  };
+  
+  const getCurrentWeekEnd = () => {
+    const today = new Date();
+    const currentWeekEnd = new Date(today.setDate(today.getDate() - today.getDay() + 6));
+    return currentWeekEnd.toISOString().split('T')[0];
+  };
+
+  const currentWeekStart = getCurrentWeekStart();
+  const currentWeekEnd = getCurrentWeekEnd();
+  
+  const currentWeeklyGoals = weeklyGoals.filter((goal: Goal) => {
+    const goalDate = goal.targetDate;
+    return goalDate >= currentWeekStart && goalDate <= currentWeekEnd;
+  });
+
   // Calculate progress percentages
-  const completedWeeklyGoals = weeklyGoals.filter((goal: Goal) => goal.completed).length;
-  const weeklyProgress = calculatePerformance(completedWeeklyGoals, weeklyGoals.length);
+  const completedWeeklyGoals = currentWeeklyGoals.filter((goal: Goal) => goal.completed).length;
+  const weeklyProgress = calculatePerformance(completedWeeklyGoals, currentWeeklyGoals.length);
 
   const completedMonthlyGoals = monthlyGoals.filter((goal: Goal) => goal.completed).length;
   const monthlyProgress = calculatePerformance(completedMonthlyGoals, monthlyGoals.length);
@@ -505,7 +558,7 @@ export default function DevTracker() {
           <GoalSection
             title="Weekly Plan"
             icon="🗓️"
-            goals={weeklyGoals}
+            goals={currentWeeklyGoals}
             progress={weeklyProgress}
             dateRange={getCurrentWeekRange()}
             emptyMessage="No weekly goals set. Click the + button to add your first weekly goal!"

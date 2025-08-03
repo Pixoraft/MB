@@ -117,8 +117,29 @@ export default function Dashboard() {
   const completedRoutines = routineItems.filter((item: any) => item.completed).length;
   const routinePerformance = calculatePerformance(completedRoutines, routineItems.length);
 
-  const completedWeeklyGoals = weeklyGoals.filter((goal: any) => goal.completed).length;
-  const devPerformance = calculatePerformance(completedWeeklyGoals, weeklyGoals.length);
+  // Filter weekly goals for current week only
+  const getCurrentWeekStart = () => {
+    const today = new Date();
+    const currentWeekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+    return currentWeekStart.toISOString().split('T')[0];
+  };
+  
+  const getCurrentWeekEnd = () => {
+    const today = new Date();
+    const currentWeekEnd = new Date(today.setDate(today.getDate() - today.getDay() + 6));
+    return currentWeekEnd.toISOString().split('T')[0];
+  };
+
+  const currentWeekStart = getCurrentWeekStart();
+  const currentWeekEnd = getCurrentWeekEnd();
+  
+  const currentWeekGoals = weeklyGoals.filter((goal: any) => {
+    const goalDate = goal.targetDate;
+    return goalDate >= currentWeekStart && goalDate <= currentWeekEnd;
+  });
+
+  const completedWeeklyGoals = currentWeekGoals.filter((goal: any) => goal.completed).length;
+  const devPerformance = calculatePerformance(completedWeeklyGoals, currentWeekGoals.length);
 
   const todayPerformanceData = [taskPerformance, workoutPerformance, mindPerformance, routinePerformance, devPerformance];
   const todayPerformanceLabels = ['Tasks', 'Workout', 'Mind', 'Routine', 'Dev'];
