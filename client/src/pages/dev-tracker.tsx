@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -87,6 +87,190 @@ export default function DevTracker() {
       toast({ title: "Failed to delete goal", variant: "destructive" });
     },
   });
+
+  // Initialize development goals based on your roadmap
+  const initializeDevGoals = useMutation({
+    mutationFn: async () => {
+      const getWeekStart = (weeksFromNow: number) => {
+        const today = new Date();
+        const thisWeekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+        const weekStart = new Date(thisWeekStart);
+        weekStart.setDate(thisWeekStart.getDate() + (weeksFromNow * 7));
+        return weekStart.toISOString().split('T')[0];
+      };
+
+      const getMonthEnd = (monthsFromNow: number) => {
+        const today = new Date();
+        const targetMonth = new Date(today.getFullYear(), today.getMonth() + monthsFromNow + 1, 0);
+        return targetMonth.toISOString().split('T')[0];
+      };
+
+      const devGoals: InsertGoal[] = [
+        // Yearly Goal 2025
+        {
+          title: "Become ₹60K/month Full-Stack Developer",
+          description: "Master React, Node.js, MongoDB. Build portfolio. Start freelancing. Land remote job or create SaaS.",
+          type: "yearly",
+          targetDate: "2025-12-31",
+          completed: false,
+          progress: 0,
+        },
+
+        // Monthly Goals for 2025
+        {
+          title: "April 2025 - Foundation & Setup",
+          description: "Master JavaScript, learn React basics, start Node.js, build portfolio, setup GitHub/LinkedIn",
+          type: "monthly",
+          targetDate: getMonthEnd(0),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "May 2025 - Full Stack Fundamentals", 
+          description: "Deep dive React + Express, learn MongoDB, build 2 full-stack projects, start blogging",
+          type: "monthly",
+          targetDate: getMonthEnd(1),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "June 2025 - Real World Projects",
+          description: "Build major projects with auth, admin dashboards, payments. Start freelance profiles.",
+          type: "monthly",
+          targetDate: getMonthEnd(2),
+          completed: false,
+          progress: 0,
+        },
+
+        // Current Month Weekly Goals (April 2025)
+        {
+          title: "Week 1: JavaScript Deep Dive",
+          description: "Master promises, async/await, array methods. Complete 5 advanced JS challenges daily.",
+          type: "weekly",
+          targetDate: getWeekStart(0),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 2: React Fundamentals",
+          description: "Learn React basics, components, props, state. Build 3 small React projects.",
+          type: "weekly", 
+          targetDate: getWeekStart(1),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 3: Node.js & Express Setup",
+          description: "Learn Node.js basics, Express framework. Build REST API with 5 endpoints.",
+          type: "weekly",
+          targetDate: getWeekStart(2),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 4: Portfolio Website",
+          description: "Build personal portfolio with React. Deploy on Vercel. Setup GitHub profile.",
+          type: "weekly",
+          targetDate: getWeekStart(3),
+          completed: false,
+          progress: 0,
+        },
+
+        // Next Month Weekly Goals (May 2025)
+        {
+          title: "Week 5: React Hooks & State",
+          description: "Master useState, useEffect, custom hooks. Build 2 interactive apps.",
+          type: "weekly",
+          targetDate: getWeekStart(4),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 6: Backend + Database",
+          description: "Learn MongoDB, Mongoose. Build full-stack app with database connection.",
+          type: "weekly",
+          targetDate: getWeekStart(5),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 7: Authentication System",
+          description: "Implement JWT auth, user login/signup. Add role-based access control.",
+          type: "weekly",
+          targetDate: getWeekStart(6),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 8: First Full-Stack Project",
+          description: "Build complete task management app. Deploy frontend and backend.",
+          type: "weekly",
+          targetDate: getWeekStart(7),
+          completed: false,
+          progress: 0,
+        },
+
+        // June 2025 Goals
+        {
+          title: "Week 9: E-commerce Project Start",
+          description: "Plan and start building e-commerce site. Setup product catalog and cart.",
+          type: "weekly",
+          targetDate: getWeekStart(8),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 10: Payment Integration",
+          description: "Add Razorpay payment gateway. Implement order management system.",
+          type: "weekly",
+          targetDate: getWeekStart(9),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 11: Admin Dashboard",
+          description: "Build admin panel with charts, user management, order tracking.",
+          type: "weekly",
+          targetDate: getWeekStart(10),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "Week 12: Freelance Platform Setup",
+          description: "Create Upwork/Freelancer profiles. Apply to 10 small projects. Start networking.",
+          type: "weekly",
+          targetDate: getWeekStart(11),
+          completed: false,
+          progress: 0,
+        },
+      ];
+
+      const promises = devGoals.map(goal => 
+        apiRequest("POST", "/api/goals", goal)
+      );
+      await Promise.all(promises);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/goals"] });
+      toast({ title: "Development roadmap goals added successfully! 🚀" });
+    },
+    onError: () => {
+      toast({ title: "Failed to initialize goals", variant: "destructive" });
+    },
+  });
+
+  // Initialize goals only once
+  const [hasInitialized, setHasInitialized] = useState(false);
+  
+  useEffect(() => {
+    // Only initialize if no goals exist at all and we haven't already initialized
+    const totalGoals = weeklyGoals.length + monthlyGoals.length + yearlyGoals.length;
+    
+    if (totalGoals === 0 && !hasInitialized && !initializeDevGoals.isPending) {
+      setHasInitialized(true);
+      initializeDevGoals.mutate();
+    }
+  }, [weeklyGoals.length, monthlyGoals.length, yearlyGoals.length, hasInitialized]);
 
   // Calculate progress percentages
   const completedWeeklyGoals = weeklyGoals.filter((goal: Goal) => goal.completed).length;
