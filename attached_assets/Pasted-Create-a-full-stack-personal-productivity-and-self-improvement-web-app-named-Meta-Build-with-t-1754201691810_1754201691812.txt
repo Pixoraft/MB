@@ -1,0 +1,127 @@
+Create a full-stack personal productivity and self-improvement web app named **"Meta Build"** with the following requirements. Build and test the complete project automatically and continuously until all features and UI components work as expected. Ensure a **beautiful, clean UI that looks like it was created by a world top 1% developer and designer**.
+
+Make sure everything is structured, responsive, minimal yet advanced, and visually organized. **Test all components and features multiple times**. Ensure the experience feels seamless.
+
+---
+
+### 🌟 Core Pages:
+
+1. **Dashboard**
+2. **Daily Task**
+3. **Workout Page**
+4. **Mind Workout**
+5. **Daily Routine**
+6. **Dev Tracker**
+
+---
+
+### 📊 1. DAILY TASK PAGE
+- **Top Left**: Pie chart showing today’s task completion %.
+- **Top Right**: Pie chart showing today’s water intake %.
+- **Main Section**: List of today’s tasks with checkboxes.
+  - Tasks have editable title, time, and status.
+  - Add floating ➕ button to add new tasks.
+  - Each task shows a **three-dot menu (⋮)** for edit/delete (only visible when selected or hovered).
+  
+---
+
+### 🏋️‍♂️ 2. WORKOUT PAGE
+- **Top**: Workout Performance Pie Chart:
+  - Includes Daily Exercises % and Weekly Progress %.
+- **Tabs Below Chart**:
+  - 🟢 Daily Workout
+  - 🔵 Weekly Workout
+
+#### ✅ DAILY WORKOUT TAB:
+- Show all exercises for today: Name, Sets, Reps, Time.
+- Add three-dot menu (⋮) for each exercise.
+- Allow ➕ button to add new workout (popup form with Name, Sets, Reps).
+
+#### ✅ WEEKLY WORKOUT TAB:
+- Tabs for Sun, Mon, Tue...Sat (clickable).
+- Today’s day is active; only today's exercises are markable.
+- Missed exercises appear in a “Missed Workouts” section below.
+- ➕ button triggers modal:
+  - **Option 1**: Create new Workout Type (name, weekly?, max time to complete).
+  - **Option 2**: Add New Workout to a type (select type, day, name, sets/reps, time).
+  - Add “Add More” button to create multiple exercises before saving.
+
+---
+
+### 🧠 3. MIND WORKOUT PAGE
+- **Top**: Mind Exercise Completion Pie Chart.
+- **Below**: Structured schedule with time blocks:
+
+| Time       | Activity Name                | Description | Role of ChatGPT |
+|------------|------------------------------|-------------|-----------------|
+| 5:40 AM    | Box Breathing + Sense Drill  | 4-4-4-4 + 5-4-3-2-1 grounding | Guide |
+| 6:00 AM    | Memory Palace Practice       | 5 items, visual story, rate memory | Generate & review |
+| 8:00 AM    | Micro Brain Challenge        | Daily hard riddle or puzzle | Provide & hint |
+| 12:00 PM   | Pattern Recognition Task     | Visual/scene challenge | Provide task |
+| 4:00 PM    | Recall & Visualization       | 3 sounds, 2 visuals, 1 feeling | Quiz |
+| 7:00 PM    | Mental Map Review            | Recall what you learned | Quiz & score |
+| 9:30 PM    | Mind Wind-down               | Self-reflection questions | Guide |
+  
+- Each activity is editable and has ➕ add and ⋮ edit/delete buttons.
+
+---
+
+### 🔁 4. DAILY ROUTINE PAGE
+- **Top**: Routine Completion Pie Chart.
+- Show sections:
+  - ☀️ Morning Routine
+  - 🌙 Night Routine
+  - 📆 Weekly Routine
+- Each routine has a list view with add/edit/remove support.
+- Floating ➕ button triggers modal to choose routine type (morning, night, weekly).
+  - Weekly: Select which day(s) to assign.
+  - Morning/Night: Just add activity name, time, duration.
+- Three-dot menu for each routine item.
+
+---
+
+### 💻 5. DEV TRACKER PAGE
+- Sections for: 🗓️ Weekly Plan, 📅 Monthly Plan, 📈 Yearly Goal
+- ✅ Weekly goals show checkboxes.
+- ✅ If weekly goals are completed, automatically reflect progress on monthly and yearly goals.
+- At week’s end: Ask, “Did you achieve your weekly goal?”
+- At month’s end: “Did you achieve your monthly goal?”
+- At year’s end: “Did you achieve your yearly goal?”
+- Use clean progress bars and checkboxes.
+
+---
+
+### 📅 6. DASHBOARD PAGE
+- **Top Section**:
+  - 🔥 Current Streak & Highest Streak
+  - 📊 Today’s Overall Performance (x-axis bar chart for all modules)
+- **Middle Section**:
+  - Monthly Calendar:
+    - Color-coded days based on overall performance.
+    - Auto-saved mark at 12:01 AM.
+    - If progress updates during the day, mark color changes live.
+    - “More” button allows seeing past/future months.
+    - Click on any date → Show full performance breakdown with all x-axis bars.
+- **Bottom Section**:
+  - Weekly Summary Bar
+  - Dev Progress Status (How far from goal %)
+
+---
+
+### ⚙️ TECH STACK & REQUIREMENTS
+- Frontend: HTML, CSS (Tailwind preferred), JS
+- Backend: Node.js with Express
+- Charts: Use Chart.js for pie/bar charts
+- No external database — store everything in `localStorage` or JSON files
+- Fully responsive (mobile, tablet, desktop)
+- Light/dark mode toggle
+
+---
+
+### ✅ FINAL INSTRUCTIONS:
+- ✅ Build everything **all at once** — do not skip any feature.
+- ✅ Automatically test and verify that all features and UI components work.
+- ✅ Re-test after adding each feature to ensure nothing breaks.
+- ✅ Code must be structured, modular, and easily expandable.
+- ✅ Focus on beautiful UI/UX, animations, icons, layout — world-class standard.
+
