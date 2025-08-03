@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -22,6 +22,83 @@ export default function Workout() {
   const queryClient = useQueryClient();
   const today = getTodayString();
 
+  // Initialize 7-day workout routine
+  const initializeWorkoutRoutine = useMutation({
+    mutationFn: async () => {
+      const workoutRoutines: InsertExercise[] = [
+        // Day 1 – Push (Chest, Shoulders, Triceps, Abs)
+        { name: "Normal Push-Ups", sets: 4, reps: "25", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
+        { name: "Incline Push-Ups", sets: 3, reps: "25", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
+        { name: "Pike Push-Ups", sets: 3, reps: "15", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
+        { name: "Diamond Push-Ups", sets: 2, reps: "15", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
+        { name: "Bench Dips", sets: 3, reps: "25", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
+        { name: "Russian Twists", sets: 3, reps: "30", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
+        { name: "Plank", sets: 1, reps: "5 min", day: "monday", workoutType: "Push", isWeekly: true, date: today, completed: false },
+
+        // Day 2 – Pull (Back, Biceps, Forearms, Grip)
+        { name: "Pull-Ups / Assisted", sets: 4, reps: "12", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
+        { name: "Towel Rows", sets: 3, reps: "20", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
+        { name: "Towel Bicep Curls", sets: 3, reps: "20", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
+        { name: "Reverse Curls", sets: 3, reps: "15", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
+        { name: "Gripper Fast", sets: 3, reps: "40", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
+        { name: "Farmer Hold", sets: 2, reps: "45 sec", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
+        { name: "Wrist Rolls", sets: 2, reps: "20", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
+
+        // Day 3 – Legs (Quads, Glutes, Calves)
+        { name: "Squats", sets: 4, reps: "25", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
+        { name: "Jump Squats", sets: 3, reps: "20", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
+        { name: "Lunges", sets: 3, reps: "20 steps", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
+        { name: "Calf Raises", sets: 4, reps: "30", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
+        { name: "Wall Sit", sets: 2, reps: "45 sec", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
+        { name: "Broad Jumps", sets: 2, reps: "15", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
+        { name: "High Knees", sets: 2, reps: "30", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
+
+        // Day 4 – Core + Abs (Six-Pack, Obliques, Stability)
+        { name: "Crunches", sets: 3, reps: "25", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
+        { name: "Leg Raises", sets: 3, reps: "25", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
+        { name: "Mountain Climbers", sets: 3, reps: "30", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
+        { name: "Plank", sets: 3, reps: "1 min", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
+        { name: "Side Plank", sets: 2, reps: "1 min each", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
+        { name: "V-Ups", sets: 3, reps: "20", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
+        { name: "Russian Twists", sets: 3, reps: "30", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
+
+        // Day 5 – Power + Explosive + Grip Veins (Short, Strong)
+        { name: "Clap Pushups", sets: 3, reps: "15", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
+        { name: "Skipping", sets: 1, reps: "5 min", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
+        { name: "High Knees", sets: 3, reps: "30", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
+        { name: "Towel Bicep Curls", sets: 2, reps: "25", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
+        { name: "Wrist Rolls", sets: 2, reps: "20", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
+        { name: "Gripper Slow Squeeze", sets: 2, reps: "15", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
+        { name: "Hanging", sets: 3, reps: "1 min", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
+
+        // Day 6 – BONUS Stretch + Pump Day (Light Sculpting + Relaxing)
+        { name: "Archer Pushups", sets: 2, reps: "12", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
+        { name: "Incline Pushups", sets: 2, reps: "20", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
+        { name: "Squats", sets: 2, reps: "25", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
+        { name: "Plank", sets: 2, reps: "1 min", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
+        { name: "Neck + Spine + Toe Touch Stretch", sets: 3, reps: "30 sec", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
+        { name: "Hanging", sets: 2, reps: "1 min", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
+
+        // Day 7 – Rest Day (Optional Light Activities)
+        { name: "Hanging", sets: 1, reps: "1 min", day: "sunday", workoutType: "Rest", isWeekly: true, date: today, completed: false },
+        { name: "Cobra Stretch", sets: 2, reps: "30 sec", day: "sunday", workoutType: "Rest", isWeekly: true, date: today, completed: false },
+        { name: "Light Walk", sets: 1, reps: "10 min", day: "sunday", workoutType: "Rest", isWeekly: true, date: today, completed: false },
+      ];
+      
+      const promises = workoutRoutines.map(workout => 
+        apiRequest("POST", "/api/exercises", workout)
+      );
+      await Promise.all(promises);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/exercises"] });
+      toast({ title: "7-Day workout routine added successfully! 💪" });
+    },
+    onError: () => {
+      toast({ title: "Failed to add workout routine", variant: "destructive" });
+    },
+  });
+
   // Fetch daily exercises
   const { data: dailyExercises = [] } = useQuery({
     queryKey: ["/api/exercises", today, false],
@@ -39,6 +116,17 @@ export default function Workout() {
       return response.json();
     },
   });
+
+  // Initialize workout routine only once
+  const [hasInitializedWorkout, setHasInitializedWorkout] = useState(false);
+  
+  useEffect(() => {
+    // Only initialize if no weekly workouts exist and we haven't already initialized
+    if (weeklyExercises.length === 0 && !hasInitializedWorkout && !initializeWorkoutRoutine.isPending) {
+      setHasInitializedWorkout(true);
+      initializeWorkoutRoutine.mutate();
+    }
+  }, [weeklyExercises.length, hasInitializedWorkout]);
 
   // Create exercise mutation
   const createExerciseMutation = useMutation({
