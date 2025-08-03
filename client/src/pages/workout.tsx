@@ -138,201 +138,243 @@ export default function Workout() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Workout Tracker</h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">Track your daily and weekly workout progress</p>
-      </div>
+    <div className="min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h2 className="text-5xl font-black text-gradient-primary mb-4">Workout Tracker</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your daily and weekly workout progress with beautiful insights</p>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+        </div>
 
-      {/* Workout Performance Chart */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>🏋️‍♂️ Workout Performance</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="text-sm font-medium text-center mb-2">Daily Exercises</h4>
-              <PieChart
-                data={[dailyExercisePerformance, 100 - dailyExercisePerformance]}
-                colors={['hsl(var(--accent))', 'hsl(var(--muted))']}
-              />
-              <div className="text-center mt-2">
-                <span className="text-lg font-bold text-accent">{dailyExercisePerformance}%</span>
+        {/* Workout Performance Chart */}
+        <Card className="premium-card relative overflow-hidden mb-12">
+          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full"></div>
+          <CardHeader>
+            <CardTitle className="text-2xl text-gradient-primary">🏋️‍♂️ Workout Performance</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="text-center">
+                <h4 className="text-lg font-bold text-gradient-primary mb-4">Daily Exercises</h4>
+                <div className="relative">
+                  <PieChart
+                    data={[dailyExercisePerformance, 100 - dailyExercisePerformance]}
+                    colors={['#F59E0B', '#E2E8F0']}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <span className="text-3xl font-black text-gradient-secondary block">{dailyExercisePerformance}%</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="text-center">
+                <h4 className="text-lg font-bold text-gradient-primary mb-4">Weekly Progress</h4>
+                <div className="relative">
+                  <PieChart
+                    data={[weeklyProgressPerformance, 100 - weeklyProgressPerformance]}
+                    colors={['#22C55E', '#E2E8F0']}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <span className="text-3xl font-black text-gradient-primary block">{weeklyProgressPerformance}%</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div>
-              <h4 className="text-sm font-medium text-center mb-2">Weekly Progress</h4>
-              <PieChart
-                data={[weeklyProgressPerformance, 100 - weeklyProgressPerformance]}
-                colors={['hsl(var(--secondary))', 'hsl(var(--muted))']}
-              />
-              <div className="text-center mt-2">
-                <span className="text-lg font-bold text-secondary">{weeklyProgressPerformance}%</span>
-              </div>
+          </CardContent>
+        </Card>
+
+        {/* Workout Tabs */}
+        <Card className="premium-card relative overflow-hidden">
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-primary/5 to-transparent rounded-tr-full"></div>
+          <Tabs defaultValue="daily" className="w-full">
+            <div className="border-b border-gray-200/20 dark:border-gray-700/20">
+              <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-primary/5 to-accent/5 p-2 rounded-xl">
+                <TabsTrigger value="daily" className="flex items-center space-x-2 premium-button text-lg font-semibold py-3">
+                  <span>🟢</span>
+                  <span>Daily Workout</span>
+                </TabsTrigger>
+                <TabsTrigger value="weekly" className="flex items-center space-x-2 premium-button text-lg font-semibold py-3">
+                  <span>🔵</span>
+                  <span>Weekly Workout</span>
+                </TabsTrigger>
+              </TabsList>
             </div>
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* Workout Tabs */}
-      <Card>
-        <Tabs defaultValue="daily" className="w-full">
-          <div className="border-b border-gray-200 dark:border-gray-700">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="daily" className="flex items-center space-x-2">
-                <span>🟢</span>
-                <span>Daily Workout</span>
-              </TabsTrigger>
-              <TabsTrigger value="weekly" className="flex items-center space-x-2">
-                <span>🔵</span>
-                <span>Weekly Workout</span>
-              </TabsTrigger>
-            </TabsList>
-          </div>
-
-          {/* Daily Workout Tab */}
-          <TabsContent value="daily" className="p-6">
-            {dailyExercises.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                No exercises scheduled for today. Click the + button to add your first exercise!
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {dailyExercises.map((exercise: Exercise) => (
-                  <div
-                    key={exercise.id}
-                    className="exercise-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
-                  >
-                    <div className="flex items-center space-x-4 flex-1">
-                      <Checkbox
-                        checked={exercise.completed}
-                        onCheckedChange={() => handleExerciseToggle(exercise)}
-                        className="w-5 h-5"
-                      />
-                      <div className="flex-1">
-                        <div className={`text-gray-900 dark:text-white font-medium ${exercise.completed ? 'line-through' : ''}`}>
-                          {exercise.name}
+            {/* Daily Workout Tab */}
+            <TabsContent value="daily" className="p-8">
+              {dailyExercises.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
+                    <span className="text-4xl">🏋️‍♂️</span>
+                  </div>
+                  <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">No exercises scheduled for today</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Click the + button to add your first exercise!</p>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {dailyExercises.map((exercise: Exercise) => (
+                    <div
+                      key={exercise.id}
+                      className="exercise-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="flex items-center justify-between relative z-10">
+                        <div className="flex items-center space-x-6 flex-1">
+                          <Checkbox
+                            checked={exercise.completed}
+                            onCheckedChange={() => handleExerciseToggle(exercise)}
+                            className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
+                          />
+                          <div className="flex-1">
+                            <div className={`text-lg font-semibold ${exercise.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors`}>
+                              {exercise.name}
+                            </div>
+                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
+                              💪 {exercise.sets} sets × {exercise.reps} • ⏱️ {exercise.duration} min
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
-                          {exercise.sets} sets × {exercise.reps} • {exercise.duration} min
-                        </div>
+                        <ThreeDotMenu
+                          onEdit={() => handleEditExercise(exercise)}
+                          onDelete={() => handleDeleteExercise(exercise.id)}
+                        />
                       </div>
                     </div>
-                    <ThreeDotMenu
-                      onEdit={() => handleEditExercise(exercise)}
-                      onDelete={() => handleDeleteExercise(exercise.id)}
-                    />
-                  </div>
                 ))}
               </div>
             )}
           </TabsContent>
 
-          {/* Weekly Workout Tab */}
-          <TabsContent value="weekly" className="p-6">
-            {/* Day Tabs */}
-            <div className="border-b border-gray-200 dark:border-gray-700 mb-6">
-              <div className="flex space-x-4 overflow-x-auto pb-2">
-                {days.map((day) => (
-                  <Button
-                    key={day.value}
-                    variant={selectedDay === day.value ? "default" : "ghost"}
-                    size="sm"
-                    onClick={() => setSelectedDay(day.value)}
-                    className="flex-shrink-0"
-                  >
-                    {day.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            {/* Weekly Exercises */}
-            <div className="space-y-4 mb-8">
-              {selectedDayExercises.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  No exercises scheduled for {days.find(d => d.value === selectedDay)?.label}. 
-                  Click the + button to add exercises!
+            {/* Weekly Workout Tab */}
+            <TabsContent value="weekly" className="p-8">
+              {/* Day Tabs */}
+              <div className="border-b border-gray-200/20 dark:border-gray-700/20 mb-8">
+                <div className="flex space-x-2 overflow-x-auto pb-4">
+                  {days.map((day) => (
+                    <Button
+                      key={day.value}
+                      variant={selectedDay === day.value ? "default" : "ghost"}
+                      size="lg"
+                      onClick={() => setSelectedDay(day.value)}
+                      className={`flex-shrink-0 premium-button font-semibold px-6 py-3 ${
+                        selectedDay === day.value 
+                          ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg' 
+                          : 'hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10'
+                      }`}
+                    >
+                      {day.label}
+                    </Button>
+                  ))}
                 </div>
-              ) : (
-                selectedDayExercises.map((exercise: Exercise) => (
-                  <div
-                    key={exercise.id}
-                    className="exercise-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
-                  >
-                    <div className="flex items-center space-x-4 flex-1">
-                      <Checkbox
-                        checked={exercise.completed}
-                        onCheckedChange={() => handleExerciseToggle(exercise)}
-                        disabled={selectedDay !== getCurrentDayName()}
-                        className="w-5 h-5"
-                      />
-                      <div className="flex-1">
-                        <div className={`text-gray-900 dark:text-white font-medium ${exercise.completed ? 'line-through' : ''}`}>
-                          {exercise.workoutType && (
-                            <span className="text-primary font-medium">{exercise.workoutType} - </span>
-                          )}
-                          {exercise.name}
+              </div>
+
+              {/* Weekly Exercises */}
+              <div className="space-y-6 mb-12">
+                {selectedDayExercises.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
+                      <span className="text-4xl">📅</span>
+                    </div>
+                    <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">
+                      No exercises scheduled for {days.find(d => d.value === selectedDay)?.label}
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Click the + button to add exercises!</p>
+                  </div>
+                ) : (
+                  selectedDayExercises.map((exercise: Exercise) => (
+                    <div
+                      key={exercise.id}
+                      className="exercise-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="flex items-center justify-between relative z-10">
+                        <div className="flex items-center space-x-6 flex-1">
+                          <Checkbox
+                            checked={exercise.completed}
+                            onCheckedChange={() => handleExerciseToggle(exercise)}
+                            disabled={selectedDay !== getCurrentDayName()}
+                            className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent disabled:opacity-50"
+                          />
+                          <div className="flex-1">
+                            <div className={`text-lg font-semibold ${exercise.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors`}>
+                              {exercise.workoutType && (
+                                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-bold">{exercise.workoutType} - </span>
+                              )}
+                              {exercise.name}
+                            </div>
+                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">
+                              💪 {exercise.sets} sets × {exercise.reps} • ⏱️ {exercise.duration} min
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
-                          {exercise.sets} sets × {exercise.reps} • {exercise.duration} min
-                        </div>
+                        <ThreeDotMenu
+                          onEdit={() => handleEditExercise(exercise)}
+                          onDelete={() => handleDeleteExercise(exercise.id)}
+                        />
                       </div>
                     </div>
-                    <ThreeDotMenu
-                      onEdit={() => handleEditExercise(exercise)}
-                      onDelete={() => handleDeleteExercise(exercise.id)}
-                    />
-                  </div>
                 ))
               )}
             </div>
 
-            {/* Missed Workouts Section */}
-            {missedExercises.length > 0 && (
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">❌ Missed Workouts</h4>
-                <div className="space-y-3">
-                  {missedExercises.map((exercise: Exercise) => (
-                    <div
-                      key={exercise.id}
-                      className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
-                    >
-                      <div className="text-gray-900 dark:text-white font-medium">
-                        {days.find(d => d.value === exercise.day)?.label} - 
-                        {exercise.workoutType && ` ${exercise.workoutType}:`} {exercise.name}
-                      </div>
-                      <div className="text-sm text-red-600 dark:text-red-400">
-                        Missed: {exercise.sets} sets × {exercise.reps}
-                      </div>
+              {/* Missed Workouts Section */}
+              {missedExercises.length > 0 && (
+                <div className="border-t border-gray-200/20 dark:border-gray-700/20 pt-8">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
+                      <span className="text-white text-lg">❌</span>
                     </div>
-                  ))}
+                    <h4 className="text-xl font-bold text-gradient-primary">Missed Workouts</h4>
+                  </div>
+                  <div className="space-y-4">
+                    {missedExercises.map((exercise: Exercise) => (
+                      <div
+                        key={exercise.id}
+                        className="premium-card p-6 border-l-4 border-red-500 bg-gradient-to-r from-red-50/50 to-transparent dark:from-red-900/20 dark:to-transparent"
+                      >
+                        <div className="text-gray-900 dark:text-white font-semibold text-lg">
+                          📅 {days.find(d => d.value === exercise.day)?.label} - 
+                          {exercise.workoutType && (
+                            <span className="text-red-600 dark:text-red-400 font-bold">{exercise.workoutType}: </span>
+                          )}
+                          {exercise.name}
+                        </div>
+                        <div className="text-sm text-red-600 dark:text-red-400 font-medium mt-2">
+                          ⚠️ Missed: {exercise.sets} sets × {exercise.reps} • {exercise.duration} min
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
-      </Card>
+              )}
+            </TabsContent>
+          </Tabs>
+        </Card>
 
-      {/* Floating Add Button */}
-      <FloatingButton
-        onClick={() => {
-          setEditingExercise(undefined);
-          setIsWeeklyMode(false);
-          setShowWorkoutModal(true);
-        }}
-      />
+        {/* Floating Add Button */}
+        <FloatingButton
+          onClick={() => {
+            setEditingExercise(undefined);
+            setIsWeeklyMode(false);
+            setShowWorkoutModal(true);
+          }}
+        />
 
-      {/* Workout Modal */}
-      <WorkoutModal
-        open={showWorkoutModal}
-        onOpenChange={setShowWorkoutModal}
-        onSave={handleSaveExercise}
-        exercise={editingExercise}
-        isWeekly={isWeeklyMode}
-      />
+        {/* Workout Modal */}
+        <WorkoutModal
+          open={showWorkoutModal}
+          onOpenChange={setShowWorkoutModal}
+          onSave={handleSaveExercise}
+          exercise={editingExercise}
+          isWeekly={isWeeklyMode}
+        />
+      </div>
     </div>
   );
 }

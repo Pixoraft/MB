@@ -111,20 +111,20 @@ export default function MindWorkout() {
 
   const getStatusBadge = (status: string) => {
     const variants = {
-      completed: "bg-green-500 text-white",
-      "in-progress": "bg-yellow-500 text-white",
-      pending: "bg-gray-500 text-white"
+      completed: "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg border-0 font-semibold px-4 py-2",
+      "in-progress": "bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg border-0 font-semibold px-4 py-2",
+      pending: "bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-lg border-0 font-semibold px-4 py-2"
     };
     
     const labels = {
-      completed: "Completed",
-      "in-progress": "In Progress",
-      pending: "Pending"
+      completed: "✓ Completed",
+      "in-progress": "⏳ In Progress", 
+      pending: "⏸️ Pending"
     };
 
     return (
       <Badge className={variants[status as keyof typeof variants] || variants.pending}>
-        {labels[status as keyof typeof labels] || "Pending"}
+        {labels[status as keyof typeof labels] || "⏸️ Pending"}
       </Badge>
     );
   };
@@ -208,110 +208,136 @@ export default function MindWorkout() {
   const displayCompletionRate = calculatePerformance(completedCount, displayActivities.length);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Mind Workout</h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">Structured mental exercises to enhance cognitive performance</p>
-      </div>
+    <div className="min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h2 className="text-5xl font-black text-gradient-primary mb-4">Mind Workout</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Structured mental exercises to enhance cognitive performance with beautiful insights</p>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+        </div>
 
-      {/* Mind Exercise Completion Chart */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>🧠 Mind Exercise Completion</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-            <PieChart
-              data={[displayCompletionRate, 100 - displayCompletionRate]}
-              colors={['hsl(142, 71%, 45%)', 'hsl(var(--muted))']}
-            />
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">{displayCompletionRate}%</div>
-              <div className="text-gray-600 dark:text-gray-400">Daily Completion Rate</div>
-              <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                <span className="font-medium">{completedCount}</span> of{" "}
-                <span className="font-medium">{displayActivities.length}</span> exercises completed
+        {/* Mind Exercise Completion Chart */}
+        <Card className="premium-card relative overflow-hidden mb-12">
+          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full"></div>
+          <CardHeader>
+            <CardTitle className="text-2xl text-gradient-primary">🧠 Mind Exercise Completion</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="relative">
+                <PieChart
+                  data={[displayCompletionRate, 100 - displayCompletionRate]}
+                  colors={['#8B5DFF', '#E2E8F0']}
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <span className="text-3xl font-black text-gradient-primary block">{displayCompletionRate}%</span>
+                    <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
+                  </div>
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-5xl font-black text-gradient-secondary mb-4">{displayCompletionRate}%</div>
+                <div className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-6">Daily Completion Rate</div>
+                <div className="premium-card p-4 inline-block">
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-2xl font-bold text-gradient-primary">{completedCount}</span>
+                    <span className="mx-2 text-gray-400">/</span>
+                    <span className="text-2xl font-bold text-gradient-secondary">{displayActivities.length}</span>
+                  </div>
+                  <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">exercises completed</div>
+                </div>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      {/* Structured Schedule */}
-      <Card>
-        <CardHeader>
-          <CardTitle>🕐 Daily Mind Schedule</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {displayActivities.map((activity: any) => (
-              <div
-                key={activity.id}
-                className="mind-activity flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
-              >
-                <div className="flex items-center space-x-4 flex-1">
-                  <Checkbox
-                    checked={activity.completed}
-                    onCheckedChange={() => mindActivities.length > 0 && handleActivityToggle(activity)}
-                    className="w-5 h-5"
-                    disabled={mindActivities.length === 0}
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <div className="text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded">
-                        {activity.time}
-                      </div>
-                      <div className="text-gray-900 dark:text-white font-medium">
-                        {activity.name}
+        {/* Structured Schedule */}
+        <Card className="premium-card relative overflow-hidden">
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-accent/5 to-transparent rounded-tr-full"></div>
+          <CardHeader>
+            <CardTitle className="text-2xl text-gradient-primary">🕐 Daily Mind Schedule</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              {displayActivities.map((activity: any) => (
+                <div
+                  key={activity.id}
+                  className="mind-activity premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-6 flex-1">
+                      <Checkbox
+                        checked={activity.completed}
+                        onCheckedChange={() => mindActivities.length > 0 && handleActivityToggle(activity)}
+                        className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
+                        disabled={mindActivities.length === 0}
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-4 mb-3">
+                          <div className="bg-gradient-to-r from-primary to-accent text-white text-sm font-bold px-4 py-2 rounded-xl shadow-lg">
+                            ⏰ {activity.time}
+                          </div>
+                          <div className={`text-lg font-semibold ${activity.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors`}>
+                            {activity.name}
+                          </div>
+                        </div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400 mb-3 font-medium">
+                          📝 {activity.description}
+                        </div>
+                        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 text-purple-700 dark:text-purple-300 text-xs font-semibold px-3 py-2 rounded-lg inline-block border border-purple-200/50 dark:border-purple-700/50">
+                          🤖 {activity.chatgptRole}
+                        </div>
                       </div>
                     </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                      {activity.description}
-                    </div>
-                    <div className="text-xs text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-2 py-1 rounded inline-block">
-                      {activity.chatgptRole}
+                    <div className="flex items-center space-x-3">
+                      {getStatusBadge(activity.status)}
+                      {mindActivities.length > 0 && (
+                        <ThreeDotMenu
+                          onEdit={() => handleEditActivity(activity)}
+                          onDelete={() => handleDeleteActivity(activity.id)}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  {getStatusBadge(activity.status)}
-                  {mindActivities.length > 0 && (
-                    <ThreeDotMenu
-                      onEdit={() => handleEditActivity(activity)}
-                      onDelete={() => handleDeleteActivity(activity.id)}
-                    />
-                  )}
-                </div>
-              </div>
             ))}
           </div>
-          
-          {mindActivities.length === 0 && (
-            <div className="text-center mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <p className="text-sm text-blue-600 dark:text-blue-400">
-                Above are default mind workout activities. Click the + button to create your own custom activities!
-              </p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            
+            {mindActivities.length === 0 && (
+              <div className="premium-card p-6 mt-8 border-l-4 border-blue-500 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 dark:from-blue-900/20 dark:to-cyan-900/20">
+                <div className="flex items-center space-x-3 mb-2">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                    <span className="text-white text-sm">💡</span>
+                  </div>
+                  <h4 className="font-bold text-blue-700 dark:text-blue-300">Default Activities</h4>
+                </div>
+                <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">
+                  Above are premium mind workout activities designed by experts. Click the + button to create your own custom activities!
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
-      {/* Floating Add Button */}
-      <FloatingButton
-        onClick={() => {
-          setEditingActivity(undefined);
-          setShowActivityModal(true);
-        }}
-      />
+        {/* Floating Add Button */}
+        <FloatingButton
+          onClick={() => {
+            setEditingActivity(undefined);
+            setShowActivityModal(true);
+          }}
+        />
 
-      {/* Mind Activity Modal */}
-      <MindActivityModal
-        open={showActivityModal}
-        onOpenChange={setShowActivityModal}
-        onSave={handleSaveActivity}
-        activity={editingActivity}
-      />
+        {/* Mind Activity Modal */}
+        <MindActivityModal
+          open={showActivityModal}
+          onOpenChange={setShowActivityModal}
+          onSave={handleSaveActivity}
+          activity={editingActivity}
+        />
+      </div>
     </div>
   );
 }

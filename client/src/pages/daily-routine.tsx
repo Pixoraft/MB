@@ -143,64 +143,76 @@ export default function DailyRoutine() {
     routines: RoutineItem[]; 
     emptyMessage: string;
   }) => (
-    <Card>
+    <Card className="premium-card relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full"></div>
       <CardHeader>
-        <CardTitle className="flex items-center">
-          {icon} {title}
-          <span className="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">
-            ({routines.length} activities)
+        <CardTitle className="flex items-center space-x-3 text-2xl text-gradient-primary">
+          <span className="text-3xl">{icon}</span>
+          <span>{title}</span>
+          <span className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary dark:text-accent text-sm font-bold px-3 py-1 rounded-full">
+            {routines.length} activities
           </span>
         </CardTitle>
       </CardHeader>
       <CardContent>
         {routines.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            {emptyMessage}
+          <div className="text-center py-12">
+            <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
+              <span className="text-4xl">{icon}</span>
+            </div>
+            <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">{emptyMessage.split('.')[0]}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Click the + button to add your first activity!</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {routines.map((routine: RoutineItem) => (
               <div
                 key={routine.id}
-                className="routine-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                className="routine-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
               >
-                <div className="flex items-center space-x-4 flex-1">
-                  <Checkbox
-                    checked={routine.completed}
-                    onCheckedChange={() => handleRoutineToggle(routine)}
-                    className="w-5 h-5"
-                  />
-                  <div className="flex-1">
-                    <div className={`text-gray-900 dark:text-white font-medium ${routine.completed ? 'line-through' : ''}`}>
-                      {routine.name}
-                    </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 flex items-center space-x-2">
-                      <span>{routine.time}</span>
-                      <span>•</span>
-                      <span>{routine.duration} min</span>
-                      {routine.days && routine.days.length > 0 && (
-                        <>
-                          <span>•</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="flex items-center space-x-6 flex-1">
+                    <Checkbox
+                      checked={routine.completed}
+                      onCheckedChange={() => handleRoutineToggle(routine)}
+                      className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
+                    />
+                    <div className="flex-1">
+                      <div className={`text-lg font-semibold ${routine.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors mb-2`}>
+                        {routine.name}
+                      </div>
+                      <div className="flex items-center space-x-3 text-sm text-gray-600 dark:text-gray-400 font-medium">
+                        <span className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary dark:text-accent px-2 py-1 rounded-lg font-bold">
+                          ⏰ {routine.time}
+                        </span>
+                        <span className="bg-gradient-to-r from-secondary/20 to-accent/20 text-secondary dark:text-accent px-2 py-1 rounded-lg font-bold">
+                          ⏱️ {routine.duration} min
+                        </span>
+                        {routine.days && routine.days.length > 0 && (
                           <div className="flex space-x-1">
                             {routine.days.map((day) => (
-                              <Badge key={day} variant="outline" className="text-xs">
+                              <Badge key={day} className="bg-gradient-to-r from-gray-500 to-slate-600 text-white text-xs font-semibold px-2 py-1">
                                 {day.charAt(0).toUpperCase() + day.slice(1, 3)}
                               </Badge>
                             ))}
                           </div>
-                        </>
-                      )}
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Badge className={routine.completed ? "bg-green-500 text-white" : "bg-gray-500 text-white"}>
-                    {routine.completed ? "Done" : "Pending"}
-                  </Badge>
-                  <ThreeDotMenu
-                    onEdit={() => handleEditRoutine(routine)}
-                    onDelete={() => handleDeleteRoutine(routine.id)}
-                  />
+                  <div className="flex items-center space-x-3">
+                    <Badge className={routine.completed 
+                      ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg border-0 font-semibold px-4 py-2" 
+                      : "bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-lg border-0 font-semibold px-4 py-2"
+                    }>
+                      {routine.completed ? "✅ Done" : "⏸️ Pending"}
+                    </Badge>
+                    <ThreeDotMenu
+                      onEdit={() => handleEditRoutine(routine)}
+                      onDelete={() => handleDeleteRoutine(routine.id)}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -211,85 +223,97 @@ export default function DailyRoutine() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Daily Routine</h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">Manage your morning, night, and weekly routines</p>
-      </div>
+    <div className="min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h2 className="text-5xl font-black text-gradient-primary mb-4">Daily Routine</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Manage your morning, night, and weekly routines with beautiful insights</p>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+        </div>
 
-      {/* Routine Completion Chart */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>🔁 Routine Completion</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-            <PieChart
-              data={[overallCompletionRate, 100 - overallCompletionRate]}
-              colors={['hsl(var(--destructive))', 'hsl(var(--muted))']}
-            />
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">{overallCompletionRate}%</div>
-              <div className="text-gray-600 dark:text-gray-400">Overall Completion Rate</div>
-              <div className="mt-4 grid grid-cols-3 gap-4 text-sm">
-                <div>
-                  <div className="font-medium text-green-500">{morningCompletionRate}%</div>
-                  <div className="text-gray-600 dark:text-gray-400">Morning</div>
+        {/* Routine Completion Chart */}
+        <Card className="premium-card relative overflow-hidden mb-12">
+          <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-accent/10 to-transparent rounded-br-full"></div>
+          <CardHeader>
+            <CardTitle className="text-2xl text-gradient-primary">🔁 Routine Completion</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="relative">
+                <PieChart
+                  data={[overallCompletionRate, 100 - overallCompletionRate]}
+                  colors={['#EF4444', '#E2E8F0']}
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <span className="text-3xl font-black text-gradient-primary block">{overallCompletionRate}%</span>
+                    <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-medium text-yellow-500">{nightCompletionRate}%</div>
-                  <div className="text-gray-600 dark:text-gray-400">Night</div>
-                </div>
-                <div>
-                  <div className="font-medium text-primary">{weeklyCompletionRate}%</div>
-                  <div className="text-gray-600 dark:text-gray-400">Weekly</div>
+              </div>
+              <div className="text-center">
+                <div className="text-5xl font-black text-gradient-secondary mb-4">{overallCompletionRate}%</div>
+                <div className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-8">Overall Completion Rate</div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="premium-card p-4">
+                    <div className="text-2xl font-black text-gradient-primary mb-1">{morningCompletionRate}%</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">☀️ Morning</div>
+                  </div>
+                  <div className="premium-card p-4">
+                    <div className="text-2xl font-black text-gradient-secondary mb-1">{nightCompletionRate}%</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">🌙 Night</div>
+                  </div>
+                  <div className="premium-card p-4">
+                    <div className="text-2xl font-black text-gradient-primary mb-1">{weeklyCompletionRate}%</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">📆 Weekly</div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      {/* Routine Sections */}
-      <div className="space-y-8">
-        <RoutineSection
-          title="Morning Routine"
-          icon="☀️"
-          routines={morningRoutines}
-          emptyMessage="No morning routines set up. Click the + button to add your first morning activity!"
+        {/* Routine Sections */}
+        <div className="space-y-12">
+          <RoutineSection
+            title="Morning Routine"
+            icon="☀️"
+            routines={morningRoutines}
+            emptyMessage="No morning routines set up. Click the + button to add your first morning activity!"
+          />
+
+          <RoutineSection
+            title="Night Routine"
+            icon="🌙"
+            routines={nightRoutines}
+            emptyMessage="No night routines set up. Click the + button to add your first night activity!"
+          />
+
+          <RoutineSection
+            title="Weekly Routine"
+            icon="📆"
+            routines={weeklyRoutines}
+            emptyMessage="No weekly routines set up. Click the + button to add your first weekly activity!"
+          />
+        </div>
+
+        {/* Floating Add Button */}
+        <FloatingButton
+          onClick={() => {
+            setEditingRoutine(undefined);
+            setShowRoutineModal(true);
+          }}
         />
 
-        <RoutineSection
-          title="Night Routine"
-          icon="🌙"
-          routines={nightRoutines}
-          emptyMessage="No night routines set up. Click the + button to add your first night activity!"
-        />
-
-        <RoutineSection
-          title="Weekly Routine"
-          icon="📆"
-          routines={weeklyRoutines}
-          emptyMessage="No weekly routines set up. Click the + button to add your first weekly activity!"
+        {/* Routine Modal */}
+        <RoutineModal
+          open={showRoutineModal}
+          onOpenChange={setShowRoutineModal}
+          onSave={handleSaveRoutine}
+          routine={editingRoutine}
         />
       </div>
-
-      {/* Floating Add Button */}
-      <FloatingButton
-        onClick={() => {
-          setEditingRoutine(undefined);
-          setShowRoutineModal(true);
-        }}
-      />
-
-      {/* Routine Modal */}
-      <RoutineModal
-        open={showRoutineModal}
-        onOpenChange={setShowRoutineModal}
-        onSave={handleSaveRoutine}
-        routine={editingRoutine}
-      />
     </div>
   );
 }

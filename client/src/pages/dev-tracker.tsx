@@ -129,12 +129,12 @@ export default function DevTracker() {
 
   const getStatusBadge = (goal: Goal) => {
     if (goal.completed) {
-      return <Badge className="bg-green-500 text-white">Completed</Badge>;
+      return <Badge className="bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg border-0 font-semibold px-4 py-2">✓ Completed</Badge>;
     }
     if (goal.progress > 0) {
-      return <Badge className="bg-yellow-500 text-white">In Progress</Badge>;
+      return <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg border-0 font-semibold px-4 py-2">⏳ In Progress</Badge>;
     }
-    return <Badge className="bg-gray-500 text-white">Pending</Badge>;
+    return <Badge className="bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-lg border-0 font-semibold px-4 py-2">⏸️ Pending</Badge>;
   };
 
   const getCurrentWeekRange = () => {
@@ -169,62 +169,76 @@ export default function DevTracker() {
     dateRange: string;
     emptyMessage: string;
   }) => (
-    <Card>
+    <Card className="premium-card relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full"></div>
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center">
-            {icon} {title}
-            <span className="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">
-              ({dateRange})
-            </span>
-          </CardTitle>
-          <div className="text-sm text-gray-600 dark:text-gray-400">
-            <span className="font-medium">{goals.filter(g => g.completed).length}</span> of{" "}
-            <span className="font-medium">{goals.length}</span> goals completed
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-2xl">{icon}</span>
+            </div>
+            <div>
+              <CardTitle className="text-2xl text-gradient-primary">{title}</CardTitle>
+              <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">{dateRange}</p>
+            </div>
+          </div>
+          <div className="premium-card p-3 text-center">
+            <div className="text-2xl font-black text-gradient-primary">{goals.filter(g => g.completed).length}<span className="text-gray-400 mx-1">/</span>{goals.length}</div>
+            <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">goals completed</div>
           </div>
         </div>
-        <div className="mt-4">
-          <Progress value={progress} className="w-full h-2" />
+        <div className="relative">
+          <Progress value={progress} className="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-xs font-bold text-white drop-shadow-lg">{progress}%</span>
+          </div>
         </div>
       </CardHeader>
       <CardContent>
         {goals.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            {emptyMessage}
+          <div className="text-center py-12">
+            <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl flex items-center justify-center">
+              <span className="text-4xl">{icon}</span>
+            </div>
+            <p className="text-lg text-gray-600 dark:text-gray-400 font-medium">{emptyMessage.split('.')[0]}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">Click the + button to add your first goal!</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {goals.map((goal: Goal) => (
               <div
                 key={goal.id}
-                className="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                className="goal-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
               >
-                <div className="flex items-center space-x-4 flex-1">
-                  <Checkbox
-                    checked={goal.completed}
-                    onCheckedChange={() => handleGoalToggle(goal)}
-                    className="w-5 h-5"
-                  />
-                  <div className="flex-1">
-                    <div className={`text-gray-900 dark:text-white font-medium ${goal.completed ? 'line-through' : ''}`}>
-                      {goal.title}
-                    </div>
-                    {goal.description && (
-                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        {goal.description}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="flex items-center space-x-6 flex-1">
+                    <Checkbox
+                      checked={goal.completed}
+                      onCheckedChange={() => handleGoalToggle(goal)}
+                      className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
+                    />
+                    <div className="flex-1">
+                      <div className={`text-lg font-semibold ${goal.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors mb-2`}>
+                        {goal.title}
                       </div>
-                    )}
-                    <div className="text-xs text-gray-500 mt-1">
-                      Target: {format(new Date(goal.targetDate), 'MMM d, yyyy')}
+                      {goal.description && (
+                        <div className="text-sm text-gray-600 dark:text-gray-400 mb-3 font-medium">
+                          📝 {goal.description}
+                        </div>
+                      )}
+                      <div className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary dark:text-accent text-xs font-bold px-3 py-1 rounded-lg inline-block">
+                        🎯 Target: {format(new Date(goal.targetDate), 'MMM d, yyyy')}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  {getStatusBadge(goal)}
-                  <ThreeDotMenu
-                    onEdit={() => handleEditGoal(goal)}
-                    onDelete={() => handleDeleteGoal(goal.id)}
-                  />
+                  <div className="flex items-center space-x-3">
+                    {getStatusBadge(goal)}
+                    <ThreeDotMenu
+                      onEdit={() => handleEditGoal(goal)}
+                      onDelete={() => handleDeleteGoal(goal.id)}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -235,123 +249,138 @@ export default function DevTracker() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Dev Tracker</h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">Track your development goals from weekly to yearly objectives</p>
-      </div>
+    <div className="min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h2 className="text-5xl font-black text-gradient-primary mb-4">Dev Tracker</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your development goals from weekly to yearly objectives with beautiful insights</p>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+        </div>
 
-      {/* Goal Sections */}
-      <div className="space-y-8">
-        <GoalSection
-          title="Weekly Plan"
-          icon="🗓️"
-          goals={weeklyGoals}
-          progress={weeklyProgress}
-          dateRange={getCurrentWeekRange()}
-          emptyMessage="No weekly goals set. Click the + button to add your first weekly goal!"
-        />
+        {/* Goal Sections */}
+        <div className="space-y-12">
+          <GoalSection
+            title="Weekly Plan"
+            icon="🗓️"
+            goals={weeklyGoals}
+            progress={weeklyProgress}
+            dateRange={getCurrentWeekRange()}
+            emptyMessage="No weekly goals set. Click the + button to add your first weekly goal!"
+          />
 
-        <GoalSection
-          title="Monthly Plan"
-          icon="📅"
-          goals={monthlyGoals}
-          progress={monthlyProgress}
-          dateRange={getCurrentMonth()}
-          emptyMessage="No monthly goals set. Click the + button to add your first monthly goal!"
-        />
+          <GoalSection
+            title="Monthly Plan"
+            icon="📅"
+            goals={monthlyGoals}
+            progress={monthlyProgress}
+            dateRange={getCurrentMonth()}
+            emptyMessage="No monthly goals set. Click the + button to add your first monthly goal!"
+          />
 
-        {/* Yearly Goal - Special Layout */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center">
-                📈 Yearly Goal
-                <span className="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">
-                  ({getCurrentYear()})
-                </span>
-              </CardTitle>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                <span className="font-medium">{yearlyGoalProgress}%</span> progress
+          {/* Yearly Goal - Special Layout */}
+          <Card className="premium-card relative overflow-hidden">
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-secondary/10 to-transparent rounded-tr-full"></div>
+            <CardHeader>
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-secondary to-accent rounded-2xl flex items-center justify-center shadow-xl">
+                    <span className="text-3xl">📈</span>
+                  </div>
+                  <div>
+                    <CardTitle className="text-3xl text-gradient-secondary mb-2">Yearly Goal</CardTitle>
+                    <p className="text-lg font-semibold text-gray-600 dark:text-gray-400">{getCurrentYear()}</p>
+                  </div>
+                </div>
+                <div className="premium-card p-4 text-center">
+                  <div className="text-3xl font-black text-gradient-secondary">{yearlyGoalProgress}%</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">progress</div>
+                </div>
               </div>
-            </div>
-            <div className="mt-4">
-              <Progress value={yearlyGoalProgress} className="w-full h-2" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            {yearlyGoals.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                No yearly goal set. Click the + button to set your yearly development goal!
+              <div className="relative">
+                <Progress value={yearlyGoalProgress} className="w-full h-6 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-sm font-bold text-white drop-shadow-lg">{yearlyGoalProgress}%</span>
+                </div>
               </div>
-            ) : (
-              <div className="space-y-4">
-                {yearlyGoals.map((goal: Goal) => (
-                  <div
-                    key={goal.id}
-                    className="goal-item p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20"
-                  >
-                    <div className="flex items-start space-x-4">
-                      <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white text-sm">🎯</span>
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                            {goal.title}
-                          </div>
-                          <ThreeDotMenu
-                            onEdit={() => handleEditGoal(goal)}
-                            onDelete={() => handleDeleteGoal(goal.id)}
-                          />
+            </CardHeader>
+            <CardContent>
+              {yearlyGoals.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-3xl flex items-center justify-center">
+                    <span className="text-6xl">📈</span>
+                  </div>
+                  <p className="text-xl text-gray-600 dark:text-gray-400 font-medium mb-2">No yearly goal set</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-500">Click the + button to set your yearly development goal!</p>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {yearlyGoals.map((goal: Goal) => (
+                    <div
+                      key={goal.id}
+                      className="goal-item premium-card p-8 bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-900/20 dark:to-purple-900/20 border-l-4 border-secondary"
+                    >
+                      <div className="flex items-start space-x-6">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-secondary to-accent flex items-center justify-center flex-shrink-0 mt-1 shadow-lg">
+                          <span className="text-white text-xl">🎯</span>
                         </div>
-                        {goal.description && (
-                          <div className="text-gray-600 dark:text-gray-400 mb-4">
-                            {goal.description}
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="text-2xl font-bold text-gradient-secondary">
+                              {goal.title}
+                            </div>
+                            <ThreeDotMenu
+                              onEdit={() => handleEditGoal(goal)}
+                              onDelete={() => handleDeleteGoal(goal.id)}
+                            />
                           </div>
-                        )}
-                        
-                        {/* Sub-goals progress - This would be calculated from related goals */}
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-700 dark:text-gray-300">Weekly goals completion</span>
-                            <span className="font-medium text-success">{weeklyProgress}%</span>
-                          </div>
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-700 dark:text-gray-300">Monthly goals completion</span>
-                            <span className="font-medium text-warning">{monthlyProgress}%</span>
-                          </div>
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-700 dark:text-gray-300">Overall progress</span>
-                            <span className="font-medium text-primary">{goal.progress}%</span>
+                          {goal.description && (
+                            <div className="text-gray-700 dark:text-gray-300 mb-6 text-lg font-medium">
+                              📝 {goal.description}
+                            </div>
+                          )}
+                          
+                          {/* Sub-goals progress - This would be calculated from related goals */}
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="premium-card p-4 text-center">
+                              <div className="text-2xl font-black text-gradient-primary mb-1">{weeklyProgress}%</div>
+                              <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">📅 Weekly Goals</div>
+                            </div>
+                            <div className="premium-card p-4 text-center">
+                              <div className="text-2xl font-black text-gradient-secondary mb-1">{monthlyProgress}%</div>
+                              <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">🗓️ Monthly Goals</div>
+                            </div>
+                            <div className="premium-card p-4 text-center">
+                              <div className="text-2xl font-black text-gradient-primary mb-1">{goal.progress}%</div>
+                              <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">🎯 Overall Progress</div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                 ))}
               </div>
             )}
           </CardContent>
         </Card>
+        </div>
+
+        {/* Floating Add Button */}
+        <FloatingButton
+          onClick={() => {
+            setEditingGoal(undefined);
+            setShowGoalModal(true);
+          }}
+        />
+
+        {/* Goal Modal */}
+        <GoalModal
+          open={showGoalModal}
+          onOpenChange={setShowGoalModal}
+          onSave={handleSaveGoal}
+          goal={editingGoal}
+        />
       </div>
-
-      {/* Floating Add Button */}
-      <FloatingButton
-        onClick={() => {
-          setEditingGoal(undefined);
-          setShowGoalModal(true);
-        }}
-      />
-
-      {/* Goal Modal */}
-      <GoalModal
-        open={showGoalModal}
-        onOpenChange={setShowGoalModal}
-        onSave={handleSaveGoal}
-        goal={editingGoal}
-      />
     </div>
   );
 }
