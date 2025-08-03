@@ -84,13 +84,21 @@ export default function DailyRoutine() {
     },
   });
 
-  // Check if we need to initialize the skincare routine
+  // Initialize skincare routine only once
+  const [hasInitialized, setHasInitialized] = useState(false);
+  
   useEffect(() => {
+    if (hasInitialized || initializeSkincareRoutine.isPending) return;
+    
     const totalItems = morningRoutines.length + nightRoutines.length + weeklyRoutines.length;
-    if (totalItems === 0) {
+    const hasSkincareItems = [...morningRoutines, ...nightRoutines, ...weeklyRoutines]
+      .some(item => item.name.includes("🍋") || item.name.includes("🧊") || item.name.includes("🧼"));
+    
+    if (totalItems === 0 && !hasSkincareItems) {
+      setHasInitialized(true);
       initializeSkincareRoutine.mutate();
     }
-  }, [morningRoutines.length, nightRoutines.length, weeklyRoutines.length]);
+  }, [morningRoutines, nightRoutines, weeklyRoutines, hasInitialized]);
 
   // Create routine mutation
   const createRoutineMutation = useMutation({

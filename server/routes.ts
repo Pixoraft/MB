@@ -216,6 +216,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Clear all routine items (for cleanup)
+  app.delete("/api/routine-items/clear-all", async (req, res) => {
+    try {
+      const allItems = await storage.getRoutineItems();
+      for (const item of allItems) {
+        await storage.deleteRoutineItem(item.id);
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ message: "Failed to clear routine items" });
+    }
+  });
+
 
 
   // Goals
