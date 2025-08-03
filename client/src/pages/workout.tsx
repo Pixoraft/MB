@@ -253,8 +253,11 @@ export default function Workout() {
   const completedDailyExercises = dailyExercises.filter((ex: Exercise) => ex.completed).length;
   const dailyExercisePerformance = calculatePerformance(completedDailyExercises, dailyExercises.length);
 
-  const completedWeeklyExercises = weeklyExercises.filter((ex: Exercise) => ex.completed).length;
-  const weeklyProgressPerformance = calculatePerformance(completedWeeklyExercises, weeklyExercises.length);
+  // Filter weekly exercises for today only
+  const currentDayName = getCurrentDayName();
+  const todayWeeklyExercises = weeklyExercises.filter((ex: Exercise) => ex.day === currentDayName);
+  const completedTodayWeeklyExercises = todayWeeklyExercises.filter((ex: Exercise) => ex.completed).length;
+  const weeklyProgressPerformance = calculatePerformance(completedTodayWeeklyExercises, todayWeeklyExercises.length);
 
   // Filter exercises by selected day and workout type for weekly view
   const selectedDayExercises = weeklyExercises.filter((ex: Exercise) => 

@@ -22,10 +22,18 @@ export default function Dashboard() {
     },
   });
 
-  const { data: exercises = [] } = useQuery({
-    queryKey: ["/api/exercises", today],
+  const { data: dailyExercises = [] } = useQuery({
+    queryKey: ["/api/exercises", today, false],
     queryFn: async () => {
-      const response = await fetch(`/api/exercises?date=${today}`);
+      const response = await fetch(`/api/exercises?date=${today}&isWeekly=false`);
+      return response.json();
+    },
+  });
+
+  const { data: weeklyExercises = [] } = useQuery({
+    queryKey: ["/api/exercises", "weekly"],
+    queryFn: async () => {
+      const response = await fetch("/api/exercises?isWeekly=true");
       return response.json();
     },
   });
@@ -90,8 +98,18 @@ export default function Dashboard() {
   const completedTasks = tasks.filter((task: any) => task.completed).length;
   const taskPerformance = calculatePerformance(completedTasks, tasks.length);
 
-  const completedExercises = exercises.filter((ex: any) => ex.completed).length;
-  const workoutPerformance = calculatePerformance(completedExercises, exercises.length);
+  // Combine daily and today's weekly exercises for workout performance
+  const getCurrentDayName = () => {
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    return days[new Date().getDay()];
+  };
+  
+  const currentDayName = getCurrentDayName();
+  const todayWeeklyExercises = weeklyExercises.filter((ex: any) => ex.day === currentDayName);
+  const allTodayExercises = [...dailyExercises, ...todayWeeklyExercises];
+  
+  const completedExercises = allTodayExercises.filter((ex: any) => ex.completed).length;
+  const workoutPerformance = calculatePerformance(completedExercises, allTodayExercises.length);
 
   const completedMindActivities = mindActivities.filter((act: any) => act.completed).length;
   const mindPerformance = calculatePerformance(completedMindActivities, mindActivities.length);
