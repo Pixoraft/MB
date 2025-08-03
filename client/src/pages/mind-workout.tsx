@@ -129,17 +129,17 @@ export default function MindWorkout() {
     );
   };
 
-  // Default mind activities for demo purposes (in production, these would be user-created)
-  const defaultActivities = mindActivities.length === 0 ? [
+  // Default mind activities that users can interact with
+  const defaultActivities = [
     {
       id: "default-1",
       name: "Box Breathing + Sense Drill",
       description: "4-4-4-4 breathing pattern + 5-4-3-2-1 grounding technique",
       time: "05:40",
       chatgptRole: "ChatGPT: Guide through breathing patterns",
-      completed: true,
+      completed: false,
       date: today,
-      status: "completed" as const
+      status: "pending" as const
     },
     {
       id: "default-2",
@@ -147,9 +147,9 @@ export default function MindWorkout() {
       description: "Memorize 5 items using visual story technique, rate memory strength",
       time: "06:00",
       chatgptRole: "ChatGPT: Generate items & review performance",
-      completed: true,
+      completed: false,
       date: today,
-      status: "completed" as const
+      status: "pending" as const
     },
     {
       id: "default-3",
@@ -157,9 +157,9 @@ export default function MindWorkout() {
       description: "Daily hard riddle or logic puzzle to stimulate problem-solving",
       time: "08:00",
       chatgptRole: "ChatGPT: Provide challenge & hints",
-      completed: true,
+      completed: false,
       date: today,
-      status: "completed" as const
+      status: "pending" as const
     },
     {
       id: "default-4",
@@ -167,9 +167,9 @@ export default function MindWorkout() {
       description: "Visual or scene-based pattern identification challenge",
       time: "12:00",
       chatgptRole: "ChatGPT: Provide pattern task",
-      completed: true,
+      completed: false,
       date: today,
-      status: "completed" as const
+      status: "pending" as const
     },
     {
       id: "default-5",
@@ -179,7 +179,7 @@ export default function MindWorkout() {
       chatgptRole: "ChatGPT: Quiz & evaluate recall",
       completed: false,
       date: today,
-      status: "in-progress" as const
+      status: "pending" as const
     },
     {
       id: "default-6",
@@ -201,9 +201,27 @@ export default function MindWorkout() {
       date: today,
       status: "pending" as const
     }
-  ] : mindActivities;
+  ];
 
-  const displayActivities = mindActivities.length > 0 ? mindActivities : defaultActivities;
+  // State to track default activity completion 
+  const [defaultActivityStates, setDefaultActivityStates] = useState<{[key: string]: boolean}>({});
+  
+  // Handle default activity toggle
+  const handleDefaultActivityToggle = (activityId: string) => {
+    setDefaultActivityStates(prev => ({
+      ...prev,
+      [activityId]: !prev[activityId]
+    }));
+  };
+
+  // Merge real activities with default activities with current state
+  const displayActivities = mindActivities.length > 0 ? mindActivities : 
+    defaultActivities.map(activity => ({
+      ...activity,
+      completed: defaultActivityStates[activity.id] || false,
+      status: defaultActivityStates[activity.id] ? "completed" as const : "pending" as const
+    }));
+  
   const completedCount = displayActivities.filter((activity: any) => activity.completed).length;
   const displayCompletionRate = calculatePerformance(completedCount, displayActivities.length);
 
@@ -270,9 +288,14 @@ export default function MindWorkout() {
                     <div className="flex items-center space-x-6 flex-1">
                       <Checkbox
                         checked={activity.completed}
-                        onCheckedChange={() => mindActivities.length > 0 && handleActivityToggle(activity)}
+                        onCheckedChange={() => {
+                          if (mindActivities.length > 0) {
+                            handleActivityToggle(activity);
+                          } else {
+                            handleDefaultActivityToggle(activity.id);
+                          }
+                        }}
                         className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
-                        disabled={mindActivities.length === 0}
                       />
                       <div className="flex-1">
                         <div className="flex items-center space-x-4 mb-3">
@@ -293,12 +316,29 @@ export default function MindWorkout() {
                     </div>
                     <div className="flex items-center space-x-3">
                       {getStatusBadge(activity.status)}
-                      {mindActivities.length > 0 && (
-                        <ThreeDotMenu
-                          onEdit={() => handleEditActivity(activity)}
-                          onDelete={() => handleDeleteActivity(activity.id)}
-                        />
-                      )}
+                      <ThreeDotMenu
+                        onEdit={() => {
+                          if (mindActivities.length > 0) {
+                            handleEditActivity(activity);
+                          } else {
+                            // For default activities, create a new activity based on the default
+                            setEditingActivity(undefined);
+                            setShowActivityModal(true);
+                          }
+                        }}
+                        onDelete={() => {
+                          if (mindActivities.length > 0) {
+                            handleDeleteActivity(activity.id);
+                          } else {
+                            // Reset default activity state
+                            setDefaultActivityStates(prev => {
+                              const newState = { ...prev };
+                              delete newState[activity.id];
+                              return newState;
+                            });
+                          }
+                        }}
+                      />
                     </div>
                   </div>
                 </div>

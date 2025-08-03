@@ -96,17 +96,14 @@ export default function DailyRoutine() {
   const [hasInitialized, setHasInitialized] = useState(false);
   
   useEffect(() => {
-    if (hasInitialized || initializeSkincareRoutine.isPending) return;
+    // Only initialize if no routines exist at all and we haven't already initialized
+    const totalItems = morningRoutines.length + nightRoutines.length + allWeeklyRoutines.length;
     
-    const totalItems = morningRoutines.length + nightRoutines.length + weeklyRoutines.length;
-    const hasSkincareItems = [...morningRoutines, ...nightRoutines, ...weeklyRoutines]
-      .some(item => item.name.includes("🍋") || item.name.includes("🧊") || item.name.includes("🧼"));
-    
-    if (totalItems === 0 && !hasSkincareItems) {
+    if (totalItems === 0 && !hasInitialized && !initializeSkincareRoutine.isPending) {
       setHasInitialized(true);
       initializeSkincareRoutine.mutate();
     }
-  }, [morningRoutines, nightRoutines, weeklyRoutines, hasInitialized]);
+  }, [morningRoutines.length, nightRoutines.length, allWeeklyRoutines.length, hasInitialized]);
 
   // Create routine mutation
   const createRoutineMutation = useMutation({
