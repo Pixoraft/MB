@@ -352,8 +352,9 @@ export default function DevTracker() {
 
   // Initialize goals only once
   const [hasInitialized, setHasInitialized] = useState(() => {
-    // Check localStorage to prevent re-initialization
-    return localStorage.getItem('devGoalsInitialized') === 'true';
+    // Reset localStorage flag to force reinitialization with correct dates
+    localStorage.removeItem('devGoalsInitialized');
+    return false;
   });
   
   useEffect(() => {

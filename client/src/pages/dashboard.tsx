@@ -111,8 +111,28 @@ export default function Dashboard() {
   const completedExercises = allTodayExercises.filter((ex: any) => ex.completed).length;
   const workoutPerformance = calculatePerformance(completedExercises, allTodayExercises.length);
 
-  const completedMindActivities = mindActivities.filter((act: any) => act.completed).length;
-  const mindPerformance = calculatePerformance(completedMindActivities, mindActivities.length);
+  // Handle mindset performance with default activities
+  const getStoredMindActivityStates = () => {
+    const stored = localStorage.getItem(`mindActivityStates_${today}`);
+    return stored ? JSON.parse(stored) : {};
+  };
+
+  const defaultMindActivities = [
+    { id: "default-1", name: "Morning Reflection & Goal Setting", time: "08:00", completed: false },
+    { id: "default-2", name: "Creative Problem Solving Session", time: "11:00", completed: false },
+    { id: "default-3", name: "Afternoon Mindfulness Break", time: "15:00", completed: false },
+    { id: "default-4", name: "Learning & Skill Development", time: "18:00", completed: false },
+    { id: "default-5", name: "Evening Reflection & Tomorrow Planning", time: "21:00", completed: false }
+  ];
+
+  const displayMindActivities = mindActivities.length > 0 ? mindActivities : 
+    defaultMindActivities.map(activity => ({
+      ...activity,
+      completed: getStoredMindActivityStates()[activity.id] || false
+    }));
+
+  const completedMindActivities = displayMindActivities.filter((act: any) => act.completed).length;
+  const mindPerformance = calculatePerformance(completedMindActivities, displayMindActivities.length);
 
   const completedRoutines = routineItems.filter((item: any) => item.completed).length;
   const routinePerformance = calculatePerformance(completedRoutines, routineItems.length);

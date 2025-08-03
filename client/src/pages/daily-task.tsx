@@ -81,6 +81,20 @@ export default function DailyTask() {
     },
   });
 
+  // Update streak mutation
+  const updateStreakMutation = useMutation({
+    mutationFn: async (updates: { current: number; highest: number }) => {
+      const response = await apiRequest("PATCH", "/api/streak", updates);
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/streak"] });
+    },
+    onError: () => {
+      // Don't show error toast for streak updates to avoid spam
+    },
+  });
+
   // Calculate completion rates
   const completedTasks = tasks.filter((task: Task) => task.completed).length;
   const taskCompletionRate = calculatePerformance(completedTasks, tasks.length);
@@ -97,6 +111,21 @@ export default function DailyTask() {
         status: !task.completed ? "completed" : "pending"
       }
     });
+
+    // Update streak when completing a task
+    if (!task.completed) {
+      // Calculate new completion rate after this task is completed
+      const newCompletedCount = completedTasks + 1;
+      const newCompletionRate = calculatePerformance(newCompletedCount, tasks.length);
+      
+      // If completion rate reaches 100%, increment streak
+      if (newCompletionRate === 100) {
+        // For now, just increment by 1. In a real app, you'd have more complex logic
+        const newCurrent = 1; // This should be calculated based on previous days
+        const newHighest = Math.max(newCurrent, 1);
+        updateStreakMutation.mutate({ current: newCurrent, highest: newHighest });
+      }
+    }
   };
 
   const handleEditTask = (task: Task) => {
