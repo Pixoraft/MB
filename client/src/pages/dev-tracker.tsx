@@ -102,7 +102,10 @@ export default function DevTracker() {
 
       const getMonthEnd = (monthsFromNow: number) => {
         const today = new Date();
-        const targetMonth = new Date(today.getFullYear(), today.getMonth() + monthsFromNow + 1, 0);
+        // For April (0), May (1), June (2), July (3), August (4)
+        // We want to get the end of the target month, not months from today
+        const baseMonth = 3; // April is month 3 (0-indexed)
+        const targetMonth = new Date(2025, baseMonth + monthsFromNow + 1, 0);
         return targetMonth.toISOString().split('T')[0];
       };
 
@@ -163,6 +166,14 @@ export default function DevTracker() {
           description: "Get small freelance gigs (₹2-10k), Apply to internships, Practice coding interviews (DSA), Create payment project (Razorpay), Start cold emailing startups",
           type: "monthly",
           targetDate: getMonthEnd(3),
+          completed: false,
+          progress: 0,
+        },
+        {
+          title: "August 2025 - Advanced Development & Job Search",
+          description: "Master advanced React concepts, Build complex full-stack projects, Start applying to jobs, Get first paid freelance project, Improve DSA skills",
+          type: "monthly",
+          targetDate: getMonthEnd(4),
           completed: false,
           progress: 0,
         },
@@ -349,7 +360,7 @@ export default function DevTracker() {
     const totalGoals = weeklyGoals.length + monthlyGoals.length + yearlyGoals.length;
     
     // If we have goals but they seem like duplicates (more than 16 total), clean them first
-    if (totalGoals > 16) {
+    if (totalGoals > 20) {
       clearDuplicateGoals.mutate();
       return;
     }
@@ -361,6 +372,41 @@ export default function DevTracker() {
       initializeDevGoals.mutate();
     }
   }, [weeklyGoals.length, monthlyGoals.length, yearlyGoals.length, hasInitialized]);
+
+  // Clear all goals mutation
+  const clearAllGoals = useMutation({
+    mutationFn: async () => {
+      const weeklyResponse = await fetch("/api/goals?type=weekly");
+      const monthlyResponse = await fetch("/api/goals?type=monthly");
+      const yearlyResponse = await fetch("/api/goals?type=yearly");
+      
+      const allWeeklyGoals = await weeklyResponse.json();
+      const allMonthlyGoals = await monthlyResponse.json();
+      const allYearlyGoals = await yearlyResponse.json();
+      
+      const allGoals = [...allWeeklyGoals, ...allMonthlyGoals, ...allYearlyGoals];
+      
+      const deletePromises = allGoals.map((goal: Goal) => 
+        apiRequest("DELETE", `/api/goals/${goal.id}`)
+      );
+      
+      await Promise.all(deletePromises);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/goals"] });
+      localStorage.removeItem('devGoalsInitialized');
+      setHasInitialized(false);
+      toast({ title: "All goals cleared! Reinitializing..." });
+    },
+    onError: () => {
+      toast({ title: "Failed to clear goals", variant: "destructive" });
+    },
+  });
+
+  // Manual reinitialize function for debugging
+  const handleReinitialize = () => {
+    clearAllGoals.mutate();
+  };
 
   // Filter weekly goals for current week only
   const getCurrentWeekStart = () => {
@@ -399,7 +445,12 @@ export default function DevTracker() {
   
   const currentMonthlyGoals = monthlyGoals.filter((goal: Goal) => {
     const goalDate = goal.targetDate;
-    return goalDate >= currentMonthStart && goalDate <= currentMonthEnd;
+    const goalDateObj = new Date(goalDate);
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    
+    // Check if the goal's target date is in the current month and year
+    return goalDateObj.getMonth() === currentMonth && goalDateObj.getFullYear() === currentYear;
   });
 
   // Calculate progress percentages
@@ -574,6 +625,17 @@ export default function DevTracker() {
 
         {/* Goal Sections */}
         <div className="space-y-12">
+          {/* Temporary debug button */}
+          <div className="text-center">
+            <Button 
+              onClick={handleReinitialize} 
+              variant="outline"
+              disabled={clearAllGoals.isPending || initializeDevGoals.isPending}
+            >
+              {clearAllGoals.isPending || initializeDevGoals.isPending ? "Reinitializing..." : "Reinitialize Goals"}
+            </Button>
+          </div>
+          
           <GoalSection
             title="Weekly Plan"
             icon="🗓️"
