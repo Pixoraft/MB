@@ -260,28 +260,7 @@ export default function Workout() {
   const selectedDayExercises = weeklyExercises.filter((ex: Exercise) => 
     ex.day === selectedDay && ex.workoutType === selectedWorkoutType
   );
-  // Only show missed workouts from when the user started using the app
-  // Check if user has any completed workouts or routine items to determine app start date
-  const allExercises = [...weeklyExercises, ...dailyExercises];
-  const hasAnyCompletedExercises = allExercises.some((ex: Exercise) => ex.completed);
-  
-  // If no completed exercises, use today as start date (first time user)
-  const appStartDate = hasAnyCompletedExercises 
-    ? allExercises
-        .filter((ex: Exercise) => ex.completed)
-        .sort((a: Exercise, b: Exercise) => new Date(a.date).getTime() - new Date(b.date).getTime())[0]?.date
-    : today;
-  
-  // Only show missed exercises from the app start date onwards
-  const missedExercises = weeklyExercises.filter((ex: Exercise) => {
-    if (ex.day === getCurrentDayName() || ex.completed) return false;
-    
-    const exerciseDate = new Date(ex.date);
-    const startDate = new Date(appStartDate);
-    
-    // Only show missed if exercise date is after or equal to when user started using app
-    return exerciseDate >= startDate;
-  });
+
 
   const handleExerciseToggle = (exercise: Exercise) => {
     updateExerciseMutation.mutate({
@@ -682,36 +661,7 @@ export default function Workout() {
               </div>
               )}
 
-              {/* Missed Workouts Section */}
-              {missedExercises.length > 0 && (
-                <div className="border-t border-gray-200/20 dark:border-gray-700/20 pt-8">
-                  <div className="flex items-center space-x-3 mb-6">
-                    <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
-                      <span className="text-white text-lg">❌</span>
-                    </div>
-                    <h4 className="text-xl font-bold text-gradient-primary">Missed Workouts</h4>
-                  </div>
-                  <div className="space-y-4">
-                    {missedExercises.map((exercise: Exercise) => (
-                      <div
-                        key={exercise.id}
-                        className="premium-card p-6 border-l-4 border-red-500 bg-gradient-to-r from-red-50/50 to-transparent dark:from-red-900/20 dark:to-transparent"
-                      >
-                        <div className="text-gray-900 dark:text-white font-semibold text-lg">
-                          📅 {days.find(d => d.value === exercise.day)?.label} - 
-                          {exercise.workoutType && (
-                            <span className="text-red-600 dark:text-red-400 font-bold">{exercise.workoutType}: </span>
-                          )}
-                          {exercise.name}
-                        </div>
-                        <div className="text-sm text-red-600 dark:text-red-400 font-medium mt-2">
-                          ⚠️ Missed: {exercise.sets} sets × {exercise.reps} • {exercise.duration} min
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+
             </TabsContent>
           </Tabs>
         </Card>

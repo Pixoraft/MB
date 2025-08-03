@@ -36,7 +36,7 @@ Integration preference: Add new features to existing pages rather than creating 
   - Weekly tab uses clickable workout type selection before showing day schedules
   - Each workout type shows completion statistics
 
-- **Smart Missed Workouts Tracking**: Only shows missed workouts from when user actually started using the app (determined by first completed workout date)
+- **Removed Missed Workouts Feature**: Simplified workout interface by removing missed workout tracking and display (August 3, 2025)
 
 - **Professional Interface**: Clean, Microsoft/Google-style design with minimal animations and better visual hierarchy
 
