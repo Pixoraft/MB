@@ -179,6 +179,15 @@ export default function Dashboard() {
     setShowPerformanceModal(true);
   };
 
+  // Calculate totals for performance score calculation
+  const totalTasks = tasks.length;
+  const totalWorkouts = allTodayExercises.length;
+  const completedWorkouts = completedExercises;
+  const totalMindActivities = displayMindActivities.length;
+  const totalRoutines = routineItems.length;
+  const totalDevGoals = currentWeekGoals.length;
+  const completedDevGoals = completedWeeklyGoals;
+
   // Helper function to calculate performance score for each category
   const getPerformanceScore = (category: string) => {
     switch (category) {
