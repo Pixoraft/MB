@@ -10,6 +10,7 @@ import DailyTask from "@/pages/daily-task";
 import Workout from "@/pages/workout";
 import MindWorkout from "@/pages/mind-workout";
 import DailyRoutine from "@/pages/daily-routine";
+import Skincare from "@/pages/skincare";
 import DevTracker from "@/pages/dev-tracker";
 import NotFound from "@/pages/not-found";
 
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/workout" component={Workout} />
       <Route path="/mind-workout" component={MindWorkout} />
       <Route path="/daily-routine" component={DailyRoutine} />
+      <Route path="/skincare" component={Skincare} />
       <Route path="/dev-tracker" component={DevTracker} />
       <Route component={NotFound} />
     </Switch>

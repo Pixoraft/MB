@@ -8,6 +8,7 @@ import {
   insertWorkoutTypeSchema,
   insertMindActivitySchema,
   insertRoutineItemSchema,
+  insertSkincareItemSchema,
   insertGoalSchema,
   insertPerformanceSchema,
   insertStreakSchema
@@ -213,6 +214,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(204).send();
     } catch (error) {
       res.status(404).json({ message: "Routine item not found" });
+    }
+  });
+
+  // Skincare Items
+  app.get("/api/skincare-items", async (req, res) => {
+    try {
+      const category = req.query.category as string;
+      const date = req.query.date as string;
+      const items = await storage.getSkincareItems(category, date);
+      res.json(items);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch skincare items" });
+    }
+  });
+
+  app.post("/api/skincare-items", async (req, res) => {
+    try {
+      const itemData = insertSkincareItemSchema.parse(req.body);
+      const item = await storage.createSkincareItem(itemData);
+      res.status(201).json(item);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid skincare item data" });
+    }
+  });
+
+  app.patch("/api/skincare-items/:id", async (req, res) => {
+    try {
+      const item = await storage.updateSkincareItem(req.params.id, req.body);
+      res.json(item);
+    } catch (error) {
+      res.status(404).json({ message: "Skincare item not found" });
+    }
+  });
+
+  app.delete("/api/skincare-items/:id", async (req, res) => {
+    try {
+      await storage.deleteSkincareItem(req.params.id);
+      res.status(204).send();
+    } catch (error) {
+      res.status(404).json({ message: "Skincare item not found" });
     }
   });
 

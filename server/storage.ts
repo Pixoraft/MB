@@ -5,6 +5,7 @@ import {
   WorkoutType, InsertWorkoutType,
   MindActivity, InsertMindActivity,
   RoutineItem, InsertRoutineItem,
+  SkincareItem, InsertSkincareItem,
   Goal, InsertGoal,
   Performance, InsertPerformance,
   Streak, InsertStreak
@@ -49,6 +50,13 @@ export interface IStorage {
   updateRoutineItem(id: string, item: Partial<RoutineItem>): Promise<RoutineItem>;
   deleteRoutineItem(id: string): Promise<void>;
 
+  // Skincare Items
+  getSkincareItems(category?: string, date?: string): Promise<SkincareItem[]>;
+  getSkincareItem(id: string): Promise<SkincareItem | undefined>;
+  createSkincareItem(item: InsertSkincareItem): Promise<SkincareItem>;
+  updateSkincareItem(id: string, item: Partial<SkincareItem>): Promise<SkincareItem>;
+  deleteSkincareItem(id: string): Promise<void>;
+
   // Goals
   getGoals(type?: string): Promise<Goal[]>;
   getGoal(id: string): Promise<Goal | undefined>;
@@ -72,6 +80,7 @@ export class MemStorage implements IStorage {
   private workoutTypes: Map<string, WorkoutType> = new Map();
   private mindActivities: Map<string, MindActivity> = new Map();
   private routineItems: Map<string, RoutineItem> = new Map();
+  private skincareItems: Map<string, SkincareItem> = new Map();
   private goals: Map<string, Goal> = new Map();
   private performance: Map<string, Performance> = new Map();
   private streak: Streak = { id: "default", current: 0, highest: 0 };
@@ -244,6 +253,45 @@ export class MemStorage implements IStorage {
 
   async deleteRoutineItem(id: string): Promise<void> {
     this.routineItems.delete(id);
+  }
+
+  // Skincare Items
+  async getSkincareItems(category?: string, date?: string): Promise<SkincareItem[]> {
+    const allItems = Array.from(this.skincareItems.values());
+    let filtered = allItems;
+    
+    if (category) {
+      filtered = filtered.filter(item => item.category === category);
+    }
+    
+    if (date) {
+      filtered = filtered.filter(item => item.date === date);
+    }
+    
+    return filtered.sort((a, b) => a.order - b.order);
+  }
+
+  async getSkincareItem(id: string): Promise<SkincareItem | undefined> {
+    return this.skincareItems.get(id);
+  }
+
+  async createSkincareItem(insertItem: InsertSkincareItem): Promise<SkincareItem> {
+    const id = randomUUID();
+    const item: SkincareItem = { ...insertItem, id };
+    this.skincareItems.set(id, item);
+    return item;
+  }
+
+  async updateSkincareItem(id: string, updates: Partial<SkincareItem>): Promise<SkincareItem> {
+    const item = this.skincareItems.get(id);
+    if (!item) throw new Error("Skincare item not found");
+    const updatedItem = { ...item, ...updates };
+    this.skincareItems.set(id, updatedItem);
+    return updatedItem;
+  }
+
+  async deleteSkincareItem(id: string): Promise<void> {
+    this.skincareItems.delete(id);
   }
 
   // Goals

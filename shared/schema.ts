@@ -80,7 +80,7 @@ export const routineItemSchema = z.object({
   name: z.string().min(1, "Routine name is required"),
   time: z.string(),
   duration: z.number(), // in minutes
-  type: z.enum(["morning", "night", "weekly"]),
+  type: z.enum(["morning", "night", "weekly", "skincare"]),
   days: z.array(z.enum(["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"])).optional(),
   completed: z.boolean().default(false),
   date: z.string(),
@@ -89,6 +89,26 @@ export const routineItemSchema = z.object({
 export const insertRoutineItemSchema = routineItemSchema.omit({ id: true });
 export type RoutineItem = z.infer<typeof routineItemSchema>;
 export type InsertRoutineItem = z.infer<typeof insertRoutineItemSchema>;
+
+// Skincare Routine
+export const skincareItemSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, "Skincare item name is required"),
+  description: z.string().optional(),
+  ingredients: z.array(z.string()).optional(),
+  instructions: z.string(),
+  duration: z.number(), // in minutes
+  category: z.enum(["daily-morning", "daily-evening", "3x-week", "2x-week", "weekly"]),
+  frequency: z.string(), // e.g., "Daily", "Mon/Wed/Fri", "Twice a week"
+  completed: z.boolean().default(false),
+  date: z.string(),
+  benefits: z.array(z.string()).optional(),
+  order: z.number().default(0), // Order in the routine
+});
+
+export const insertSkincareItemSchema = skincareItemSchema.omit({ id: true });
+export type SkincareItem = z.infer<typeof skincareItemSchema>;
+export type InsertSkincareItem = z.infer<typeof insertSkincareItemSchema>;
 
 // Development Tracker
 export const goalSchema = z.object({
