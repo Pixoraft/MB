@@ -7,6 +7,19 @@ Meta Build is a comprehensive full-stack personal productivity and self-improvem
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Integration preference: Add new features to existing pages rather than creating separate pages.
+
+## Recent Changes
+
+### August 3, 2025 - Skincare Routine Integration
+- Integrated comprehensive skincare, haircare & hygiene routine into existing Daily Routine page
+- Added 15 pre-defined skincare routine items covering:
+  - Morning routine: Detox drink, ice treatment, face wash, face pack, moisturizer + sunscreen
+  - Evening routine: Cleansing, serum, night moisturizer, dark spot treatment
+  - Weekly routines: Lip scrub, body exfoliation, ubtan mask, lemon treatment, hair care
+- Added skincare tips section with diet recommendations and foods to avoid
+- Removed separate skincare page and integrated everything into daily routine structure
+- All skincare items use existing routine system with proper categorization (morning/night/weekly)
 
 ## System Architecture
 

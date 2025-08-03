@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -43,6 +43,54 @@ export default function DailyRoutine() {
       return response.json();
     },
   });
+
+  // Initialize skincare routine
+  const initializeSkincareRoutine = useMutation({
+    mutationFn: async () => {
+      const skincareRoutines: InsertRoutineItem[] = [
+        // Morning Skincare Routine
+        { name: "🍋 Lemon & Honey Detox Drink", time: "06:00", duration: 5, type: "morning", date: today, completed: false },
+        { name: "🧊 Ice Cube Face Treatment", time: "06:05", duration: 2, type: "morning", date: today, completed: false },
+        { name: "🧼 Face & Body Wash (Vitamin C)", time: "06:10", duration: 5, type: "morning", date: today, completed: false },
+        { name: "🍯 Malai + Honey + Haldi Face Pack", time: "06:15", duration: 20, type: "morning", date: today, completed: false },
+        { name: "☀️ Moisturize & Sun Protection", time: "06:35", duration: 3, type: "morning", date: today, completed: false },
+        
+        // Evening Skincare Routine  
+        { name: "🧼 Evening Face & Body Cleansing", time: "20:00", duration: 5, type: "night", date: today, completed: false },
+        { name: "💧 Face Serum (Vitamin C/Niacinamide)", time: "20:05", duration: 2, type: "night", date: today, completed: false },
+        { name: "🌙 Night Moisturizer", time: "20:10", duration: 2, type: "night", date: today, completed: false },
+        { name: "🥛 Milk & Potato Dark Spot Treatment", time: "20:15", duration: 20, type: "night", date: today, completed: false },
+        
+        // Weekly Routines
+        { name: "👄 Lip Scrub (Honey + Sugar)", time: "19:00", duration: 5, type: "weekly", days: ["tuesday", "thursday", "saturday"], date: today, completed: false },
+        { name: "🧽 Body Exfoliation (Coffee + Curd)", time: "19:30", duration: 10, type: "weekly", days: ["sunday", "wednesday", "friday"], date: today, completed: false },
+        { name: "🌿 Ubtan Body Mask", time: "18:00", duration: 35, type: "weekly", days: ["tuesday", "thursday", "saturday"], date: today, completed: false },
+        { name: "🍋 Lemon & Baking Soda Treatment", time: "19:00", duration: 8, type: "weekly", days: ["monday", "friday"], date: today, completed: false },
+        { name: "💆‍♀️ Hair Oil Massage", time: "17:00", duration: 70, type: "weekly", days: ["wednesday", "saturday"], date: today, completed: false },
+        { name: "🧴 Hair Wash (Sulfate-Free)", time: "18:30", duration: 15, type: "weekly", days: ["wednesday", "saturday"], date: today, completed: false },
+      ];
+      
+      const promises = skincareRoutines.map(routine => 
+        apiRequest("POST", "/api/routine-items", routine)
+      );
+      await Promise.all(promises);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/routine-items"] });
+      toast({ title: "Skincare routine added to your daily routine!" });
+    },
+    onError: () => {
+      toast({ title: "Failed to add skincare routine", variant: "destructive" });
+    },
+  });
+
+  // Check if we need to initialize the skincare routine
+  useEffect(() => {
+    const totalItems = morningRoutines.length + nightRoutines.length + weeklyRoutines.length;
+    if (totalItems === 0) {
+      initializeSkincareRoutine.mutate();
+    }
+  }, [morningRoutines.length, nightRoutines.length, weeklyRoutines.length]);
 
   // Create routine mutation
   const createRoutineMutation = useMutation({
@@ -228,9 +276,57 @@ export default function DailyRoutine() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h2 className="text-5xl font-black text-gradient-primary mb-4">Daily Routine</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Manage your morning, night, and weekly routines with beautiful insights</p>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Manage your morning, night, and weekly routines including skincare, haircare & hygiene with beautiful insights
+          </p>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
         </div>
+
+        {/* Skincare & Diet Tips Section */}
+        <Card className="premium-card relative overflow-hidden mb-12">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full"></div>
+          <CardHeader>
+            <CardTitle className="text-2xl text-gradient-primary flex items-center space-x-3">
+              <span className="text-3xl">✨</span>
+              <span>Skincare & Health Tips</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Diet Tips */}
+              <div className="space-y-4">
+                <h4 className="font-semibold text-green-600 dark:text-green-400 text-lg">🥗 Foods for Glowing Skin & Strong Hair</h4>
+                <div className="space-y-3 text-sm">
+                  <div><strong>Vitamin C:</strong> Orange, Lemon, Amla, Papaya, Tomato</div>
+                  <div><strong>Carotene:</strong> Carrots, Spinach, Sweet Potatoes</div>
+                  <div><strong>Collagen:</strong> Almonds, Walnuts, Coconut Water, Cucumber</div>
+                  <div><strong>Iron & Biotin:</strong> Spinach, Almonds, Walnuts, Eggs</div>
+                  <div><strong>Hydration:</strong> 3-4 liters of water daily</div>
+                </div>
+                <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+                  <p className="text-sm font-medium text-green-700 dark:text-green-300">
+                    💪 Daily Hair Drink: Amla Juice or Coconut Water every morning
+                  </p>
+                </div>
+              </div>
+
+              {/* What to Avoid */}
+              <div className="space-y-4">
+                <h4 className="font-semibold text-red-600 dark:text-red-400 text-lg">❌ Avoid These</h4>
+                <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                  <p>• Too much sugar & junk food (causes dull skin & hair fall)</p>
+                  <p>• Oily & fried food (clogs pores & weakens hair roots)</p>
+                  <p>• Excess caffeine - Switch to Green Tea instead</p>
+                </div>
+                <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg">
+                  <p className="text-sm font-medium text-orange-700 dark:text-orange-300">
+                    🔥 Expected Results: 2-4 weeks for glowing skin, no tan, fresh smell, thick hair
+                  </p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Routine Completion Chart */}
         <Card className="premium-card relative overflow-hidden mb-12">

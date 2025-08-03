@@ -11,7 +11,6 @@ const navItems = [
   { path: "/workout", label: "Fitness", icon: "💪" },
   { path: "/mind-workout", label: "Mindset", icon: "🧠" },
   { path: "/daily-routine", label: "Routine", icon: "⚡" },
-  { path: "/skincare", label: "Skincare", icon: "🧴" },
   { path: "/dev-tracker", label: "Goals", icon: "🚀" },
 ];
 
