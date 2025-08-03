@@ -383,12 +383,31 @@ export default function DevTracker() {
     return goalDate >= currentWeekStart && goalDate <= currentWeekEnd;
   });
 
+  // Filter monthly goals for current month only
+  const getCurrentMonthStart = () => {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
+  };
+  
+  const getCurrentMonthEnd = () => {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
+  };
+
+  const currentMonthStart = getCurrentMonthStart();
+  const currentMonthEnd = getCurrentMonthEnd();
+  
+  const currentMonthlyGoals = monthlyGoals.filter((goal: Goal) => {
+    const goalDate = goal.targetDate;
+    return goalDate >= currentMonthStart && goalDate <= currentMonthEnd;
+  });
+
   // Calculate progress percentages
   const completedWeeklyGoals = currentWeeklyGoals.filter((goal: Goal) => goal.completed).length;
   const weeklyProgress = calculatePerformance(completedWeeklyGoals, currentWeeklyGoals.length);
 
-  const completedMonthlyGoals = monthlyGoals.filter((goal: Goal) => goal.completed).length;
-  const monthlyProgress = calculatePerformance(completedMonthlyGoals, monthlyGoals.length);
+  const completedMonthlyGoals = currentMonthlyGoals.filter((goal: Goal) => goal.completed).length;
+  const monthlyProgress = calculatePerformance(completedMonthlyGoals, currentMonthlyGoals.length);
 
   const yearlyGoalProgress = yearlyGoals.length > 0 ? yearlyGoals[0].progress : 0;
 
@@ -567,7 +586,7 @@ export default function DevTracker() {
           <GoalSection
             title="Monthly Plan"
             icon="📅"
-            goals={monthlyGoals}
+            goals={currentMonthlyGoals}
             progress={monthlyProgress}
             dateRange={getCurrentMonth()}
             emptyMessage="No monthly goals set. Click the + button to add your first monthly goal!"
