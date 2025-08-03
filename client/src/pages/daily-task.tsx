@@ -153,9 +153,9 @@ export default function DailyTask() {
 
   const getStatusBadge = (status: string) => {
     const variants = {
-      completed: "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg border-0 font-semibold px-4 py-2",
-      "in-progress": "bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg border-0 font-semibold px-4 py-2",
-      pending: "bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-lg border-0 font-semibold px-4 py-2"
+      completed: "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg border-0 font-semibold px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm",
+      "in-progress": "bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg border-0 font-semibold px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm",
+      pending: "bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-lg border-0 font-semibold px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm"
     };
     
     const labels = {
@@ -173,38 +173,42 @@ export default function DailyTask() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <h1 className="page-title text-gradient-primary">Daily Tasks</h1>
-          <p className="text-gray-600 dark:text-gray-400">Manage your daily tasks and track your progress</p>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Manage your daily tasks and track your progress</p>
         </div>
 
         {/* Top Charts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Task Completion Chart */}
           <div className="card-clean">
             <h2 className="section-title">📋 Task Completion</h2>
-            <PieChart
-              data={[taskCompletionRate, 100 - taskCompletionRate]}
-              colors={['#8B5DFF', '#E2E8F0']}
-            />
-            <div className="text-center mt-4">
-              <span className="text-3xl font-bold text-gradient-primary">{taskCompletionRate}%</span>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Completed Today</div>
+            <div className="h-48 sm:h-64">
+              <PieChart
+                data={[taskCompletionRate, 100 - taskCompletionRate]}
+                colors={['#8B5DFF', '#E2E8F0']}
+              />
+            </div>
+            <div className="text-center mt-3 sm:mt-4">
+              <span className="text-2xl sm:text-3xl font-bold text-gradient-primary">{taskCompletionRate}%</span>
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Completed Today</div>
             </div>
           </div>
 
           {/* Water Intake Chart */}
           <div className="card-clean">
             <h2 className="section-title">💧 Water Intake</h2>
-            <PieChart
-              data={[waterPercentage, 100 - waterPercentage]}
-              colors={['#22C55E', '#E2E8F0']}
-            />
-            <div className="text-center mt-4">
-              <span className="text-3xl font-bold text-gradient-secondary">{waterPercentage}%</span>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="h-48 sm:h-64">
+              <PieChart
+                data={[waterPercentage, 100 - waterPercentage]}
+                colors={['#22C55E', '#E2E8F0']}
+              />
+            </div>
+            <div className="text-center mt-3 sm:mt-4">
+              <span className="text-2xl sm:text-3xl font-bold text-gradient-secondary">{waterPercentage}%</span>
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                 of Daily Goal ({waterIntake?.goal || 2400}ml)
               </div>
             </div>
@@ -227,31 +231,31 @@ export default function DailyTask() {
                   key={task.id}
                   className="item-clean"
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4 flex-1">
+                  <div className="flex items-start sm:items-center flex-col sm:flex-row gap-3 sm:gap-0 sm:justify-between">
+                    <div className="flex items-center space-x-3 sm:space-x-4 flex-1 w-full">
                       <Checkbox
                         checked={task.completed}
                         onCheckedChange={() => handleTaskToggle(task)}
-                        className="w-5 h-5"
+                        className="w-5 h-5 sm:w-5 sm:h-5 mt-1 sm:mt-0"
                       />
-                      <div className="flex-1">
-                        <div className={`text-base font-medium ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>
+                      <div className="flex-1 min-w-0">
+                        <div className={`text-sm sm:text-base font-medium ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>
                           {task.title}
                         </div>
                         {task.time && (
-                          <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">
                             ⏰ {task.time}
                             {task.duration && ` • ⏱️ ${task.duration} min`}
                           </div>
                         )}
                         {task.description && (
-                          <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">
                             {task.description}
                           </div>
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2 sm:space-x-3 self-end sm:self-center">
                       {getStatusBadge(task.status)}
                       <ThreeDotMenu
                         onEdit={() => handleEditTask(task)}

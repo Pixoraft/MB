@@ -307,47 +307,47 @@ export default function Workout() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8 lg:py-12">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="text-5xl font-black text-gradient-primary mb-4">Workout Tracker</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your daily and weekly workout progress with beautiful insights</p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+        <div className="mb-6 sm:mb-8 lg:mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-black text-gradient-primary mb-2 sm:mb-4">Workout Tracker</h2>
+          <p className="text-sm sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">Track your daily and weekly workout progress with beautiful insights</p>
+          <div className="w-16 sm:w-20 lg:w-24 h-0.5 sm:h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-3 sm:mt-6"></div>
         </div>
 
         {/* Workout Performance Chart */}
-        <Card className="premium-card relative overflow-hidden mb-12">
-          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full"></div>
+        <Card className="premium-card relative overflow-hidden mb-6 sm:mb-8 lg:mb-12">
+          <div className="absolute top-0 right-0 w-20 h-20 sm:w-32 sm:h-32 lg:w-40 lg:h-40 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full"></div>
           <CardHeader>
-            <CardTitle className="text-2xl text-gradient-primary">🏋️‍♂️ Workout Performance</CardTitle>
+            <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gradient-primary">🏋️‍♂️ Workout Performance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
               <div className="text-center">
-                <h4 className="text-lg font-bold text-gradient-primary mb-4">Daily Exercises</h4>
-                <div className="relative">
+                <h4 className="text-base sm:text-lg font-bold text-gradient-primary mb-3 sm:mb-4">Daily Exercises</h4>
+                <div className="relative h-48 sm:h-64">
                   <PieChart
                     data={[dailyExercisePerformance, 100 - dailyExercisePerformance]}
                     colors={['#F59E0B', '#E2E8F0']}
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
-                      <span className="text-3xl font-black text-gradient-secondary block">{dailyExercisePerformance}%</span>
+                      <span className="text-2xl sm:text-3xl font-black text-gradient-secondary block">{dailyExercisePerformance}%</span>
                       <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="text-center">
-                <h4 className="text-lg font-bold text-gradient-primary mb-4">Weekly Progress</h4>
-                <div className="relative">
+                <h4 className="text-base sm:text-lg font-bold text-gradient-primary mb-3 sm:mb-4">Weekly Progress</h4>
+                <div className="relative h-48 sm:h-64">
                   <PieChart
                     data={[weeklyProgressPerformance, 100 - weeklyProgressPerformance]}
                     colors={['#22C55E', '#E2E8F0']}
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
-                      <span className="text-3xl font-black text-gradient-primary block">{weeklyProgressPerformance}%</span>
+                      <span className="text-2xl sm:text-3xl font-black text-gradient-primary block">{weeklyProgressPerformance}%</span>
                       <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
                     </div>
                   </div>

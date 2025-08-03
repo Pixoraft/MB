@@ -210,28 +210,28 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <h1 className="page-title text-gradient-primary">Dashboard</h1>
-          <p className="text-gray-600 dark:text-gray-400">Track your overall progress and maintain your streaks</p>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">Track your overall progress and maintain your streaks</p>
         </div>
 
         {/* Top Section - Streaks and Performance */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Streak Cards */}
           <div className="card-clean">
             <h2 className="section-title flex items-center">
               🔥 Streak Tracking
             </h2>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-gradient-primary mb-2">{streak.current}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Current Streak</div>
+                <div className="text-2xl sm:text-3xl font-bold text-gradient-primary mb-1 sm:mb-2">{streak.current}</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Current Streak</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-gradient-secondary mb-2">{streak.highest}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Highest Streak</div>
+                <div className="text-2xl sm:text-3xl font-bold text-gradient-secondary mb-1 sm:mb-2">{streak.highest}</div>
+                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Highest Streak</div>
               </div>
             </div>
           </div>
@@ -239,14 +239,14 @@ export default function Dashboard() {
           {/* Today's Performance */}
           <div className="card-clean">
             <h2 className="section-title">📊 Today's Performance</h2>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
               {["Tasks", "Workout", "Mind", "Routine", "Dev"].map((category, index) => {
                 const percentage = getPerformanceScore(category);
                 return (
                   <div key={category} className="text-center">
-                    <div className="text-2xl font-bold text-gradient-primary mb-1">{percentage}%</div>
+                    <div className="text-lg sm:text-2xl font-bold text-gradient-primary mb-1">{percentage}%</div>
                     <div className="text-xs text-gray-600 dark:text-gray-400">{category}</div>
-                    <div className="progress-clean h-2 mt-2">
+                    <div className="progress-clean h-2 mt-1 sm:mt-2">
                       <div 
                         className="progress-fill h-full"
                         style={{ width: `${percentage}%` }}
@@ -260,32 +260,39 @@ export default function Dashboard() {
         </div>
 
         {/* Charts Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <div className="card-clean">
             <h2 className="section-title">Today's Progress</h2>
-            <BarChart
-              data={todayPerformanceData}
-              labels={todayPerformanceLabels}
-              colors={['#8B5DFF', '#22C55E', '#3B82F6', '#EF4444', '#F59E0B']}
-            />
+            <div className="h-64 sm:h-80">
+              <BarChart
+                data={todayPerformanceData}
+                labels={todayPerformanceLabels}
+                colors={['#8B5DFF', '#22C55E', '#3B82F6', '#EF4444', '#F59E0B']}
+              />
+            </div>
           </div>
           <div className="card-clean">
             <h2 className="section-title">Weekly Trend</h2>
-            <BarChart
-              data={weeklyData}
-              labels={weeklyLabels}
-              type="line"
-              colors={['#8B5DFF']}
-            />
+            <div className="h-64 sm:h-80">
+              <BarChart
+                data={weeklyData}
+                labels={weeklyLabels}
+                type="line"
+                colors={['#8B5DFF']}
+              />
+            </div>
           </div>
         </div>
 
         {/* Monthly Calendar */}
-        <div className="mb-8">
-          <MonthlyCalendar 
-            performanceData={calendarPerformanceData}
-            onDateClick={handleDateClick}
-          />
+        <div className="mb-6 sm:mb-8">
+          <div className="card-clean">
+            <h2 className="section-title">📅 Monthly Progress</h2>
+            <MonthlyCalendar 
+              performanceData={calendarPerformanceData}
+              onDateClick={handleDateClick}
+            />
+          </div>
         </div>
 
         {/* Development Progress */}
