@@ -38,52 +38,52 @@ export default function Workout() {
 
         // Day 2 – Pull (Back, Biceps, Forearms, Grip)
         { name: "Pull-Ups / Assisted", sets: 4, reps: "12", day: "tuesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
-        { name: "Towel Rows", sets: 3, reps: "20", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
-        { name: "Towel Bicep Curls", sets: 3, reps: "20", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
-        { name: "Reverse Curls", sets: 3, reps: "15", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
-        { name: "Gripper Fast", sets: 3, reps: "40", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
-        { name: "Farmer Hold", sets: 2, reps: "45 sec", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
-        { name: "Wrist Rolls", sets: 2, reps: "20", day: "tuesday", workoutType: "Pull", isWeekly: true, date: today, completed: false },
+        { name: "Towel Rows", sets: 3, reps: "20", day: "tuesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Towel Bicep Curls", sets: 3, reps: "20", day: "tuesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Reverse Curls", sets: 3, reps: "15", day: "tuesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Gripper Fast", sets: 3, reps: "40", day: "tuesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Farmer Hold", sets: 2, reps: "45 sec", day: "tuesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Wrist Rolls", sets: 2, reps: "20", day: "tuesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
 
         // Day 3 – Legs (Quads, Glutes, Calves)
-        { name: "Squats", sets: 4, reps: "25", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
-        { name: "Jump Squats", sets: 3, reps: "20", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
-        { name: "Lunges", sets: 3, reps: "20 steps", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
-        { name: "Calf Raises", sets: 4, reps: "30", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
-        { name: "Wall Sit", sets: 2, reps: "45 sec", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
-        { name: "Broad Jumps", sets: 2, reps: "15", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
-        { name: "High Knees", sets: 2, reps: "30", day: "wednesday", workoutType: "Legs", isWeekly: true, date: today, completed: false },
+        { name: "Squats", sets: 4, reps: "25", day: "wednesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Jump Squats", sets: 3, reps: "20", day: "wednesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Lunges", sets: 3, reps: "20 steps", day: "wednesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Calf Raises", sets: 4, reps: "30", day: "wednesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Wall Sit", sets: 2, reps: "45 sec", day: "wednesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Broad Jumps", sets: 2, reps: "15", day: "wednesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "High Knees", sets: 2, reps: "30", day: "wednesday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
 
         // Day 4 – Core + Abs (Six-Pack, Obliques, Stability)
-        { name: "Crunches", sets: 3, reps: "25", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
-        { name: "Leg Raises", sets: 3, reps: "25", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
-        { name: "Mountain Climbers", sets: 3, reps: "30", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
-        { name: "Plank", sets: 3, reps: "1 min", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
-        { name: "Side Plank", sets: 2, reps: "1 min each", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
-        { name: "V-Ups", sets: 3, reps: "20", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
-        { name: "Russian Twists", sets: 3, reps: "30", day: "thursday", workoutType: "Core", isWeekly: true, date: today, completed: false },
+        { name: "Crunches", sets: 3, reps: "25", day: "thursday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Leg Raises", sets: 3, reps: "25", day: "thursday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Mountain Climbers", sets: 3, reps: "30", day: "thursday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Plank", sets: 3, reps: "1 min", day: "thursday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Side Plank", sets: 2, reps: "1 min each", day: "thursday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "V-Ups", sets: 3, reps: "20", day: "thursday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Russian Twists", sets: 3, reps: "30", day: "thursday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
 
         // Day 5 – Power + Explosive + Grip Veins (Short, Strong)
-        { name: "Clap Pushups", sets: 3, reps: "15", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
-        { name: "Skipping", sets: 1, reps: "5 min", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
-        { name: "High Knees", sets: 3, reps: "30", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
-        { name: "Towel Bicep Curls", sets: 2, reps: "25", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
-        { name: "Wrist Rolls", sets: 2, reps: "20", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
-        { name: "Gripper Slow Squeeze", sets: 2, reps: "15", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
-        { name: "Hanging", sets: 3, reps: "1 min", day: "friday", workoutType: "Power", isWeekly: true, date: today, completed: false },
+        { name: "Clap Pushups", sets: 3, reps: "15", day: "friday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Skipping", sets: 1, reps: "5 min", day: "friday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "High Knees", sets: 3, reps: "30", day: "friday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Towel Bicep Curls", sets: 2, reps: "25", day: "friday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Wrist Rolls", sets: 2, reps: "20", day: "friday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Gripper Slow Squeeze", sets: 2, reps: "15", day: "friday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Hanging", sets: 3, reps: "1 min", day: "friday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
 
         // Day 6 – BONUS Stretch + Pump Day (Light Sculpting + Relaxing)
-        { name: "Archer Pushups", sets: 2, reps: "12", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
-        { name: "Incline Pushups", sets: 2, reps: "20", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
-        { name: "Squats", sets: 2, reps: "25", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
-        { name: "Plank", sets: 2, reps: "1 min", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
-        { name: "Neck + Spine + Toe Touch Stretch", sets: 3, reps: "30 sec", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
-        { name: "Hanging", sets: 2, reps: "1 min", day: "saturday", workoutType: "Stretch", isWeekly: true, date: today, completed: false },
+        { name: "Archer Pushups", sets: 2, reps: "12", day: "saturday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Incline Pushups", sets: 2, reps: "20", day: "saturday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Squats", sets: 2, reps: "25", day: "saturday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Plank", sets: 2, reps: "1 min", day: "saturday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Neck + Spine + Toe Touch Stretch", sets: 3, reps: "30 sec", day: "saturday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Hanging", sets: 2, reps: "1 min", day: "saturday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
 
         // Day 7 – Rest Day (Optional Light Activities)
-        { name: "Hanging", sets: 1, reps: "1 min", day: "sunday", workoutType: "Rest", isWeekly: true, date: today, completed: false },
-        { name: "Cobra Stretch", sets: 2, reps: "30 sec", day: "sunday", workoutType: "Rest", isWeekly: true, date: today, completed: false },
-        { name: "Light Walk", sets: 1, reps: "10 min", day: "sunday", workoutType: "Rest", isWeekly: true, date: today, completed: false },
+        { name: "Hanging", sets: 1, reps: "1 min", day: "sunday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Cobra Stretch", sets: 2, reps: "30 sec", day: "sunday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
+        { name: "Light Walk", sets: 1, reps: "10 min", day: "sunday", workoutType: "Full Body", isWeekly: true, date: today, completed: false },
       ];
       
       const promises = workoutRoutines.map(workout => 
@@ -261,20 +261,26 @@ export default function Workout() {
     ex.day === selectedDay && ex.workoutType === selectedWorkoutType
   );
   // Only show missed workouts from when the user started using the app
-  // Check if user has any completed workouts to determine app start date
-  const hasCompletedWorkouts = weeklyExercises.some((ex: Exercise) => ex.completed);
-  const firstWorkoutDate = hasCompletedWorkouts 
-    ? weeklyExercises
+  // Check if user has any completed workouts or routine items to determine app start date
+  const allExercises = [...weeklyExercises, ...dailyExercises];
+  const hasAnyCompletedExercises = allExercises.some((ex: Exercise) => ex.completed);
+  
+  // If no completed exercises, use today as start date (first time user)
+  const appStartDate = hasAnyCompletedExercises 
+    ? allExercises
         .filter((ex: Exercise) => ex.completed)
         .sort((a: Exercise, b: Exercise) => new Date(a.date).getTime() - new Date(b.date).getTime())[0]?.date
     : today;
   
+  // Only show missed exercises from the app start date onwards
   const missedExercises = weeklyExercises.filter((ex: Exercise) => {
+    if (ex.day === getCurrentDayName() || ex.completed) return false;
+    
     const exerciseDate = new Date(ex.date);
-    const startDate = new Date(firstWorkoutDate);
-    return ex.day !== getCurrentDayName() && 
-           !ex.completed && 
-           exerciseDate >= startDate;
+    const startDate = new Date(appStartDate);
+    
+    // Only show missed if exercise date is after or equal to when user started using app
+    return exerciseDate >= startDate;
   });
 
   const handleExerciseToggle = (exercise: Exercise) => {
