@@ -212,16 +212,15 @@ export default function MindWorkout() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h2 className="text-5xl font-black text-gradient-primary mb-4">Mind Workout</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Structured mental exercises to enhance cognitive performance with beautiful insights</p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+          <h2 className="text-4xl font-bold mb-4">Mind Workout</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Structured mental exercises to enhance cognitive performance</p>
         </div>
 
         {/* Mind Exercise Completion Chart */}
         <Card className="premium-card relative overflow-hidden mb-12">
           <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full"></div>
           <CardHeader>
-            <CardTitle className="text-2xl text-gradient-primary">🧠 Mind Exercise Completion</CardTitle>
+            <CardTitle className="text-xl font-semibold">🧠 Mind Exercise Completion</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">

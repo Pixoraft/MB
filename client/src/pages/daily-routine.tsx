@@ -36,13 +36,21 @@ export default function DailyRoutine() {
     },
   });
 
-  const { data: weeklyRoutines = [] } = useQuery({
+  // Get current day for weekly filtering
+  const currentDay = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+  
+  const { data: allWeeklyRoutines = [] } = useQuery({
     queryKey: ["/api/routine-items", "weekly"],
     queryFn: async () => {
       const response = await fetch("/api/routine-items?type=weekly");
       return response.json();
     },
   });
+  
+  // Filter weekly routines to show only current day tasks
+  const weeklyRoutines = allWeeklyRoutines.filter((r: RoutineItem) => 
+    r.days && r.days.includes(currentDay as any)
+  );
 
   // Initialize skincare routine
   const initializeSkincareRoutine = useMutation({
@@ -283,19 +291,17 @@ export default function DailyRoutine() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h2 className="text-5xl font-black text-gradient-primary mb-4">Daily Routine</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Manage your morning, night, and weekly routines including skincare, haircare & hygiene with beautiful insights
+          <h2 className="text-4xl font-bold mb-4">Daily Routine</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Manage your morning, night, and weekly routines including skincare, haircare & hygiene
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
         </div>
 
         {/* Skincare & Diet Tips Section */}
-        <Card className="premium-card relative overflow-hidden mb-12">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full"></div>
+        <Card className="premium-card mb-12">
           <CardHeader>
-            <CardTitle className="text-2xl text-gradient-primary flex items-center space-x-3">
-              <span className="text-3xl">✨</span>
+            <CardTitle className="text-xl font-semibold flex items-center space-x-3">
+              <span className="text-2xl">✨</span>
               <span>Skincare & Health Tips</span>
             </CardTitle>
           </CardHeader>
