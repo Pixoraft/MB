@@ -454,12 +454,109 @@ export default function DevTracker() {
     return goalDateObj.getMonth() === currentMonth && goalDateObj.getFullYear() === currentYear;
   });
 
-  // Calculate progress percentages
+  // Fetch daily performance data for progress calculation
+  const { data: tasks = [] } = useQuery({
+    queryKey: ["/api/tasks", format(new Date(), 'yyyy-MM-dd')],
+    queryFn: async () => {
+      const response = await fetch(`/api/tasks?date=${format(new Date(), 'yyyy-MM-dd')}`);
+      return response.json();
+    },
+  });
+
+  const { data: dailyExercises = [] } = useQuery({
+    queryKey: ["/api/exercises", format(new Date(), 'yyyy-MM-dd'), false],
+    queryFn: async () => {
+      const response = await fetch(`/api/exercises?date=${format(new Date(), 'yyyy-MM-dd')}&isWeekly=false`);
+      return response.json();
+    },
+  });
+
+  const { data: weeklyExercises = [] } = useQuery({
+    queryKey: ["/api/exercises", "weekly"],
+    queryFn: async () => {
+      const response = await fetch("/api/exercises?isWeekly=true");
+      return response.json();
+    },
+  });
+
+  const { data: mindActivities = [] } = useQuery({
+    queryKey: ["/api/mind-activities", format(new Date(), 'yyyy-MM-dd')],
+    queryFn: async () => {
+      const response = await fetch(`/api/mind-activities?date=${format(new Date(), 'yyyy-MM-dd')}`);
+      return response.json();
+    },
+  });
+
+  const { data: routineItems = [] } = useQuery({
+    queryKey: ["/api/routine-items", format(new Date(), 'yyyy-MM-dd')],
+    queryFn: async () => {
+      const response = await fetch(`/api/routine-items?date=${format(new Date(), 'yyyy-MM-dd')}`);
+      return response.json();
+    },
+  });
+
+  // Calculate daily performance metrics
+  const calculateDailyPerformance = () => {
+    const completedTasks = tasks.filter((task: any) => task.completed).length;
+    const taskPerformance = calculatePerformance(completedTasks, tasks.length);
+
+    // Combine daily and today's weekly exercises
+    const getCurrentDayName = () => {
+      const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+      return days[new Date().getDay()];
+    };
+    
+    const currentDayName = getCurrentDayName();
+    const todayWeeklyExercises = weeklyExercises.filter((ex: any) => ex.day === currentDayName);
+    const allTodayExercises = [...dailyExercises, ...todayWeeklyExercises];
+    
+    const completedExercises = allTodayExercises.filter((ex: any) => ex.completed).length;
+    const workoutPerformance = calculatePerformance(completedExercises, allTodayExercises.length);
+
+    // Handle mindset performance with default activities
+    const getStoredMindActivityStates = () => {
+      const stored = localStorage.getItem(`mindActivityStates_${format(new Date(), 'yyyy-MM-dd')}`);
+      return stored ? JSON.parse(stored) : {};
+    };
+
+    const defaultMindActivities = [
+      { id: "default-1", name: "Morning Reflection & Goal Setting", time: "08:00", completed: false },
+      { id: "default-2", name: "Creative Problem Solving Session", time: "11:00", completed: false },
+      { id: "default-3", name: "Afternoon Mindfulness Break", time: "15:00", completed: false },
+      { id: "default-4", name: "Learning & Skill Development", time: "18:00", completed: false },
+      { id: "default-5", name: "Evening Reflection & Tomorrow Planning", time: "21:00", completed: false }
+    ];
+
+    const displayMindActivities = mindActivities.length > 0 ? mindActivities : 
+      defaultMindActivities.map(activity => ({
+        ...activity,
+        completed: getStoredMindActivityStates()[activity.id] || false
+      }));
+
+    const completedMindActivities = displayMindActivities.filter((act: any) => act.completed).length;
+    const mindPerformance = calculatePerformance(completedMindActivities, displayMindActivities.length);
+
+    const completedRoutines = routineItems.filter((item: any) => item.completed).length;
+    const routinePerformance = calculatePerformance(completedRoutines, routineItems.length);
+
+    // Average of all daily performance metrics
+    const dailyMetrics = [taskPerformance, workoutPerformance, mindPerformance, routinePerformance];
+    const validMetrics = dailyMetrics.filter(metric => !isNaN(metric) && metric >= 0);
+    return validMetrics.length > 0 ? Math.round(validMetrics.reduce((a, b) => a + b, 0) / validMetrics.length) : 0;
+  };
+
+  const dailyPerformanceScore = calculateDailyPerformance();
+
+  // Calculate progress based on daily performance AND goal completion
   const completedWeeklyGoals = currentWeeklyGoals.filter((goal: Goal) => goal.completed).length;
-  const weeklyProgress = calculatePerformance(completedWeeklyGoals, currentWeeklyGoals.length);
+  const weeklyGoalCompletion = calculatePerformance(completedWeeklyGoals, currentWeeklyGoals.length);
+  // Combine goal completion (70%) with daily performance (30%) for weekly progress
+  const weeklyProgress = Math.round((weeklyGoalCompletion * 0.7) + (dailyPerformanceScore * 0.3));
 
   const completedMonthlyGoals = currentMonthlyGoals.filter((goal: Goal) => goal.completed).length;
-  const monthlyProgress = calculatePerformance(completedMonthlyGoals, currentMonthlyGoals.length);
+  const monthlyGoalCompletion = calculatePerformance(completedMonthlyGoals, currentMonthlyGoals.length);
+  // Combine goal completion (70%) with daily performance (30%) for monthly progress
+  const monthlyProgress = Math.round((monthlyGoalCompletion * 0.7) + (dailyPerformanceScore * 0.3));
 
   const yearlyGoalProgress = yearlyGoals.length > 0 ? yearlyGoals[0].progress : 0;
 
@@ -622,6 +719,19 @@ export default function DevTracker() {
           <h2 className="text-5xl font-black text-gradient-primary mb-4">Dev Tracker</h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Track your development goals from weekly to yearly objectives with beautiful insights</p>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-6"></div>
+          
+          {/* Daily Performance Score */}
+          <div className="mt-8 max-w-md mx-auto">
+            <div className="premium-card p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+              <div className="text-center">
+                <div className="text-4xl font-black text-gradient-primary mb-2">{dailyPerformanceScore}%</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Today's Performance Impact</div>
+                <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                  (Tasks + Workouts + Mind + Routines)
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Goal Sections */}
