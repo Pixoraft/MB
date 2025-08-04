@@ -74,83 +74,8 @@ export const initializeSampleData = () => {
     });
   }
   
-  // Initialize routine items if none exist
-  if (existingRoutines.length === 0) {
-    // Morning routine
-    const today = new Date().toISOString().split('T')[0];
-    
-    OfflineStorage.createRoutineItem({
-      name: "🍋 Lemon & Honey Detox Drink",
-      time: "06:00",
-      duration: 5,
-      type: "morning",
-      date: today,
-      completed: false,
-      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-    });
-    
-    OfflineStorage.createRoutineItem({
-      name: "🧊 Ice Cube Face Treatment",
-      time: "06:15",
-      duration: 3,
-      type: "morning",
-      date: today,
-      completed: false,
-      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-    });
-    
-    OfflineStorage.createRoutineItem({
-      name: "🧼 Face Wash (Gentle Cleanser)",
-      time: "06:20",
-      duration: 5,
-      type: "morning",
-      date: today,
-      completed: false, 
-      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-    });
-    
-    // Evening routine
-    OfflineStorage.createRoutineItem({
-      name: "🧼 Evening Face & Body Cleansing",
-      time: "21:00",
-      duration: 10,
-      type: "night",
-      date: today,
-      completed: false,
-      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] 
-    });
-    
-    OfflineStorage.createRoutineItem({
-      name: "💧 Face Serum (Vitamin C/Niacinamide)",
-      time: "21:10",
-      duration: 5,
-      type: "night",
-      date: today,
-      completed: false,
-      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-    });
-    
-    // Weekly routine
-    OfflineStorage.createRoutineItem({
-      name: "👄 Lip Scrub (Honey + Sugar)",
-      time: "10:00",
-      duration: 10,
-      type: "weekly",
-      date: today,
-      completed: false,
-      days: ["sunday"]
-    });
-    
-    OfflineStorage.createRoutineItem({
-      name: "💆‍♀️ Hair Oil Massage", 
-      time: "19:00",
-      duration: 20,
-      type: "weekly",
-      date: today,
-      completed: false,
-      days: ["saturday"]
-    });
-  }
+  // Note: Routine initialization removed - server handles all skincare routine data
+  // Client-side routine initialization disabled to prevent duplicates
   
   console.log('✅ Sample data initialized for offline use');
 };

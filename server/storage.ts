@@ -77,6 +77,7 @@ export class MemStorage implements IStorage {
   private goals: Map<string, Goal> = new Map();
   private performance: Map<string, Performance> = new Map();
   private streak: Streak = { id: "default", current: 0, highest: 0 };
+  private initialized: boolean = false;
 
   // Tasks
   async getTasks(date?: string): Promise<Task[]> {
@@ -337,6 +338,12 @@ export const clearAllData = async () => {
 
 // Initialize sample data
 export const initializeSampleData = async () => {
+  // Check if already initialized to prevent duplicates
+  if ((storage as any).initialized) {
+    console.log('⏭️ Sample data already initialized, skipping...');
+    return;
+  }
+  
   const today = new Date().toISOString().split('T')[0];
   
   // Clear existing data first to prevent duplicates
@@ -643,5 +650,7 @@ export const initializeSampleData = async () => {
       days: ["wednesday", "saturday"]
     });
   
+  // Mark as initialized to prevent re-initialization
+  (storage as any).initialized = true;
   console.log('✅ Server sample data initialized');
 };
