@@ -311,18 +311,41 @@ export class MemStorage implements IStorage {
 
 export const storage = new MemStorage();
 
+// Clear existing data to prevent duplicates
+export const clearAllData = async () => {
+  const allTasks = await storage.getTasks();
+  const allExercises = await storage.getExercises();
+  const allGoals = await storage.getGoals();
+  const allRoutines = await storage.getRoutineItems();
+  
+  // Clear all existing data
+  for (const task of allTasks) {
+    await storage.deleteTask(task.id);
+  }
+  for (const exercise of allExercises) {
+    await storage.deleteExercise(exercise.id);
+  }
+  for (const goal of allGoals) {
+    await storage.deleteGoal(goal.id);
+  }
+  for (const routine of allRoutines) {
+    await storage.deleteRoutineItem(routine.id);
+  }
+  
+  console.log('✅ All existing data cleared');
+};
+
 // Initialize sample data
 export const initializeSampleData = async () => {
   const today = new Date().toISOString().split('T')[0];
   
-  // Check if data already exists
-  const existingTasks = await storage.getTasks();
-  const existingExercises = await storage.getExercises();
-  const existingGoals = await storage.getGoals();
-  const existingRoutines = await storage.getRoutineItems();
+  // Clear existing data first to prevent duplicates
+  await clearAllData();
   
-  // Initialize sample tasks if none exist
-  if (existingTasks.length === 0) {
+  console.log('🚀 Initializing fresh sample data...');
+  
+  // Initialize sample tasks
+  console.log('📝 Creating sample tasks...');
     await storage.createTask({
       title: "Review daily goals",
       description: "Check and update today's priorities",
@@ -352,10 +375,9 @@ export const initializeSampleData = async () => {
       time: "18:00",
       duration: 45
     });
-  }
   
-  // Initialize sample exercises if none exist
-  if (existingExercises.length === 0) {
+  // Initialize sample exercises
+  console.log('💪 Creating sample exercises...');
     // Daily exercises
     await storage.createExercise({
       name: "Morning Yoga",
@@ -417,10 +439,9 @@ export const initializeSampleData = async () => {
       isWeekly: true,
       completed: false
     });
-  }
   
-  // Initialize sample goals if none exist
-  if (existingGoals.length === 0) {
+  // Initialize sample goals
+  console.log('🎯 Creating sample goals...');
     await storage.createGoal({
       title: "2025: Hit ₹60K/month as Full-Stack Developer",
       description: "Master modern web development stack and land high-paying remote opportunities",
@@ -465,10 +486,9 @@ export const initializeSampleData = async () => {
       completed: false,
       progress: 0
     });
-  }
   
-  // Initialize sample routine items if none exist
-  if (existingRoutines.length === 0) {
+  // Initialize sample routine items  
+  console.log('📅 Creating sample routine items...');
     // Morning routine
     await storage.createRoutineItem({
       name: "🍋 Lemon & Honey Detox Drink",
@@ -561,7 +581,6 @@ export const initializeSampleData = async () => {
       completed: false,
       days: ["sunday"]
     });
-  }
   
   console.log('✅ Server sample data initialized');
 };

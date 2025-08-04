@@ -350,29 +350,15 @@ export default function DevTracker() {
     },
   });
 
-  // Initialize goals only once
-  const [hasInitialized, setHasInitialized] = useState(() => {
-    // Reset localStorage flag to force reinitialization with correct dates
-    localStorage.removeItem('devGoalsInitialized');
-    return false;
-  });
-  
+  // Note: Server-side initialization now handles sample data, so client-side initialization is disabled
+  // Cleanup duplicates if they exist (more than 10 total)
   useEffect(() => {
     const totalGoals = weeklyGoals.length + monthlyGoals.length + yearlyGoals.length;
     
-    // If we have goals but they seem like duplicates (more than 16 total), clean them first
-    if (totalGoals > 20) {
+    if (totalGoals > 10) {
       clearDuplicateGoals.mutate();
-      return;
     }
-    
-    // Only initialize if no goals exist and we haven't already initialized
-    if (totalGoals === 0 && !hasInitialized && !initializeDevGoals.isPending) {
-      setHasInitialized(true);
-      localStorage.setItem('devGoalsInitialized', 'true');
-      initializeDevGoals.mutate();
-    }
-  }, [weeklyGoals.length, monthlyGoals.length, yearlyGoals.length, hasInitialized]);
+  }, [weeklyGoals.length, monthlyGoals.length, yearlyGoals.length]);
 
   // Clear all goals mutation
   const clearAllGoals = useMutation({
@@ -396,8 +382,7 @@ export default function DevTracker() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/goals"] });
       localStorage.removeItem('devGoalsInitialized');
-      setHasInitialized(false);
-      toast({ title: "All goals cleared! Reinitializing..." });
+      toast({ title: "All goals cleared!" });
     },
     onError: () => {
       toast({ title: "Failed to clear goals", variant: "destructive" });

@@ -92,18 +92,7 @@ export default function DailyRoutine() {
     },
   });
 
-  // Initialize skincare routine only once
-  const [hasInitialized, setHasInitialized] = useState(false);
-  
-  useEffect(() => {
-    // Only initialize if no routines exist at all and we haven't already initialized
-    const totalItems = morningRoutines.length + nightRoutines.length + allWeeklyRoutines.length;
-    
-    if (totalItems === 0 && !hasInitialized && !initializeSkincareRoutine.isPending) {
-      setHasInitialized(true);
-      initializeSkincareRoutine.mutate();
-    }
-  }, [morningRoutines.length, nightRoutines.length, allWeeklyRoutines.length, hasInitialized]);
+  // Note: Server-side initialization now handles sample data, so client-side initialization is disabled
 
   // Create routine mutation
   const createRoutineMutation = useMutation({
