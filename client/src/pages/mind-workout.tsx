@@ -264,13 +264,13 @@ export default function MindWorkout() {
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-5xl font-black text-gradient-secondary mb-4">{displayCompletionRate}%</div>
-                <div className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-6">Daily Completion Rate</div>
-                <div className="premium-card p-4 inline-block">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-gradient-secondary mb-3 sm:mb-4">{displayCompletionRate}%</div>
+                <div className="text-sm sm:text-base lg:text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4 sm:mb-6">Daily Completion Rate</div>
+                <div className="premium-card p-3 sm:p-4 inline-block">
                   <div className="text-sm text-gray-600 dark:text-gray-400">
-                    <span className="text-2xl font-bold text-gradient-primary">{completedCount}</span>
-                    <span className="mx-2 text-gray-400">/</span>
-                    <span className="text-2xl font-bold text-gradient-secondary">{displayActivities.length}</span>
+                    <span className="text-lg sm:text-xl lg:text-2xl font-bold text-gradient-primary">{completedCount}</span>
+                    <span className="mx-1 sm:mx-2 text-gray-400">/</span>
+                    <span className="text-lg sm:text-xl lg:text-2xl font-bold text-gradient-secondary">{displayActivities.length}</span>
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">exercises completed</div>
                 </div>
@@ -281,20 +281,20 @@ export default function MindWorkout() {
 
         {/* Structured Schedule */}
         <Card className="premium-card relative overflow-hidden">
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-accent/5 to-transparent rounded-tr-full"></div>
+          <div className="absolute bottom-0 left-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-gradient-to-tr from-accent/5 to-transparent rounded-tr-full"></div>
           <CardHeader>
-            <CardTitle className="text-2xl text-gradient-primary">🕐 Daily Mind Schedule</CardTitle>
+            <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gradient-primary">🕐 Daily Mind Schedule</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {displayActivities.map((activity: any) => (
                 <div
                   key={activity.id}
-                  className="mind-activity premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                  className="mind-activity premium-card p-3 sm:p-4 lg:p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="flex items-center justify-between relative z-10">
-                    <div className="flex items-center space-x-6 flex-1">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 lg:gap-6 relative z-10">
+                    <div className="flex items-start space-x-3 sm:space-x-4 flex-1 w-full">
                       <Checkbox
                         checked={activity.completed}
                         onCheckedChange={() => {
@@ -304,27 +304,29 @@ export default function MindWorkout() {
                             handleDefaultActivityToggle(activity.id);
                           }
                         }}
-                        className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
+                        className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent mt-1 sm:mt-0"
                       />
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-4 mb-3">
-                          <div className="bg-gradient-to-r from-primary to-accent text-white text-sm font-bold px-4 py-2 rounded-xl shadow-lg">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-2 sm:mb-3">
+                          <div className="bg-gradient-to-r from-primary to-accent text-white text-xs sm:text-sm font-bold px-2 py-1 sm:px-3 sm:py-1.5 lg:px-4 lg:py-2 rounded-lg sm:rounded-xl shadow-lg">
                             ⏰ {activity.time}
                           </div>
-                          <div className={`text-lg font-semibold ${activity.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors`}>
+                          <div className={`text-sm sm:text-base lg:text-lg font-semibold ${activity.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors`}>
                             {activity.name}
                           </div>
                         </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400 mb-3 font-medium">
+                        <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 sm:mb-3 font-medium">
                           📝 {activity.description}
                         </div>
-                        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 text-purple-700 dark:text-purple-300 text-xs font-semibold px-3 py-2 rounded-lg inline-block border border-purple-200/50 dark:border-purple-700/50">
+                        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 text-purple-700 dark:text-purple-300 text-xs font-semibold px-2 py-1 sm:px-3 sm:py-2 rounded-lg inline-block border border-purple-200/50 dark:border-purple-700/50">
                           🤖 {activity.chatgptRole}
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      {getStatusBadge(activity.status)}
+                    <div className="flex items-center space-x-2 sm:space-x-3 self-end sm:self-center">
+                      <div className="text-xs sm:text-sm">
+                        {getStatusBadge(activity.status)}
+                      </div>
                       <ThreeDotMenu
                         onEdit={() => {
                           if (mindActivities.length > 0) {

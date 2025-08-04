@@ -362,19 +362,19 @@ export default function DailyRoutine() {
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-5xl font-black text-gradient-secondary mb-4">{overallCompletionRate}%</div>
-                <div className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-8">Overall Completion Rate</div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="premium-card p-4">
-                    <div className="text-2xl font-black text-gradient-primary mb-1">{morningCompletionRate}%</div>
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-gradient-secondary mb-3 sm:mb-4">{overallCompletionRate}%</div>
+                <div className="text-sm sm:text-base lg:text-lg font-semibold text-gray-700 dark:text-gray-300 mb-6 sm:mb-8">Overall Completion Rate</div>
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
+                  <div className="premium-card p-2 sm:p-3 lg:p-4">
+                    <div className="text-lg sm:text-xl lg:text-2xl font-black text-gradient-primary mb-1">{morningCompletionRate}%</div>
                     <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">☀️ Morning</div>
                   </div>
-                  <div className="premium-card p-4">
-                    <div className="text-2xl font-black text-gradient-secondary mb-1">{nightCompletionRate}%</div>
+                  <div className="premium-card p-2 sm:p-3 lg:p-4">
+                    <div className="text-lg sm:text-xl lg:text-2xl font-black text-gradient-secondary mb-1">{nightCompletionRate}%</div>
                     <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">🌙 Night</div>
                   </div>
-                  <div className="premium-card p-4">
-                    <div className="text-2xl font-black text-gradient-primary mb-1">{weeklyCompletionRate}%</div>
+                  <div className="premium-card p-2 sm:p-3 lg:p-4">
+                    <div className="text-lg sm:text-xl lg:text-2xl font-black text-gradient-primary mb-1">{weeklyCompletionRate}%</div>
                     <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">📆 Weekly</div>
                   </div>
                 </div>
