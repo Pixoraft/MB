@@ -11,6 +11,21 @@ Integration preference: Add new features to existing pages rather than creating 
 
 ## Recent Changes
 
+### August 4, 2025 - Critical Production Deployment Fix
+- **Fixed API Routes 404 Error on Render**: Modified production static file serving to preserve API routes
+  - Issue: Static file serving was catching ALL routes including `/api/*` and serving index.html instead
+  - Solution: Updated server/index.ts to only serve SPA fallback for non-API routes
+  - Result: API endpoints now work correctly in production deployment on Render
+- **Implemented User's Exact 7-Day Workout Plan**: Replaced generic exercises with complete fitness routine
+  - Day 1 Push: Normal Push-Ups (4×25), Incline Push-Ups (3×25), Pike Push-Ups (3×15), Diamond Push-Ups (2×15), Bench Dips (3×25), Russian Twists (3×30), Plank (5min)
+  - Day 2 Pull: Pull-Ups/Assisted (4×12), Towel Rows (3×20), Towel Bicep Curls (3×20), Reverse Curls (3×15), Gripper Fast (3×40), Farmer Hold (2×45sec), Wrist Rolls (2×20)
+  - Day 3 Legs: Squats (4×25), Jump Squats (3×20), Lunges (3×20 steps), Calf Raises (4×30), Wall Sit (2×45sec), Broad Jumps (2×15), High Knees (2×30)
+  - Day 4 Core: Crunches (3×25), Leg Raises (3×25), Mountain Climbers (3×30), Plank (3×1min), Side Plank (2×1min each), V-Ups (3×20), Russian Twists (3×30)
+  - Day 5 Power: Clap Pushups (3×15), Skipping (5min), High Knees (3×30), Towel Bicep Curls (2×25), Wrist Rolls (2×20), Gripper Slow Squeeze (2×15), Hanging (3×1min)
+  - Day 6 Stretch: Archer Pushups (2×12), Incline Pushups Light (2×20), Squats Light (2×25), Plank Stretch (2×1min), Neck+Spine+Toe Touch Stretch (3×30sec), Hanging Stretch (2×1min)
+  - Day 7 Rest: Hanging Rest (1×1min), Cobra Stretch (2×30sec), Light Walk (10min) - all optional
+- **Eliminated Routine Duplicates**: Completely disabled client-side routine initialization to prevent duplicates
+
 ### August 3, 2025 - Major Performance & Goal Tracking Fixes
 - **Fixed Workout Pie Charts**: Now correctly count only exercises scheduled for today instead of all exercises
   - Daily exercises pie chart shows today's daily exercises completion

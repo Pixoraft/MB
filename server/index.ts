@@ -53,7 +53,30 @@ app.use((req, res, next) => {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    serveStatic(app);
+    // Custom static serving that preserves API routes
+    const path = await import("path");
+    const fs = await import("fs");
+    const distPath = path.resolve(import.meta.dirname, "public");
+    
+    if (!fs.existsSync(distPath)) {
+      throw new Error(
+        `Could not find the build directory: ${distPath}, make sure to build the client first`,
+      );
+    }
+    
+    // Serve static files
+    app.use(express.static(distPath));
+    
+    // SPA fallback - ONLY for non-API routes
+    app.get("*", (req, res, next) => {
+      // Skip API routes - let them 404 properly if not found
+      if (req.path.startsWith('/api/')) {
+        return next();
+      }
+      
+      // Serve SPA for all other routes
+      res.sendFile(path.resolve(distPath, "index.html"));
+    });
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
