@@ -28,6 +28,12 @@ export function TaskModal({ open, onOpenChange, onSave, task }: TaskModalProps) 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Basic validation on frontend
+    if (!formData.title.trim()) {
+      return; // Don't submit if title is empty
+    }
+    
     onSave(formData);
     onOpenChange(false);
     // Reset form

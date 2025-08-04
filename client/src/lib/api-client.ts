@@ -31,11 +31,21 @@ export class ApiClient {
       });
 
       if (!response.ok) {
+        // For validation errors (400), parse the error message and throw it
+        if (response.status === 400) {
+          const errorData = await response.json();
+          throw new Error(errorData.details || errorData.message || 'Validation error');
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       return await response.json();
     } catch (error) {
+      // Re-throw validation errors instead of going offline
+      if (error instanceof Error && error.message !== 'OFFLINE' && error.message.includes('Validation') || error instanceof Error && error.message.includes('required')) {
+        throw error;
+      }
+      
       // If offline or network error, use local storage
       console.log('API request failed, using offline storage:', error);
       throw new Error('OFFLINE');
@@ -64,6 +74,10 @@ export class ApiClient {
     try {
       return await this.request<Task>('POST', '/api/tasks', task);
     } catch (error) {
+      // Re-throw validation errors instead of going offline
+      if (error instanceof Error && (error.message.includes('required') || error.message.includes('Validation'))) {
+        throw error;
+      }
       return OfflineStorage.createTask(task);
     }
   }

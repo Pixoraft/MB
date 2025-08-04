@@ -47,8 +47,13 @@ export default function DailyTask() {
       queryClient.invalidateQueries({ queryKey: ["/api/tasks"] });
       toast({ title: "Task created successfully!" });
     },
-    onError: () => {
-      toast({ title: "Failed to create task", variant: "destructive" });
+    onError: (error) => {
+      const errorMessage = error instanceof Error ? error.message : "Failed to create task";
+      toast({ 
+        title: "Failed to create task", 
+        description: errorMessage,
+        variant: "destructive" 
+      });
     },
   });
 
