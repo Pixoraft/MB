@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { storage, initializeSampleData } from "./storage";
 import { 
   insertTaskSchema, 
   insertWaterIntakeSchema,
@@ -311,5 +311,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   const httpServer = createServer(app);
+  
+  // Initialize sample data on server startup
+  initializeSampleData().catch(console.error);
+  
   return httpServer;
 }
