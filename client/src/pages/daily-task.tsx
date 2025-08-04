@@ -29,7 +29,7 @@ export default function DailyTask() {
   });
 
   // Fetch water intake for today
-  const { data: waterIntake } = useQuery({
+  const { data: waterIntake = { date: today, amount: 0, goal: 2400 } } = useQuery({
     queryKey: ["/api/water-intake", today],
     queryFn: async () => {
       const response = await fetch(`/api/water-intake?date=${today}`);
@@ -81,6 +81,24 @@ export default function DailyTask() {
     },
   });
 
+  // Water intake mutation
+  const updateWaterMutation = useMutation({
+    mutationFn: async (amount: number) => {
+      const response = await apiRequest("POST", "/api/water-intake", {
+        date: today,
+        amount,
+        goal: waterIntake.goal || 2400
+      });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/water-intake"] });
+    },
+    onError: () => {
+      toast({ title: "Failed to update water intake", variant: "destructive" });
+    },
+  });
+
   // Update streak mutation
   const updateStreakMutation = useMutation({
     mutationFn: async (updates: { current: number; highest: number }) => {
@@ -102,6 +120,20 @@ export default function DailyTask() {
   const waterPercentage = waterIntake 
     ? calculatePerformance(waterIntake.amount, waterIntake.goal)
     : 0;
+
+  // Water tracking functions
+  const addWater = (ml: number) => {
+    const newAmount = (waterIntake?.amount || 0) + ml;
+    updateWaterMutation.mutate(newAmount);
+  };
+
+  const removeWater = (ml: number) => {
+    const newAmount = Math.max(0, (waterIntake?.amount || 0) - ml);
+    updateWaterMutation.mutate(newAmount);
+  };
+
+  const glassesConsumed = Math.floor((waterIntake?.amount || 0) / 250); // 250ml per glass
+  const totalGlasses = Math.ceil((waterIntake?.goal || 2400) / 250);
 
   const handleTaskToggle = (task: Task) => {
     updateTaskMutation.mutate({
@@ -212,6 +244,121 @@ export default function DailyTask() {
                 of {waterIntake?.goal || 2400}ml
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Water Tracker */}
+        <div className="card-clean mb-6 sm:mb-8">
+          <h2 className="section-title">💧 Water Tracker</h2>
+          
+          {/* Current Status */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 mb-6">
+            <div className="text-center sm:text-left">
+              <div className="text-2xl sm:text-3xl font-bold text-gradient-secondary mb-2">
+                {waterIntake?.amount || 0}ml / {waterIntake?.goal || 2400}ml
+              </div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                {glassesConsumed} of {totalGlasses} glasses (250ml each)
+              </div>
+            </div>
+            
+            {/* Progress Bar */}
+            <div className="w-full sm:w-64">
+              <div className="bg-gray-200 dark:bg-gray-700 rounded-full h-3 sm:h-4 overflow-hidden">
+                <div 
+                  className="bg-gradient-to-r from-blue-400 to-cyan-500 h-full transition-all duration-500 ease-out"
+                  style={{ width: `${Math.min(100, waterPercentage)}%` }}
+                ></div>
+              </div>
+              <div className="text-xs text-center mt-1 text-gray-500">
+                {waterPercentage >= 100 ? "🎉 Goal Reached!" : `${100 - waterPercentage}% to go`}
+              </div>
+            </div>
+          </div>
+
+          {/* Glass Visualization */}
+          <div className="flex flex-wrap justify-center items-center gap-2 mb-6">
+            {Array.from({ length: totalGlasses }, (_, i) => (
+              <div
+                key={i}
+                className={`w-8 h-10 sm:w-10 sm:h-12 border-2 rounded-b-lg flex items-end justify-center text-xs font-bold transition-all duration-300 ${
+                  i < glassesConsumed
+                    ? 'border-blue-400 bg-gradient-to-t from-blue-200 to-blue-100 dark:from-blue-600 dark:to-blue-400 text-blue-700'
+                    : 'border-gray-300 dark:border-gray-600 bg-transparent text-gray-400'
+                }`}
+              >
+                {i < glassesConsumed ? '💧' : ''}
+              </div>
+            ))}
+          </div>
+
+          {/* Quick Add Buttons */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-4">
+            <button
+              onClick={() => addWater(250)}
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold px-3 py-2 sm:px-4 sm:py-3 rounded-lg shadow-lg transition-all duration-200 text-xs sm:text-sm"
+              disabled={updateWaterMutation.isPending}
+            >
+              +1 Glass
+              <div className="text-xs opacity-80">(250ml)</div>
+            </button>
+            
+            <button
+              onClick={() => addWater(500)}
+              className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold px-3 py-2 sm:px-4 sm:py-3 rounded-lg shadow-lg transition-all duration-200 text-xs sm:text-sm"
+              disabled={updateWaterMutation.isPending}
+            >
+              +1 Bottle
+              <div className="text-xs opacity-80">(500ml)</div>
+            </button>
+            
+            <button
+              onClick={() => addWater(1000)}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold px-3 py-2 sm:px-4 sm:py-3 rounded-lg shadow-lg transition-all duration-200 text-xs sm:text-sm"
+              disabled={updateWaterMutation.isPending}
+            >
+              +Big Bottle
+              <div className="text-xs opacity-80">(1000ml)</div>
+            </button>
+            
+            <button
+              onClick={() => removeWater(250)}
+              className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-semibold px-3 py-2 sm:px-4 sm:py-3 rounded-lg shadow-lg transition-all duration-200 text-xs sm:text-sm"
+              disabled={updateWaterMutation.isPending || (waterIntake?.amount || 0) === 0}
+            >
+              -1 Glass
+              <div className="text-xs opacity-80">(250ml)</div>
+            </button>
+          </div>
+
+          {/* Motivational Messages */}
+          <div className="text-center">
+            {waterPercentage >= 100 && (
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-700/50 rounded-lg p-3 sm:p-4">
+                <div className="text-green-700 dark:text-green-300 font-semibold text-sm sm:text-base">
+                  🎉 Excellent! You've reached your daily water goal!
+                </div>
+                <div className="text-green-600 dark:text-green-400 text-xs sm:text-sm mt-1">
+                  Great job staying hydrated! Your body thanks you.
+                </div>
+              </div>
+            )}
+            
+            {waterPercentage >= 75 && waterPercentage < 100 && (
+              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-blue-700/50 rounded-lg p-3 sm:p-4">
+                <div className="text-blue-700 dark:text-blue-300 font-semibold text-sm sm:text-base">
+                  💪 Almost there! Just {(waterIntake?.goal || 2400) - (waterIntake?.amount || 0)}ml to go!
+                </div>
+              </div>
+            )}
+            
+            {waterPercentage < 50 && (
+              <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-700/50 rounded-lg p-3 sm:p-4">
+                <div className="text-yellow-700 dark:text-yellow-300 font-semibold text-sm sm:text-base">
+                  💧 Stay hydrated! Remember to drink water regularly throughout the day.
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
