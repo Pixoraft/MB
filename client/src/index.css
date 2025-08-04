@@ -158,7 +158,7 @@
 
   /* Floating Button */
   .floating-btn-clean {
-    @apply fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all z-50;
+    @apply fixed bottom-20 right-4 sm:bottom-6 sm:right-6 bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white rounded-full w-12 h-12 sm:w-14 sm:h-14 shadow-lg hover:shadow-xl transition-all z-50 flex items-center justify-center;
   }
 
   /* Performance Bars */
@@ -197,7 +197,7 @@
     }
 
     .floating-btn-clean {
-      @apply bottom-4 right-4 p-3;
+      @apply bottom-20 right-3 w-12 h-12;
     }
 
     .nav-link-clean {

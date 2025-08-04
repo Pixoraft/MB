@@ -322,32 +322,32 @@ export default function Workout() {
             <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gradient-primary">🏋️‍♂️ Workout Performance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
               <div className="text-center">
-                <h4 className="text-base sm:text-lg font-bold text-gradient-primary mb-3 sm:mb-4">Daily Exercises</h4>
-                <div className="relative h-48 sm:h-64">
+                <h4 className="text-sm sm:text-base lg:text-lg font-bold text-gradient-primary mb-2 sm:mb-3 lg:mb-4">Daily Exercises</h4>
+                <div className="relative h-32 sm:h-48 lg:h-64">
                   <PieChart
                     data={[dailyExercisePerformance, 100 - dailyExercisePerformance]}
                     colors={['#F59E0B', '#E2E8F0']}
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
-                      <span className="text-2xl sm:text-3xl font-black text-gradient-secondary block">{dailyExercisePerformance}%</span>
+                      <span className="text-lg sm:text-2xl lg:text-3xl font-black text-gradient-secondary block">{dailyExercisePerformance}%</span>
                       <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="text-center">
-                <h4 className="text-base sm:text-lg font-bold text-gradient-primary mb-3 sm:mb-4">Weekly Progress</h4>
-                <div className="relative h-48 sm:h-64">
+                <h4 className="text-sm sm:text-base lg:text-lg font-bold text-gradient-primary mb-2 sm:mb-3 lg:mb-4">Weekly Progress</h4>
+                <div className="relative h-32 sm:h-48 lg:h-64">
                   <PieChart
                     data={[weeklyProgressPerformance, 100 - weeklyProgressPerformance]}
                     colors={['#22C55E', '#E2E8F0']}
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
-                      <span className="text-2xl sm:text-3xl font-black text-gradient-primary block">{weeklyProgressPerformance}%</span>
+                      <span className="text-lg sm:text-2xl lg:text-3xl font-black text-gradient-primary block">{weeklyProgressPerformance}%</span>
                       <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
                     </div>
                   </div>

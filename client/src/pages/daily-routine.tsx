@@ -229,21 +229,21 @@ export default function DailyRoutine() {
             {routines.map((routine: RoutineItem) => (
               <div
                 key={routine.id}
-                className="routine-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                className="routine-item premium-card p-3 sm:p-4 lg:p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="flex items-center justify-between relative z-10">
-                  <div className="flex items-center space-x-6 flex-1">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 lg:gap-6 relative z-10">
+                  <div className="flex items-center space-x-3 sm:space-x-4 flex-1 w-full">
                     <Checkbox
                       checked={routine.completed}
                       onCheckedChange={() => handleRoutineToggle(routine)}
-                      className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
+                      className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent mt-1 sm:mt-0"
                     />
-                    <div className="flex-1">
-                      <div className={`text-lg font-semibold ${routine.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors mb-2`}>
+                    <div className="flex-1 min-w-0">
+                      <div className={`text-sm sm:text-base lg:text-lg font-semibold ${routine.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors mb-1 sm:mb-2`}>
                         {routine.name}
                       </div>
-                      <div className="flex items-center space-x-3 text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">
                         <span className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary dark:text-accent px-2 py-1 rounded-lg font-bold">
                           ⏰ {routine.time}
                         </span>
@@ -251,9 +251,9 @@ export default function DailyRoutine() {
                           ⏱️ {routine.duration} min
                         </span>
                         {routine.days && routine.days.length > 0 && (
-                          <div className="flex space-x-1">
+                          <div className="flex flex-wrap gap-1">
                             {routine.days.map((day) => (
-                              <Badge key={day} className="bg-gradient-to-r from-gray-500 to-slate-600 text-white text-xs font-semibold px-2 py-1">
+                              <Badge key={day} className="bg-gradient-to-r from-gray-500 to-slate-600 text-white text-xs font-semibold px-1.5 py-0.5 sm:px-2 sm:py-1">
                                 {day.charAt(0).toUpperCase() + day.slice(1, 3)}
                               </Badge>
                             ))}
@@ -262,10 +262,10 @@ export default function DailyRoutine() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2 sm:space-x-3 self-end sm:self-center">
                     <Badge className={routine.completed 
-                      ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg border-0 font-semibold px-4 py-2" 
-                      : "bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-lg border-0 font-semibold px-4 py-2"
+                      ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg border-0 font-semibold px-2 py-1 sm:px-3 sm:py-1.5 lg:px-4 lg:py-2 text-xs sm:text-sm" 
+                      : "bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-lg border-0 font-semibold px-2 py-1 sm:px-3 sm:py-1.5 lg:px-4 lg:py-2 text-xs sm:text-sm"
                     }>
                       {routine.completed ? "✅ Done" : "⏸️ Pending"}
                     </Badge>
@@ -284,26 +284,26 @@ export default function DailyRoutine() {
   );
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-12">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="text-4xl font-bold mb-4">Daily Routine</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        <div className="mb-6 sm:mb-8 lg:mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4">Daily Routine</h2>
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
             Manage your morning, night, and weekly routines including skincare, haircare & hygiene
           </p>
         </div>
 
         {/* Skincare & Diet Tips Section */}
-        <Card className="premium-card mb-12">
+        <Card className="premium-card mb-6 sm:mb-8 lg:mb-12">
           <CardHeader>
-            <CardTitle className="text-xl font-semibold flex items-center space-x-3">
-              <span className="text-2xl">✨</span>
+            <CardTitle className="text-lg sm:text-xl font-semibold flex items-center space-x-2 sm:space-x-3">
+              <span className="text-xl sm:text-2xl">✨</span>
               <span>Skincare & Health Tips</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
               {/* Diet Tips */}
               <div className="space-y-4">
                 <h4 className="font-semibold text-green-600 dark:text-green-400 text-lg">🥗 Foods for Glowing Skin & Strong Hair</h4>

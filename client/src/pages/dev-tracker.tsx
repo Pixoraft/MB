@@ -592,12 +592,12 @@ export default function DevTracker() {
 
   const getStatusBadge = (goal: Goal) => {
     if (goal.completed) {
-      return <Badge className="bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg border-0 font-semibold px-4 py-2">✓ Completed</Badge>;
+      return <Badge className="bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg border-0 font-semibold px-2 py-1 sm:px-3 sm:py-1.5 lg:px-4 lg:py-2 text-xs sm:text-sm">✓ Done</Badge>;
     }
     if (goal.progress > 0) {
-      return <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg border-0 font-semibold px-4 py-2">⏳ In Progress</Badge>;
+      return <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg border-0 font-semibold px-2 py-1 sm:px-3 sm:py-1.5 lg:px-4 lg:py-2 text-xs sm:text-sm">⏳ Progress</Badge>;
     }
-    return <Badge className="bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-lg border-0 font-semibold px-4 py-2">⏸️ Pending</Badge>;
+    return <Badge className="bg-gradient-to-r from-gray-500 to-slate-600 text-white shadow-lg border-0 font-semibold px-2 py-1 sm:px-3 sm:py-1.5 lg:px-4 lg:py-2 text-xs sm:text-sm">⏸️ Pending</Badge>;
   };
 
   const getCurrentWeekRange = () => {
@@ -633,20 +633,20 @@ export default function DevTracker() {
     emptyMessage: string;
   }) => (
     <Card className="premium-card relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full"></div>
+      <div className="absolute top-0 right-0 w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-gradient-to-bl from-primary/5 to-transparent rounded-bl-full"></div>
       <CardHeader>
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">{icon}</span>
+        <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 mb-4 sm:mb-6">
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-lg sm:text-2xl">{icon}</span>
             </div>
-            <div>
-              <CardTitle className="text-2xl text-gradient-primary">{title}</CardTitle>
-              <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">{dateRange}</p>
+            <div className="text-center sm:text-left">
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gradient-primary">{title}</CardTitle>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium mt-1">{dateRange}</p>
             </div>
           </div>
-          <div className="premium-card p-3 text-center">
-            <div className="text-2xl font-black text-gradient-primary">{goals.filter(g => g.completed).length}<span className="text-gray-400 mx-1">/</span>{goals.length}</div>
+          <div className="premium-card p-2 sm:p-3 text-center">
+            <div className="text-lg sm:text-xl lg:text-2xl font-black text-gradient-primary">{goals.filter(g => g.completed).length}<span className="text-gray-400 mx-1">/</span>{goals.length}</div>
             <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">goals completed</div>
           </div>
         </div>
@@ -671,32 +671,34 @@ export default function DevTracker() {
             {goals.map((goal: Goal) => (
               <div
                 key={goal.id}
-                className="goal-item premium-card p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
+                className="goal-item premium-card p-3 sm:p-4 lg:p-6 hover:shadow-lg transition-all duration-300 group relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="flex items-center justify-between relative z-10">
-                  <div className="flex items-center space-x-6 flex-1">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 lg:gap-6 relative z-10">
+                  <div className="flex items-start space-x-3 sm:space-x-4 flex-1 w-full">
                     <Checkbox
                       checked={goal.completed}
                       onCheckedChange={() => handleGoalToggle(goal)}
-                      className="w-6 h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent"
+                      className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-primary/30 data-[state=checked]:bg-gradient-to-br data-[state=checked]:from-primary data-[state=checked]:to-accent mt-1 sm:mt-0"
                     />
-                    <div className="flex-1">
-                      <div className={`text-lg font-semibold ${goal.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors mb-2`}>
+                    <div className="flex-1 min-w-0">
+                      <div className={`text-sm sm:text-base lg:text-lg font-semibold ${goal.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'} transition-colors mb-1 sm:mb-2`}>
                         {goal.title}
                       </div>
                       {goal.description && (
-                        <div className="text-sm text-gray-600 dark:text-gray-400 mb-3 font-medium">
+                        <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 sm:mb-3 font-medium">
                           📝 {goal.description}
                         </div>
                       )}
-                      <div className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary dark:text-accent text-xs font-bold px-3 py-1 rounded-lg inline-block">
+                      <div className="bg-gradient-to-r from-primary/20 to-accent/20 text-primary dark:text-accent text-xs font-bold px-2 py-1 sm:px-3 rounded-lg inline-block">
                         🎯 Target: {format(new Date(goal.targetDate), 'MMM d, yyyy')}
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    {getStatusBadge(goal)}
+                  <div className="flex items-center space-x-2 sm:space-x-3 self-end sm:self-center">
+                    <div className="text-xs sm:text-sm">
+                      {getStatusBadge(goal)}
+                    </div>
                     <ThreeDotMenu
                       onEdit={() => handleEditGoal(goal)}
                       onDelete={() => handleDeleteGoal(goal.id)}
@@ -713,16 +715,16 @@ export default function DevTracker() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="page-title text-gradient-primary">Dev Tracker</h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">Track your development goals from weekly to yearly objectives</p>
+        <div className="mb-6 sm:mb-8 text-center sm:text-left">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient-primary mb-2 sm:mb-4">Dev Tracker</h1>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6 px-4 sm:px-0">Track your development goals from weekly to yearly objectives</p>
           
           {/* Daily Performance Score */}
-          <div className="card-clean max-w-sm">
+          <div className="card-clean max-w-sm mx-auto sm:mx-0">
             <div className="text-center">
-              <div className="text-3xl font-bold text-gradient-primary mb-2">{dailyPerformanceScore}%</div>
+              <div className="text-2xl sm:text-3xl font-bold text-gradient-primary mb-2">{dailyPerformanceScore}%</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Today's Performance Impact</div>
               <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                 (Tasks + Workouts + Mind + Routines)

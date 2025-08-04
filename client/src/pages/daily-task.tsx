@@ -181,35 +181,35 @@ export default function DailyTask() {
         </div>
 
         {/* Top Charts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
           {/* Task Completion Chart */}
           <div className="card-clean">
-            <h2 className="section-title">📋 Task Completion</h2>
-            <div className="h-48 sm:h-64">
+            <h2 className="section-title text-sm sm:text-base">📋 Tasks</h2>
+            <div className="h-32 sm:h-48 md:h-64">
               <PieChart
                 data={[taskCompletionRate, 100 - taskCompletionRate]}
                 colors={['#8B5DFF', '#E2E8F0']}
               />
             </div>
-            <div className="text-center mt-3 sm:mt-4">
-              <span className="text-2xl sm:text-3xl font-bold text-gradient-primary">{taskCompletionRate}%</span>
-              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Completed Today</div>
+            <div className="text-center mt-2 sm:mt-3 md:mt-4">
+              <span className="text-lg sm:text-2xl md:text-3xl font-bold text-gradient-primary">{taskCompletionRate}%</span>
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Completed</div>
             </div>
           </div>
 
           {/* Water Intake Chart */}
           <div className="card-clean">
-            <h2 className="section-title">💧 Water Intake</h2>
-            <div className="h-48 sm:h-64">
+            <h2 className="section-title text-sm sm:text-base">💧 Water</h2>
+            <div className="h-32 sm:h-48 md:h-64">
               <PieChart
                 data={[waterPercentage, 100 - waterPercentage]}
                 colors={['#22C55E', '#E2E8F0']}
               />
             </div>
-            <div className="text-center mt-3 sm:mt-4">
-              <span className="text-2xl sm:text-3xl font-bold text-gradient-secondary">{waterPercentage}%</span>
+            <div className="text-center mt-2 sm:mt-3 md:mt-4">
+              <span className="text-lg sm:text-2xl md:text-3xl font-bold text-gradient-secondary">{waterPercentage}%</span>
               <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                of Daily Goal ({waterIntake?.goal || 2400}ml)
+                of {waterIntake?.goal || 2400}ml
               </div>
             </div>
           </div>
