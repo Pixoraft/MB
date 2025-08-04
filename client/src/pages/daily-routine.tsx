@@ -52,45 +52,7 @@ export default function DailyRoutine() {
     r.days && r.days.includes(currentDay as any)
   );
 
-  // Initialize skincare routine
-  const initializeSkincareRoutine = useMutation({
-    mutationFn: async () => {
-      const skincareRoutines: InsertRoutineItem[] = [
-        // Morning Skincare Routine
-        { name: "🍋 Lemon & Honey Detox Drink", time: "06:00", duration: 5, type: "morning", date: today, completed: false },
-        { name: "🧊 Ice Cube Face Treatment", time: "06:05", duration: 2, type: "morning", date: today, completed: false },
-        { name: "🧼 Face & Body Wash (Vitamin C)", time: "06:10", duration: 5, type: "morning", date: today, completed: false },
-        { name: "🍯 Malai + Honey + Haldi Face Pack", time: "06:15", duration: 20, type: "morning", date: today, completed: false },
-        { name: "☀️ Moisturize & Sun Protection", time: "06:35", duration: 3, type: "morning", date: today, completed: false },
-        
-        // Evening Skincare Routine  
-        { name: "🧼 Evening Face & Body Cleansing", time: "20:00", duration: 5, type: "night", date: today, completed: false },
-        { name: "💧 Face Serum (Vitamin C/Niacinamide)", time: "20:05", duration: 2, type: "night", date: today, completed: false },
-        { name: "🌙 Night Moisturizer", time: "20:10", duration: 2, type: "night", date: today, completed: false },
-        { name: "🥛 Milk & Potato Dark Spot Treatment", time: "20:15", duration: 20, type: "night", date: today, completed: false },
-        
-        // Weekly Routines
-        { name: "👄 Lip Scrub (Honey + Sugar)", time: "19:00", duration: 5, type: "weekly", days: ["tuesday", "thursday", "saturday"], date: today, completed: false },
-        { name: "🧽 Body Exfoliation (Coffee + Curd)", time: "19:30", duration: 10, type: "weekly", days: ["sunday", "wednesday", "friday"], date: today, completed: false },
-        { name: "🌿 Ubtan Body Mask", time: "18:00", duration: 35, type: "weekly", days: ["tuesday", "thursday", "saturday"], date: today, completed: false },
-        { name: "🍋 Lemon & Baking Soda Treatment", time: "19:00", duration: 8, type: "weekly", days: ["monday", "friday"], date: today, completed: false },
-        { name: "💆‍♀️ Hair Oil Massage", time: "17:00", duration: 70, type: "weekly", days: ["wednesday", "saturday"], date: today, completed: false },
-        { name: "🧴 Hair Wash (Sulfate-Free)", time: "18:30", duration: 15, type: "weekly", days: ["wednesday", "saturday"], date: today, completed: false },
-      ];
-      
-      const promises = skincareRoutines.map(routine => 
-        apiRequest("POST", "/api/routine-items", routine)
-      );
-      await Promise.all(promises);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/routine-items"] });
-      toast({ title: "Skincare routine added to your daily routine!" });
-    },
-    onError: () => {
-      toast({ title: "Failed to add skincare routine", variant: "destructive" });
-    },
-  });
+  // Note: Skincare routine initialization removed - server handles all sample data
 
   // Note: Server-side initialization now handles sample data, so client-side initialization is disabled
 
