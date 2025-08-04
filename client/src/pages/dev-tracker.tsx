@@ -20,30 +20,19 @@ export default function DevTracker() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  // Fetch goals by type
-  const { data: weeklyGoals = [] } = useQuery({
-    queryKey: ["/api/goals", "weekly"],
+  // Fetch all goals first, then filter for current week/month
+  const { data: allGoals = [] } = useQuery({
+    queryKey: ["/api/goals"],
     queryFn: async () => {
-      const response = await fetch("/api/goals?type=weekly");
+      const response = await fetch("/api/goals");
       return response.json();
     },
   });
 
-  const { data: monthlyGoals = [] } = useQuery({
-    queryKey: ["/api/goals", "monthly"],
-    queryFn: async () => {
-      const response = await fetch("/api/goals?type=monthly");
-      return response.json();
-    },
-  });
-
-  const { data: yearlyGoals = [] } = useQuery({
-    queryKey: ["/api/goals", "yearly"],
-    queryFn: async () => {
-      const response = await fetch("/api/goals?type=yearly");
-      return response.json();
-    },
-  });
+  // Filter goals by type
+  const weeklyGoals = allGoals.filter((goal: Goal) => goal.type === "weekly");
+  const monthlyGoals = allGoals.filter((goal: Goal) => goal.type === "monthly");
+  const yearlyGoals = allGoals.filter((goal: Goal) => goal.type === "yearly");
 
   // Create goal mutation
   const createGoalMutation = useMutation({
