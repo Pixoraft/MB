@@ -416,7 +416,7 @@ export const initializeSampleData = async () => {
       completed: false
     });
     
-    // Weekly exercises
+    // Weekly exercises - must be created to show in weekly tab
     await storage.createExercise({
       name: "Full Body Strength Training",
       duration: 60,
@@ -424,7 +424,9 @@ export const initializeSampleData = async () => {
       reps: "12",
       date: today,
       isWeekly: true,
-      completed: false
+      completed: false,
+      day: "monday",
+      workoutType: "Full Body"
     });
     
     await storage.createExercise({
@@ -434,7 +436,9 @@ export const initializeSampleData = async () => {
       reps: "45 min session",
       date: today,
       isWeekly: true,
-      completed: false
+      completed: false,
+      day: "tuesday", 
+      workoutType: "Full Body"
     });
     
     await storage.createExercise({
@@ -444,7 +448,33 @@ export const initializeSampleData = async () => {
       reps: "30 min stretch",
       date: today,
       isWeekly: true,
-      completed: false
+      completed: false,
+      day: "wednesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Upper Body Workout",
+      duration: 45,
+      sets: 3,
+      reps: "10-12",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "thursday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Lower Body Workout", 
+      duration: 50,
+      sets: 4,
+      reps: "15",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "friday",
+      workoutType: "Full Body"
     });
   
   // Initialize sample goals
@@ -490,6 +520,34 @@ export const initializeSampleData = async () => {
       description: "Learn Express.js, RESTful APIs, and database integration. Build full-stack applications.",
       type: "weekly",
       targetDate: "2025-04-21",
+      completed: false,
+      progress: 0
+    });
+    
+    // Add more monthly goals to show proper monthly section
+    await storage.createGoal({
+      title: "May 2025 - Full Stack Fundamentals", 
+      description: "Deep dive React + Express.js, Learn MongoDB with Mongoose, Build 2 full-stack projects, Start blogs + LinkedIn posts, Master Postman + Git",
+      type: "monthly",
+      targetDate: "2025-05-31",
+      completed: false,
+      progress: 0
+    });
+    
+    await storage.createGoal({
+      title: "June 2025 - Real World Projects",
+      description: "Make 2 major real-world projects, Use JWT authentication, Role-based dashboards (Admin/User), Host on Vercel/Render, Start Upwork/Freelancer profiles",
+      type: "monthly",
+      targetDate: "2025-06-30",
+      completed: false,
+      progress: 0
+    });
+    
+    await storage.createGoal({
+      title: "July 2025 - Freelancing + Interviews",
+      description: "Get small freelance gigs (₹2-10k), Apply to internships, Practice coding interviews (DSA), Create payment project (Razorpay), Start cold emailing startups",
+      type: "monthly",
+      targetDate: "2025-07-31",
       completed: false,
       progress: 0
     });
