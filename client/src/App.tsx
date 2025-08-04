@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Navigation } from "@/components/layout/navigation";
+import { OfflineIndicator, PWAStatusBar } from "@/components/ui/offline-indicator";
 import Dashboard from "@/pages/dashboard";
 import DailyTask from "@/pages/daily-task";
 import Workout from "@/pages/workout";
@@ -36,6 +37,8 @@ function App() {
             <Navigation />
             <Router />
             <Toaster />
+            <OfflineIndicator />
+            <PWAStatusBar />
           </div>
         </TooltipProvider>
       </ThemeProvider>
