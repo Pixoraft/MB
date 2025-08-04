@@ -84,6 +84,13 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
+  
+  // Initialize sample data for in-memory storage in production
+  if (app.get("env") === "production") {
+    const { initializeSampleData } = await import("./storage");
+    await initializeSampleData();
+  }
+  
   server.listen({
     port,
     host: "0.0.0.0",

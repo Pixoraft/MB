@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { pgTable, text, integer, boolean, timestamp, real } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 
 // Task Management
 export const taskSchema = z.object({
@@ -134,3 +136,98 @@ export const streakSchema = z.object({
 export const insertStreakSchema = streakSchema.omit({ id: true });
 export type Streak = z.infer<typeof streakSchema>;
 export type InsertStreak = z.infer<typeof insertStreakSchema>;
+
+// Drizzle Table Definitions
+export const tasksTable = pgTable("tasks", {
+  id: text("id").primaryKey().default("nanoid()"),
+  title: text("title").notNull(),
+  description: text("description"),
+  time: text("time"),
+  duration: integer("duration"),
+  status: text("status").default("pending"),
+  completed: boolean("completed").default(false),
+  date: text("date").notNull(),
+  createdAt: text("created_at").default("now()"),
+});
+
+export const waterIntakeTable = pgTable("water_intake", {
+  id: text("id").primaryKey().default("nanoid()"),
+  date: text("date").notNull().unique(),
+  amount: integer("amount").default(0),
+  goal: integer("goal").default(2400),
+});
+
+export const exercisesTable = pgTable("exercises", {
+  id: text("id").primaryKey().default("nanoid()"),
+  name: text("name").notNull(),
+  sets: integer("sets").notNull(),
+  reps: text("reps").notNull(),
+  duration: integer("duration"),
+  completed: boolean("completed").default(false),
+  date: text("date").notNull(),
+  day: text("day"),
+  workoutType: text("workout_type"),
+  isWeekly: boolean("is_weekly").default(false),
+});
+
+export const workoutTypesTable = pgTable("workout_types", {
+  id: text("id").primaryKey().default("nanoid()"),
+  name: text("name").notNull(),
+  isWeekly: boolean("is_weekly").default(false),
+  maxTimeToComplete: integer("max_time_to_complete"),
+});
+
+export const mindActivitiesTable = pgTable("mind_activities", {
+  id: text("id").primaryKey().default("nanoid()"),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  time: text("time").notNull(),
+  chatgptRole: text("chatgpt_role").notNull(),
+  completed: boolean("completed").default(false),
+  date: text("date").notNull(),
+  status: text("status").default("pending"),
+});
+
+export const routineItemsTable = pgTable("routine_items", {
+  id: text("id").primaryKey().default("nanoid()"),
+  name: text("name").notNull(),
+  time: text("time").notNull(),
+  duration: integer("duration").notNull(),
+  type: text("type").notNull(),
+  days: text("days"), // JSON array as text
+  completed: boolean("completed").default(false),
+  date: text("date").notNull(),
+});
+
+export const goalsTable = pgTable("goals", {
+  id: text("id").primaryKey().default("nanoid()"),
+  title: text("title").notNull(),
+  description: text("description"),
+  type: text("type").notNull(),
+  targetDate: text("target_date").notNull(),
+  completed: boolean("completed").default(false),
+  progress: integer("progress").default(0),
+  parentGoalId: text("parent_goal_id"),
+});
+
+export const performanceTable = pgTable("performance", {
+  id: text("id").primaryKey().default("nanoid()"),
+  date: text("date").notNull(),
+  type: text("type").notNull(),
+  tasks: integer("tasks").default(0),
+  workout: integer("workout").default(0),
+  mindWorkout: integer("mind_workout").default(0),
+  routine: integer("routine").default(0),
+  overall: integer("overall").default(0),
+});
+
+export const streakTable = pgTable("streak", {
+  id: text("id").primaryKey().default("default"),
+  current: integer("current").default(0),
+  highest: integer("highest").default(0),
+  lastActiveDate: text("last_active_date"),
+});
+
+// Drizzle inferred types
+export type TaskTable = typeof tasksTable.$inferSelect;
+export type InsertTaskTable = typeof tasksTable.$inferInsert;
