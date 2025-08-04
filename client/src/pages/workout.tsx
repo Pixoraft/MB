@@ -322,10 +322,10 @@ export default function Workout() {
             <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gradient-primary">🏋️‍♂️ Workout Performance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               <div className="text-center">
-                <h4 className="text-sm sm:text-base lg:text-lg font-bold text-gradient-primary mb-2 sm:mb-3 lg:mb-4">Daily Exercises</h4>
-                <div className="relative h-32 sm:h-48 lg:h-64">
+                <h4 className="text-sm sm:text-base lg:text-lg font-bold text-gradient-primary mb-3 sm:mb-4">Daily Exercises</h4>
+                <div className="relative w-full max-w-[200px] mx-auto aspect-square">
                   <PieChart
                     data={[dailyExercisePerformance, 100 - dailyExercisePerformance]}
                     colors={['#F59E0B', '#E2E8F0']}
@@ -339,8 +339,8 @@ export default function Workout() {
                 </div>
               </div>
               <div className="text-center">
-                <h4 className="text-sm sm:text-base lg:text-lg font-bold text-gradient-primary mb-2 sm:mb-3 lg:mb-4">Weekly Progress</h4>
-                <div className="relative h-32 sm:h-48 lg:h-64">
+                <h4 className="text-sm sm:text-base lg:text-lg font-bold text-gradient-primary mb-3 sm:mb-4">Weekly Progress</h4>
+                <div className="relative w-full max-w-[200px] mx-auto aspect-square">
                   <PieChart
                     data={[weeklyProgressPerformance, 100 - weeklyProgressPerformance]}
                     colors={['#22C55E', '#E2E8F0']}

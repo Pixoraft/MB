@@ -340,22 +340,24 @@ export default function DailyRoutine() {
         </Card>
 
         {/* Routine Completion Chart */}
-        <Card className="premium-card relative overflow-hidden mb-12">
-          <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-accent/10 to-transparent rounded-br-full"></div>
+        <Card className="premium-card relative overflow-hidden mb-6 sm:mb-8 lg:mb-12">
+          <div className="absolute top-0 left-0 w-20 h-20 sm:w-32 sm:h-32 lg:w-40 lg:h-40 bg-gradient-to-br from-accent/10 to-transparent rounded-br-full"></div>
           <CardHeader>
-            <CardTitle className="text-2xl text-gradient-primary">🔁 Routine Completion</CardTitle>
+            <CardTitle className="text-lg sm:text-xl lg:text-2xl text-gradient-primary">🔁 Routine Completion</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div className="relative">
-                <PieChart
-                  data={[overallCompletionRate, 100 - overallCompletionRate]}
-                  colors={['#EF4444', '#E2E8F0']}
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <span className="text-3xl font-black text-gradient-primary block">{overallCompletionRate}%</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-center">
+              <div className="text-center">
+                <div className="relative w-full max-w-[200px] mx-auto aspect-square">
+                  <PieChart
+                    data={[overallCompletionRate, 100 - overallCompletionRate]}
+                    colors={['#EF4444', '#E2E8F0']}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <span className="text-lg sm:text-2xl lg:text-3xl font-black text-gradient-primary block">{overallCompletionRate}%</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
+                    </div>
                   </div>
                 </div>
               </div>

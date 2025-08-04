@@ -233,31 +233,33 @@ export default function MindWorkout() {
   const displayCompletionRate = calculatePerformance(completedCount, displayActivities.length);
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-12">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h2 className="text-4xl font-bold mb-4">Mind Workout</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Structured mental exercises to enhance cognitive performance</p>
+        <div className="mb-6 sm:mb-8 lg:mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4">Mind Workout</h2>
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">Structured mental exercises to enhance cognitive performance</p>
         </div>
 
         {/* Mind Exercise Completion Chart */}
-        <Card className="premium-card relative overflow-hidden mb-12">
-          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full"></div>
+        <Card className="premium-card relative overflow-hidden mb-6 sm:mb-8 lg:mb-12">
+          <div className="absolute top-0 right-0 w-20 h-20 sm:w-32 sm:h-32 lg:w-40 lg:h-40 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full"></div>
           <CardHeader>
-            <CardTitle className="text-xl font-semibold">🧠 Mind Exercise Completion</CardTitle>
+            <CardTitle className="text-lg sm:text-xl font-semibold">🧠 Mind Exercise Completion</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div className="relative">
-                <PieChart
-                  data={[displayCompletionRate, 100 - displayCompletionRate]}
-                  colors={['#8B5DFF', '#E2E8F0']}
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <span className="text-3xl font-black text-gradient-primary block">{displayCompletionRate}%</span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-center">
+              <div className="text-center">
+                <div className="relative w-full max-w-[200px] mx-auto aspect-square">
+                  <PieChart
+                    data={[displayCompletionRate, 100 - displayCompletionRate]}
+                    colors={['#8B5DFF', '#E2E8F0']}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <span className="text-lg sm:text-2xl lg:text-3xl font-black text-gradient-primary block">{displayCompletionRate}%</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400">Complete</span>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -755,21 +755,21 @@ export default function DevTracker() {
 
           {/* Yearly Goal - Special Layout */}
           <Card className="premium-card relative overflow-hidden">
-            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-secondary/10 to-transparent rounded-tr-full"></div>
+            <div className="absolute bottom-0 left-0 w-20 h-20 sm:w-32 sm:h-32 lg:w-40 lg:h-40 bg-gradient-to-tr from-secondary/10 to-transparent rounded-tr-full"></div>
             <CardHeader>
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-secondary to-accent rounded-2xl flex items-center justify-center shadow-xl">
-                    <span className="text-3xl">📈</span>
+              <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-4 mb-4 sm:mb-6">
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-secondary to-accent rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl">
+                    <span className="text-2xl sm:text-2xl lg:text-3xl">📈</span>
                   </div>
-                  <div>
-                    <CardTitle className="text-3xl text-gradient-secondary mb-2">Yearly Goal</CardTitle>
-                    <p className="text-lg font-semibold text-gray-600 dark:text-gray-400">{getCurrentYear()}</p>
+                  <div className="text-center sm:text-left">
+                    <CardTitle className="text-xl sm:text-2xl lg:text-3xl text-gradient-secondary mb-1 sm:mb-2">Yearly Goal</CardTitle>
+                    <p className="text-sm sm:text-base lg:text-lg font-semibold text-gray-600 dark:text-gray-400">{getCurrentYear()}</p>
                   </div>
                 </div>
-                <div className="premium-card p-4 text-center">
-                  <div className="text-3xl font-black text-gradient-secondary">{yearlyGoalProgress}%</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">progress</div>
+                <div className="premium-card p-3 sm:p-4 text-center">
+                  <div className="text-2xl sm:text-2xl lg:text-3xl font-black text-gradient-secondary">{yearlyGoalProgress}%</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">progress</div>
                 </div>
               </div>
               <div className="relative">
@@ -793,15 +793,15 @@ export default function DevTracker() {
                   {yearlyGoals.map((goal: Goal) => (
                     <div
                       key={goal.id}
-                      className="goal-item premium-card p-8 bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-900/20 dark:to-purple-900/20 border-l-4 border-secondary"
+                      className="goal-item premium-card p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-900/20 dark:to-purple-900/20 border-l-4 border-secondary"
                     >
-                      <div className="flex items-start space-x-6">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-secondary to-accent flex items-center justify-center flex-shrink-0 mt-1 shadow-lg">
-                          <span className="text-white text-xl">🎯</span>
+                      <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-secondary to-accent flex items-center justify-center flex-shrink-0 shadow-lg">
+                          <span className="text-white text-lg sm:text-xl">🎯</span>
                         </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="text-2xl font-bold text-gradient-secondary">
+                        <div className="flex-1 w-full sm:w-auto">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-2 sm:gap-4 mb-3 sm:mb-4">
+                            <div className="text-lg sm:text-xl lg:text-2xl font-bold text-gradient-secondary">
                               {goal.title}
                             </div>
                             <ThreeDotMenu
