@@ -50,33 +50,8 @@ app.use((req, res, next) => {
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
+  if (app.get("env") === "development" || app.get("env") === "production") {
     await setupVite(app, server);
-  } else {
-    // Custom static serving that preserves API routes
-    const path = await import("path");
-    const fs = await import("fs");
-    const distPath = path.resolve(import.meta.dirname, "public");
-    
-    if (!fs.existsSync(distPath)) {
-      throw new Error(
-        `Could not find the build directory: ${distPath}, make sure to build the client first`,
-      );
-    }
-    
-    // Serve static files
-    app.use(express.static(distPath));
-    
-    // SPA fallback - ONLY for non-API routes
-    app.get("*", (req, res, next) => {
-      // Skip API routes - let them 404 properly if not found
-      if (req.path.startsWith('/api/')) {
-        return next();
-      }
-      
-      // Serve SPA for all other routes
-      res.sendFile(path.resolve(distPath, "index.html"));
-    });
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
@@ -85,11 +60,14 @@ app.use((req, res, next) => {
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
   
-  // Initialize sample data for in-memory storage in production
-  if (app.get("env") === "production") {
-    const { initializeSampleData } = await import("./storage");
-    await initializeSampleData();
-  }
+  // Always initialize sample data to ensure it's available
+  const { initializeSampleData } = await import("./storage");
+  await initializeSampleData();
+  
+  // Log startup information
+  console.log(`🌍 Environment: ${app.get("env")}`);
+  console.log(`📦 API Routes available at /api/*`);
+  console.log(`🎯 Sample data initialized successfully`);
   
   server.listen({
     port,
