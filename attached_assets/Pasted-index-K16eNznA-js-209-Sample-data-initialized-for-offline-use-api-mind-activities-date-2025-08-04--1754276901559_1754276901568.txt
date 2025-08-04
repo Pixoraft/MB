@@ -1,0 +1,71 @@
+index-K16eNznA.js:209 ✅ Sample data initialized for offline use
+api/mind-activities?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/goals?type=weekly:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/tasks?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/exercises?isWeekly=true:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/goals?type=monthly:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/streak:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/exercises?date=2025-08-04&isWeekly=false:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/performance:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/goals?type=yearly:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/routine-items?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+index-K16eNznA.js:209 SW registered:  ServiceWorkerRegistrationactive: nullbackgroundFetch: BackgroundFetchManager {}cookies: CookieStoreManager {}installing: nullnavigationPreload: NavigationPreloadManager {}onupdatefound: nullpaymentManager: PaymentManager {userHint: ''}periodicSync: PeriodicSyncManager {}pushManager: PushManager {}scope: "https://metabuild-pjaz.onrender.com/"sync: SyncManager {}updateViaCache: "imports"waiting: null[[Prototype]]: ServiceWorkerRegistration
+metabuild-pjaz.onrender.com/:1 Error while trying to use the following icon from the Manifest: https://metabuild-pjaz.onrender.com/icon-192x192.png (Download error or resource isn't a valid image)
+api/water-intake?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/tasks?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/mind-activities?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/routine-items?type=morning:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/routine-items?type=night:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/routine-items?type=weekly:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+daily-routine:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
