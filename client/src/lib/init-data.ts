@@ -74,8 +74,9 @@ export const initializeSampleData = () => {
     });
   }
   
-  // Note: Routine initialization removed - server handles all skincare routine data
-  // Client-side routine initialization disabled to prevent duplicates
+  // COMPLETELY DISABLED: No client-side routine initialization
+  // Server handles ALL skincare routine data to prevent any duplicates
+  // Do not add any routine creation code here
   
   console.log('✅ Sample data initialized for offline use');
 };

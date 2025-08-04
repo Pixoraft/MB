@@ -416,12 +416,12 @@ export const initializeSampleData = async () => {
       completed: false
     });
     
-    // Weekly exercises - must be created to show in weekly tab
+    // Day 1 - Push (Chest, Shoulders, Triceps, Abs)
     await storage.createExercise({
-      name: "Full Body Strength Training",
-      duration: 60,
+      name: "Normal Push-Ups",
+      duration: 35,
       sets: 4,
-      reps: "12",
+      reps: "25",
       date: today,
       isWeekly: true,
       completed: false,
@@ -430,22 +430,168 @@ export const initializeSampleData = async () => {
     });
     
     await storage.createExercise({
-      name: "Cardio Session",
-      duration: 45,
-      sets: 1,
-      reps: "45 min session",
+      name: "Incline Push-Ups",
+      duration: 35,
+      sets: 3,
+      reps: "25",
       date: today,
       isWeekly: true,
       completed: false,
-      day: "tuesday", 
+      day: "monday",
       workoutType: "Full Body"
     });
     
     await storage.createExercise({
-      name: "Flexibility & Stretching",
-      duration: 30,
+      name: "Pike Push-Ups",
+      duration: 35,
+      sets: 3,
+      reps: "15",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "monday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Diamond Push-Ups",
+      duration: 35,
+      sets: 2,
+      reps: "15",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "monday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Bench Dips",
+      duration: 35,
+      sets: 3,
+      reps: "25",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "monday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Russian Twists",
+      duration: 35,
+      sets: 3,
+      reps: "30",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "monday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Plank",
+      duration: 35,
       sets: 1,
-      reps: "30 min stretch",
+      reps: "5 min",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "monday",
+      workoutType: "Full Body"
+    });
+
+    // Day 2 - Pull (Back, Biceps, Forearms, Grip)
+    await storage.createExercise({
+      name: "Pull-Ups / Assisted",
+      duration: 35,
+      sets: 4,
+      reps: "12",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "tuesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Towel Rows",
+      duration: 35,
+      sets: 3,
+      reps: "20",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "tuesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Towel Bicep Curls",
+      duration: 35,
+      sets: 3,
+      reps: "20",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "tuesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Reverse Curls",
+      duration: 35,
+      sets: 3,
+      reps: "15",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "tuesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Gripper Fast",
+      duration: 35,
+      sets: 3,
+      reps: "40",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "tuesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Farmer Hold",
+      duration: 35,
+      sets: 2,
+      reps: "45 sec",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "tuesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Wrist Rolls",
+      duration: 35,
+      sets: 2,
+      reps: "20",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "tuesday",
+      workoutType: "Full Body"
+    });
+
+    // Day 3 - Legs (Quads, Glutes, Calves)
+    await storage.createExercise({
+      name: "Squats",
+      duration: 35,
+      sets: 4,
+      reps: "25",
       date: today,
       isWeekly: true,
       completed: false,
@@ -454,10 +600,83 @@ export const initializeSampleData = async () => {
     });
     
     await storage.createExercise({
-      name: "Upper Body Workout",
-      duration: 45,
+      name: "Jump Squats",
+      duration: 35,
       sets: 3,
-      reps: "10-12",
+      reps: "20",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "wednesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Lunges",
+      duration: 35,
+      sets: 3,
+      reps: "20 steps",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "wednesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Calf Raises",
+      duration: 35,
+      sets: 4,
+      reps: "30",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "wednesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Wall Sit",
+      duration: 35,
+      sets: 2,
+      reps: "45 sec",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "wednesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Broad Jumps",
+      duration: 35,
+      sets: 2,
+      reps: "15",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "wednesday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "High Knees",
+      duration: 35,
+      sets: 2,
+      reps: "30",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "wednesday",
+      workoutType: "Full Body"
+    });
+
+    // Day 4 - Core + Abs (Six-Pack, Obliques, Stability)
+    await storage.createExercise({
+      name: "Crunches",
+      duration: 35,
+      sets: 3,
+      reps: "25",
       date: today,
       isWeekly: true,
       completed: false,
@@ -466,14 +685,257 @@ export const initializeSampleData = async () => {
     });
     
     await storage.createExercise({
-      name: "Lower Body Workout", 
-      duration: 50,
-      sets: 4,
+      name: "Leg Raises",
+      duration: 35,
+      sets: 3,
+      reps: "25",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "thursday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Mountain Climbers",
+      duration: 35,
+      sets: 3,
+      reps: "30",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "thursday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Plank",
+      duration: 35,
+      sets: 3,
+      reps: "1 min",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "thursday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Side Plank",
+      duration: 35,
+      sets: 2,
+      reps: "1 min each",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "thursday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "V-Ups",
+      duration: 35,
+      sets: 3,
+      reps: "20",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "thursday",
+      workoutType: "Full Body"
+    });
+
+    // Day 5 - Power + Explosive + Grip Veins (Short, Strong)
+    await storage.createExercise({
+      name: "Clap Pushups",
+      duration: 30,
+      sets: 3,
       reps: "15",
       date: today,
       isWeekly: true,
       completed: false,
       day: "friday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Skipping",
+      duration: 30,
+      sets: 1,
+      reps: "5 min",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "friday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "High Knees Power",
+      duration: 30,
+      sets: 3,
+      reps: "30",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "friday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Towel Bicep Curls Power",
+      duration: 30,
+      sets: 2,
+      reps: "25",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "friday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Wrist Rolls Power",
+      duration: 30,
+      sets: 2,
+      reps: "20",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "friday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Gripper Slow Squeeze",
+      duration: 30,
+      sets: 2,
+      reps: "15",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "friday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Hanging",
+      duration: 30,
+      sets: 3,
+      reps: "1 min",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "friday",
+      workoutType: "Full Body"
+    });
+
+    // Day 6 - BONUS Stretch + Pump Day (Light Sculpting + Relaxing)
+    await storage.createExercise({
+      name: "Archer Pushups",
+      duration: 30,
+      sets: 2,
+      reps: "12",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "saturday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Incline Pushups Light",
+      duration: 30,
+      sets: 2,
+      reps: "20",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "saturday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Squats Light",
+      duration: 30,
+      sets: 2,
+      reps: "25",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "saturday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Plank Stretch",
+      duration: 30,
+      sets: 2,
+      reps: "1 min",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "saturday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Neck + Spine + Toe Touch Stretch",
+      duration: 30,
+      sets: 3,
+      reps: "30 sec",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "saturday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Hanging Stretch",
+      duration: 30,
+      sets: 2,
+      reps: "1 min",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "saturday",
+      workoutType: "Full Body"
+    });
+
+    // Day 7 - Rest Day (Zero Pressure)
+    await storage.createExercise({
+      name: "Hanging Rest",
+      duration: 10,
+      sets: 1,
+      reps: "1 min",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "sunday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Cobra Stretch",
+      duration: 10,
+      sets: 2,
+      reps: "30 sec",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "sunday",
+      workoutType: "Full Body"
+    });
+    
+    await storage.createExercise({
+      name: "Light Walk",
+      duration: 10,
+      sets: 1,
+      reps: "10 min",
+      date: today,
+      isWeekly: true,
+      completed: false,
+      day: "sunday",
       workoutType: "Full Body"
     });
   
