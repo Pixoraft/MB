@@ -487,9 +487,10 @@ export const initializeSampleData = async () => {
       progress: 0
     });
   
-  // Initialize sample routine items  
+  // Initialize sample routine items based on user's skincare routine
   console.log('📅 Creating sample routine items...');
-    // Morning routine
+    
+    // Morning routine (exact match with user's routine)
     await storage.createRoutineItem({
       name: "🍋 Lemon & Honey Detox Drink",
       time: "06:00",
@@ -502,7 +503,37 @@ export const initializeSampleData = async () => {
     
     await storage.createRoutineItem({
       name: "🧊 Ice Cube Face Treatment",
+      time: "06:05",
+      duration: 2,
+      type: "morning",
+      date: today,
+      completed: false,
+      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    });
+    
+    await storage.createRoutineItem({
+      name: "🧼 Face & Body Wash (Vitamin C)",
+      time: "06:10",
+      duration: 5,
+      type: "morning",
+      date: today,
+      completed: false,
+      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    });
+    
+    await storage.createRoutineItem({
+      name: "🍯 Malai + Honey + Haldi Face Pack",
       time: "06:15",
+      duration: 20,
+      type: "morning",
+      date: today,
+      completed: false,
+      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    });
+    
+    await storage.createRoutineItem({
+      name: "☀️ Moisturize & Sun Protection",
+      time: "06:35",
       duration: 3,
       type: "morning",
       date: today,
@@ -510,21 +541,11 @@ export const initializeSampleData = async () => {
       days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
     });
     
+    // Night routine (exact match with user's routine)
     await storage.createRoutineItem({
-      name: "🧘‍♀️ Morning Meditation",
-      time: "06:30",
-      duration: 10,
-      type: "morning",
-      date: today,
-      completed: false,
-      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-    });
-    
-    // Night routine
-    await storage.createRoutineItem({
-      name: "🧴 Evening Skincare Routine",
-      time: "21:30",
-      duration: 15,
+      name: "🧼 Evening Face & Body Cleansing",
+      time: "20:00",
+      duration: 5,
       type: "night",
       date: today,
       completed: false,
@@ -532,9 +553,9 @@ export const initializeSampleData = async () => {
     });
     
     await storage.createRoutineItem({
-      name: "📱 Digital Detox",
-      time: "22:00",
-      duration: 60,
+      name: "💧 Face Serum (Vitamin C/Niacinamide)",
+      time: "20:05",
+      duration: 2,
       type: "night",
       date: today,
       completed: false,
@@ -542,44 +563,84 @@ export const initializeSampleData = async () => {
     });
     
     await storage.createRoutineItem({
-      name: "📚 Reading Time",
-      time: "22:00",
-      duration: 30,
+      name: "🌙 Night Moisturizer",
+      time: "20:10",
+      duration: 2,
       type: "night",
       date: today,
       completed: false,
       days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
     });
     
-    // Weekly routines
     await storage.createRoutineItem({
-      name: "🧹 Deep Clean Living Space",
-      time: "10:00",
-      duration: 90,
-      type: "weekly",
+      name: "🥛 Milk & Potato Dark Spot Treatment",
+      time: "20:15",
+      duration: 20,
+      type: "night",
       date: today,
       completed: false,
-      days: ["saturday"]
+      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
     });
     
+    // Weekly routines (exact match with user's routine)
     await storage.createRoutineItem({
-      name: "🛒 Grocery Shopping & Meal Prep",
-      time: "11:00",
-      duration: 120,
-      type: "weekly",
-      date: today,
-      completed: false,
-      days: ["sunday"]
-    });
-    
-    await storage.createRoutineItem({
-      name: "🗓️ Weekly Planning & Review",
+      name: "👄 Lip Scrub (Honey + Sugar)",
       time: "19:00",
-      duration: 45,
+      duration: 5,
       type: "weekly",
       date: today,
       completed: false,
-      days: ["sunday"]
+      days: ["tuesday", "thursday", "saturday"]
+    });
+    
+    await storage.createRoutineItem({
+      name: "🧽 Body Exfoliation (Coffee + Curd)",
+      time: "19:30",
+      duration: 10,
+      type: "weekly",
+      date: today,
+      completed: false,
+      days: ["sunday", "wednesday", "friday"]
+    });
+    
+    await storage.createRoutineItem({
+      name: "🌿 Ubtan Body Mask",
+      time: "18:00",
+      duration: 35,
+      type: "weekly",
+      date: today,
+      completed: false,
+      days: ["tuesday", "thursday", "saturday"]
+    });
+    
+    await storage.createRoutineItem({
+      name: "🍋 Lemon & Baking Soda Treatment",
+      time: "19:00",
+      duration: 8,
+      type: "weekly",
+      date: today,
+      completed: false,
+      days: ["monday", "friday"]
+    });
+    
+    await storage.createRoutineItem({
+      name: "💆‍♀️ Hair Oil Massage",
+      time: "17:00",
+      duration: 70,
+      type: "weekly",
+      date: today,
+      completed: false,
+      days: ["wednesday", "saturday"]
+    });
+    
+    await storage.createRoutineItem({
+      name: "🧴 Hair Wash (Sulfate-Free)",
+      time: "18:30",
+      duration: 15,
+      type: "weekly",
+      date: today,
+      completed: false,
+      days: ["wednesday", "saturday"]
     });
   
   console.log('✅ Server sample data initialized');
