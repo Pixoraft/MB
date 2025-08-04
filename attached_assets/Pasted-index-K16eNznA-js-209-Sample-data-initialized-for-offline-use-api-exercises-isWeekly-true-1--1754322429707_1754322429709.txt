@@ -1,0 +1,690 @@
+index-K16eNznA.js:209 ✅ Sample data initialized for offline use
+api/exercises?isWeekly=true:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/exercises?date=2025-08-04&isWeekly=false:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+index-K16eNznA.js:209 SW registered:  ServiceWorkerRegistration
+api/performance:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/goals?type=weekly:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/goals?type=monthly:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/mind-activities?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/tasks?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/streak:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/routine-items?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/goals?type=yearly:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+metabuild-rvt.onrender.com/:1 Error while trying to use the following icon from the Manifest: https://metabuild-rvt.onrender.com/icon-192x192.png (Download error or resource isn't a valid image)
+api/water-intake?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/tasks?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/exercises?date=2025-08-04&isWeekly=false:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/exercises?isWeekly=true:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/exercises?isWeekly=true:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/exercises?date=2025-08-04&isWeekly=false:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/mind-activities?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+routine-items:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+routine-items:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+routine-items:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/exercises?isWeekly=true:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/mind-activities?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/tasks?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/exercises?date=2025-08-04&isWeekly=false:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/routine-items?date=2025-08-04:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+api/goals:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/routine-items?type=weekly 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/routine-items?type=night 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/routine-items?type=morning 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:209 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/exercises?isWeekly=true 404 (Not Found)
+queryFn @ index-K16eNznA.js:209
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:209 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/routine-items?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:209
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:209 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/goals 404 (Not Found)
+queryFn @ index-K16eNznA.js:209
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:209 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/exercises?date=2025-08-04&isWeekly=false 404 (Not Found)
+queryFn @ index-K16eNznA.js:209
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:209 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/tasks?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:209
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:209 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/mind-activities?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:209
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/mind-activities?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/exercises?isWeekly=true 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/exercises?date=2025-08-04&isWeekly=false 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/exercises?isWeekly=true 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+batch @ index-K16eNznA.js:48
+refetchQueries @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+batch @ index-K16eNznA.js:48
+invalidateQueries @ index-K16eNznA.js:48
+onSuccess @ index-K16eNznA.js:204
+execute @ index-K16eNznA.js:48
+await in execute
+mutate @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:204
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/exercises?date=2025-08-04&isWeekly=false 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+batch @ index-K16eNznA.js:48
+refetchQueries @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+batch @ index-K16eNznA.js:48
+invalidateQueries @ index-K16eNznA.js:48
+onSuccess @ index-K16eNznA.js:204
+execute @ index-K16eNznA.js:48
+await in execute
+mutate @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:204
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/water-intake?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/tasks?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/exercises?isWeekly=true 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/exercises?date=2025-08-04&isWeekly=false 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/goals?type=monthly 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/performance 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/tasks?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/goals?type=yearly 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/mind-activities?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/streak 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/routine-items?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/goals?type=weekly 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
+index-K16eNznA.js:204 
+            
+            
+           GET https://metabuild-rvt.onrender.com/api/mind-activities?date=2025-08-04 404 (Not Found)
+queryFn @ index-K16eNznA.js:204
+i @ index-K16eNznA.js:48
+g @ index-K16eNznA.js:48
+start @ index-K16eNznA.js:48
+fetch @ index-K16eNznA.js:48
+ea @ index-K16eNznA.js:48
+onSubscribe @ index-K16eNznA.js:48
+subscribe @ index-K16eNznA.js:48
+(anonymous) @ index-K16eNznA.js:48
+Ow @ index-K16eNznA.js:38
+Wu @ index-K16eNznA.js:40
+Li @ index-K16eNznA.js:40
+_P @ index-K16eNznA.js:40
+Cs @ index-K16eNznA.js:40
+My @ index-K16eNznA.js:40
+ms @ index-K16eNznA.js:38
+(anonymous) @ index-K16eNznA.js:40
