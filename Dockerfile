@@ -14,11 +14,11 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Remove dev dependencies to reduce image size
-RUN npm prune --production
+# Keep all dependencies since server runtime needs some dev dependencies
+# (The server imports vite config which requires @vitejs/plugin-react)
 
 # Expose port
 EXPOSE 5000
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["node", "start-production.js"]
