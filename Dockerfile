@@ -21,4 +21,4 @@ RUN npm run build
 EXPOSE 5000
 
 # Start the application
-CMD ["node", "start-production.js"]
+CMD ["npm", "start"]

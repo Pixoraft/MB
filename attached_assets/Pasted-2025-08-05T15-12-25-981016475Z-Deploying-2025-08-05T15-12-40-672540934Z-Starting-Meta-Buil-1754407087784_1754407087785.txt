@@ -1,0 +1,96 @@
+2025-08-05T15:12:25.981016475Z ==> Deploying...
+2025-08-05T15:12:40.672540934Z 🚀 Starting Meta Build in production...
+2025-08-05T15:12:40.673163778Z 📍 Current directory: /app
+2025-08-05T15:12:40.675822927Z file:///app/start-production.js:8
+2025-08-05T15:12:40.675835537Z console.log('📂 Files in directory:', require('fs').readdirSync('.'));
+2025-08-05T15:12:40.675838647Z         ^
+2025-08-05T15:12:40.675841307Z 
+2025-08-05T15:12:40.675844267Z ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-08-05T15:12:40.675847927Z This file is being treated as an ES module because it has a '.js' file extension and '/app/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-08-05T15:12:40.675851507Z     at file:///app/start-production.js:8:9
+2025-08-05T15:12:40.675854368Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-05T15:12:40.675856917Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-05T15:12:40.675859448Z     at async loadESM (node:internal/process/esm_loader:34:7)
+2025-08-05T15:12:40.675862117Z     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2025-08-05T15:12:40.675864548Z 
+2025-08-05T15:12:40.675866908Z Node.js v18.20.8
+2025-08-05T15:12:42.636346614Z 🚀 Starting Meta Build in production...
+2025-08-05T15:12:42.637188772Z 📍 Current directory: /app
+2025-08-05T15:12:42.640597678Z file:///app/start-production.js:8
+2025-08-05T15:12:42.640614628Z console.log('📂 Files in directory:', require('fs').readdirSync('.'));
+2025-08-05T15:12:42.640618618Z         ^
+2025-08-05T15:12:42.640621948Z 
+2025-08-05T15:12:42.640625938Z ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-08-05T15:12:42.640630468Z This file is being treated as an ES module because it has a '.js' file extension and '/app/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-08-05T15:12:42.640634868Z     at file:///app/start-production.js:8:9
+2025-08-05T15:12:42.640638099Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-05T15:12:42.640641219Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-05T15:12:42.640644089Z     at async loadESM (node:internal/process/esm_loader:34:7)
+2025-08-05T15:12:42.640647309Z     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2025-08-05T15:12:42.640650109Z 
+2025-08-05T15:12:42.640653379Z Node.js v18.20.8
+2025-08-05T15:12:42.90125131Z ==> Exited with status 1
+2025-08-05T15:12:42.917758939Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-05T15:12:56.969169248Z 🚀 Starting Meta Build in production...
+2025-08-05T15:12:56.969797712Z 📍 Current directory: /app
+2025-08-05T15:12:56.972561733Z file:///app/start-production.js:8
+2025-08-05T15:12:56.972577114Z console.log('📂 Files in directory:', require('fs').readdirSync('.'));
+2025-08-05T15:12:56.972579974Z         ^
+2025-08-05T15:12:56.972582084Z 
+2025-08-05T15:12:56.972584644Z ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-08-05T15:12:56.972587594Z This file is being treated as an ES module because it has a '.js' file extension and '/app/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-08-05T15:12:56.972590374Z     at file:///app/start-production.js:8:9
+2025-08-05T15:12:56.972592564Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-05T15:12:56.972594894Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-05T15:12:56.972597024Z     at async loadESM (node:internal/process/esm_loader:34:7)
+2025-08-05T15:12:56.972599174Z     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2025-08-05T15:12:56.972601104Z 
+2025-08-05T15:12:56.972603204Z Node.js v18.20.8
+2025-08-05T15:13:46.907335478Z ==> Deploying...
+2025-08-05T15:13:57.928258554Z 🚀 Starting Meta Build in production...
+2025-08-05T15:13:57.928964216Z 📍 Current directory: /app
+2025-08-05T15:13:57.931972308Z file:///app/start-production.js:8
+2025-08-05T15:13:57.931986448Z console.log('📂 Files in directory:', require('fs').readdirSync('.'));
+2025-08-05T15:13:57.931989388Z         ^
+2025-08-05T15:13:57.931991508Z 
+2025-08-05T15:13:57.931994098Z ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-08-05T15:13:57.931997029Z This file is being treated as an ES module because it has a '.js' file extension and '/app/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-08-05T15:13:57.932000069Z     at file:///app/start-production.js:8:9
+2025-08-05T15:13:57.932002238Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-05T15:13:57.932004338Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-05T15:13:57.932006459Z     at async loadESM (node:internal/process/esm_loader:34:7)
+2025-08-05T15:13:57.932008569Z     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2025-08-05T15:13:57.932010469Z 
+2025-08-05T15:13:57.932012469Z Node.js v18.20.8
+2025-08-05T15:14:02.815260765Z ==> Exited with status 1
+2025-08-05T15:14:02.833448313Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-05T15:14:02.186505482Z 🚀 Starting Meta Build in production...
+2025-08-05T15:14:02.187186804Z 📍 Current directory: /app
+2025-08-05T15:14:02.189800469Z file:///app/start-production.js:8
+2025-08-05T15:14:02.189811919Z console.log('📂 Files in directory:', require('fs').readdirSync('.'));
+2025-08-05T15:14:02.189816819Z         ^
+2025-08-05T15:14:02.189819539Z 
+2025-08-05T15:14:02.189822809Z ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-08-05T15:14:02.189825909Z This file is being treated as an ES module because it has a '.js' file extension and '/app/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-08-05T15:14:02.189829469Z     at file:///app/start-production.js:8:9
+2025-08-05T15:14:02.189831729Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-05T15:14:02.189833899Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-05T15:14:02.189835869Z     at async loadESM (node:internal/process/esm_loader:34:7)
+2025-08-05T15:14:02.189837919Z     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2025-08-05T15:14:02.189839769Z 
+2025-08-05T15:14:02.189841769Z Node.js v18.20.8
+2025-08-05T15:14:17.922988264Z 🚀 Starting Meta Build in production...
+2025-08-05T15:14:17.923783788Z 📍 Current directory: /app
+2025-08-05T15:14:17.926724879Z file:///app/start-production.js:8
+2025-08-05T15:14:17.92673726Z console.log('📂 Files in directory:', require('fs').readdirSync('.'));
+2025-08-05T15:14:17.926740189Z         ^
+2025-08-05T15:14:17.92674236Z 
+2025-08-05T15:14:17.92674498Z ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-08-05T15:14:17.92674828Z This file is being treated as an ES module because it has a '.js' file extension and '/app/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-08-05T15:14:17.92675204Z     at file:///app/start-production.js:8:9
+2025-08-05T15:14:17.92675441Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-05T15:14:17.92675655Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-05T15:14:17.92675872Z     at async loadESM (node:internal/process/esm_loader:34:7)
+2025-08-05T15:14:17.92676075Z     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2025-08-05T15:14:17.92676277Z 
+2025-08-05T15:14:17.92676495Z Node.js v18.20.8
