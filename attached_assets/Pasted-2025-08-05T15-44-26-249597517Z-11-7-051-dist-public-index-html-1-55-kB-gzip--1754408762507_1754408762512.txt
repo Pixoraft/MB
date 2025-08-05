@@ -1,0 +1,69 @@
+2025-08-05T15:44:26.249597517Z #11 7.051 ../dist/public/index.html                   1.55 kB │ gzip:   0.67 kB
+2025-08-05T15:44:26.249634818Z #11 7.051 ../dist/public/assets/index-DpNSjlzq.css   91.74 kB │ gzip:  14.92 kB
+2025-08-05T15:44:26.249639298Z #11 7.051 ../dist/public/assets/index-CjQro0fM.js   715.99 kB │ gzip: 216.78 kB
+2025-08-05T15:44:26.249643268Z #11 7.051 
+2025-08-05T15:44:26.249647938Z #11 7.051 (!) Some chunks are larger than 500 kB after minification. Consider:
+2025-08-05T15:44:26.249652578Z #11 7.051 - Using dynamic import() to code-split the application
+2025-08-05T15:44:26.249657228Z #11 7.051 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+2025-08-05T15:44:26.249661419Z #11 7.051 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+2025-08-05T15:44:26.249665388Z #11 7.052 ✓ built in 6.53s
+2025-08-05T15:44:26.399884761Z #11 7.116 
+2025-08-05T15:44:26.399901261Z #11 7.116   dist/index.js  48.7kb
+2025-08-05T15:44:26.399905281Z #11 7.116 
+2025-08-05T15:44:26.399909911Z #11 7.116 ⚡ Done in 6ms
+2025-08-05T15:44:26.399913621Z #11 DONE 7.2s
+2025-08-05T15:44:26.399917341Z 
+2025-08-05T15:44:26.399921242Z #12 exporting to docker image format
+2025-08-05T15:44:26.399925572Z #12 exporting layers
+2025-08-05T15:44:41.908386958Z #12 exporting layers 15.4s done
+2025-08-05T15:44:41.908413319Z #12 exporting manifest sha256:cade2b6fb74de8e1cc45c77ba6eb9e7ac60caad74a29843039bd02815a169023 0.0s done
+2025-08-05T15:44:41.908427809Z #12 exporting config sha256:d79343fa7dff5b71cfd890deec474772256f862b2d5945b6cb678d65e61c4e50 done
+2025-08-05T15:44:44.536205171Z #12 DONE 18.2s
+2025-08-05T15:44:44.68676662Z 
+2025-08-05T15:44:44.686798841Z #13 exporting cache to client directory
+2025-08-05T15:44:44.686804961Z #13 preparing build cache for export
+2025-08-05T15:44:50.061338373Z #13 writing cache manifest sha256:816ecc96336c97984bfb41f8014db186d4d702e99d066c4c9981c7141b6c0f9a done
+2025-08-05T15:44:50.061360004Z #13 DONE 5.5s
+2025-08-05T15:44:50.929524983Z Pushing image to registry...
+2025-08-05T15:44:57.580189193Z Upload succeeded
+2025-08-05T15:45:12.051215668Z ==> Deploying...
+2025-08-05T15:45:39.661277278Z node:internal/errors:496
+2025-08-05T15:45:39.661316459Z     ErrorCaptureStackTrace(err);
+2025-08-05T15:45:39.661320399Z     ^
+2025-08-05T15:45:39.661323009Z 
+2025-08-05T15:45:39.661326619Z Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/app/server/routes.js' imported from /app/server-production.js
+2025-08-05T15:45:39.6613353Z     at new NodeError (node:internal/errors:405:5)
+2025-08-05T15:45:39.66133864Z     at finalizeResolution (node:internal/modules/esm/resolve:327:11)
+2025-08-05T15:45:39.66134126Z     at moduleResolve (node:internal/modules/esm/resolve:980:10)
+2025-08-05T15:45:39.66135717Z     at defaultResolve (node:internal/modules/esm/resolve:1206:11)
+2025-08-05T15:45:39.66136312Z     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:404:12)
+2025-08-05T15:45:39.66136583Z     at ModuleLoader.resolve (node:internal/modules/esm/loader:373:25)
+2025-08-05T15:45:39.66136825Z     at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:250:38)
+2025-08-05T15:45:39.66137071Z     at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:76:39)
+2025-08-05T15:45:39.66137282Z     at link (node:internal/modules/esm/module_job:75:36) {
+2025-08-05T15:45:39.661375841Z   url: 'file:///app/server/routes.js',
+2025-08-05T15:45:39.66137831Z   code: 'ERR_MODULE_NOT_FOUND'
+2025-08-05T15:45:39.661381021Z }
+2025-08-05T15:45:39.661383311Z 
+2025-08-05T15:45:39.661385831Z Node.js v18.20.8
+2025-08-05T15:45:43.601505808Z ==> Exited with status 1
+2025-08-05T15:45:43.635059065Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-05T15:45:44.015441606Z node:internal/errors:496
+2025-08-05T15:45:44.015482207Z     ErrorCaptureStackTrace(err);
+2025-08-05T15:45:44.015485537Z     ^
+2025-08-05T15:45:44.015487727Z 
+2025-08-05T15:45:44.015491077Z Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/app/server/routes.js' imported from /app/server-production.js
+2025-08-05T15:45:44.015494508Z     at new NodeError (node:internal/errors:405:5)
+2025-08-05T15:45:44.015497177Z     at finalizeResolution (node:internal/modules/esm/resolve:327:11)
+2025-08-05T15:45:44.015499318Z     at moduleResolve (node:internal/modules/esm/resolve:980:10)
+2025-08-05T15:45:44.015501508Z     at defaultResolve (node:internal/modules/esm/resolve:1206:11)
+2025-08-05T15:45:44.015503648Z     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:404:12)
+2025-08-05T15:45:44.015505878Z     at ModuleLoader.resolve (node:internal/modules/esm/loader:373:25)
+2025-08-05T15:45:44.015508298Z     at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:250:38)
+2025-08-05T15:45:44.015510618Z     at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:76:39)
+2025-08-05T15:45:44.015513228Z     at link (node:internal/modules/esm/module_job:75:36) {
+2025-08-05T15:45:44.015516508Z   url: 'file:///app/server/routes.js',
+2025-08-05T15:45:44.015519368Z   code: 'ERR_MODULE_NOT_FOUND'
+2025-08-05T15:45:44.015521368Z }
+2025-08-05T15:45:44.015523278Z 
+2025-08-05T15:45:44.015525208Z Node.js v18.20.8

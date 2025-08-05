@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import express from "express";
-import { registerRoutes } from "./server/routes.js";
-import { initializeSampleData } from "./server/storage.js";
+import { registerRoutes } from "./server/routes.ts";
+import { initializeSampleData } from "./server/storage.ts";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
