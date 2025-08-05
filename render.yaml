@@ -3,7 +3,7 @@ services:
     name: metabuild-webapp
     env: node
     buildCommand: npm ci && npm run build
-    startCommand: npm start
+    startCommand: node server-production.js
     envVars:
       - key: NODE_ENV
         value: production

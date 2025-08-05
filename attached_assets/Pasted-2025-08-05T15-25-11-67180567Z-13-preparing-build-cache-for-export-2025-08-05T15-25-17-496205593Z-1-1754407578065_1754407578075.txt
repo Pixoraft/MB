@@ -1,0 +1,50 @@
+2025-08-05T15:25:11.67180567Z #13 preparing build cache for export
+2025-08-05T15:25:17.496205593Z #13 writing cache manifest sha256:2543f5bccb208c2f7addbac84002910fa9b30890027fdde02209901d58d59236 done
+2025-08-05T15:25:17.496230753Z #13 DONE 5.8s
+2025-08-05T15:25:17.985931858Z Pushing image to registry...
+2025-08-05T15:25:25.649815601Z Upload succeeded
+2025-08-05T15:25:29.541993383Z ==> Deploying...
+2025-08-05T15:25:41.947817891Z 
+2025-08-05T15:25:41.947855712Z > rest-express@1.0.0 start
+2025-08-05T15:25:41.947860962Z > NODE_ENV=production node dist/index.js
+2025-08-05T15:25:41.947863242Z 
+2025-08-05T15:25:45.258340439Z node:internal/errors:496
+2025-08-05T15:25:45.25837919Z     ErrorCaptureStackTrace(err);
+2025-08-05T15:25:45.25838329Z     ^
+2025-08-05T15:25:45.25838621Z 
+2025-08-05T15:25:45.25838945Z TypeError [ERR_INVALID_ARG_TYPE]: The "paths[0]" argument must be of type string. Received undefined
+2025-08-05T15:25:45.25839426Z     at new NodeError (node:internal/errors:405:5)
+2025-08-05T15:25:45.25839714Z     at validateString (node:internal/validators:162:11)
+2025-08-05T15:25:45.2584013Z     at Object.resolve (node:path:1115:7)
+2025-08-05T15:25:45.25840397Z     at file:///app/dist/index.js:1471:17
+2025-08-05T15:25:45.25840711Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-05T15:25:45.25840989Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-05T15:25:45.25841285Z     at async loadESM (node:internal/process/esm_loader:34:7)
+2025-08-05T15:25:45.25841565Z     at async handleMainPromise (node:internal/modules/run_main:106:12) {
+2025-08-05T15:25:45.25841817Z   code: 'ERR_INVALID_ARG_TYPE'
+2025-08-05T15:25:45.25842069Z }
+2025-08-05T15:25:45.25842322Z 
+2025-08-05T15:25:45.258426251Z Node.js v18.20.8
+2025-08-05T15:25:50.069565196Z ==> Exited with status 1
+2025-08-05T15:25:50.084215094Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-05T15:25:51.224945812Z 
+2025-08-05T15:25:51.225035094Z > rest-express@1.0.0 start
+2025-08-05T15:25:51.225044554Z > NODE_ENV=production node dist/index.js
+2025-08-05T15:25:51.225046424Z 
+2025-08-05T15:25:54.630380873Z node:internal/errors:496
+2025-08-05T15:25:54.630401764Z     ErrorCaptureStackTrace(err);
+2025-08-05T15:25:54.630405144Z     ^
+2025-08-05T15:25:54.630407364Z 
+2025-08-05T15:25:54.630410284Z TypeError [ERR_INVALID_ARG_TYPE]: The "paths[0]" argument must be of type string. Received undefined
+2025-08-05T15:25:54.630415184Z     at new NodeError (node:internal/errors:405:5)
+2025-08-05T15:25:54.630419224Z     at validateString (node:internal/validators:162:11)
+2025-08-05T15:25:54.630423364Z     at Object.resolve (node:path:1115:7)
+2025-08-05T15:25:54.630426464Z     at file:///app/dist/index.js:1471:17
+2025-08-05T15:25:54.630430294Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-05T15:25:54.630433944Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-05T15:25:54.630437024Z     at async loadESM (node:internal/process/esm_loader:34:7)
+2025-08-05T15:25:54.630439834Z     at async handleMainPromise (node:internal/modules/run_main:106:12) {
+2025-08-05T15:25:54.630442544Z   code: 'ERR_INVALID_ARG_TYPE'
+2025-08-05T15:25:54.630445394Z }
+2025-08-05T15:25:54.630447914Z 
+2025-08-05T15:25:54.630451114Z Node.js v18.20.8
