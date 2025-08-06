@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Build - Personal Productivity Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#F59E0B',
+                        success: '#22C55E',
+                        warning: '#F59E0B',
+                        error: '#EF4444',
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { position: relative; height: 200px; width: 100%; }
+        .floating-btn { box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); }
+        .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #CBD5E1 #F1F5F9; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- @COMPONENT: MainNavigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-8">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Meta Build</h1>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="flex items-baseline space-x-6">
+                            <a href="#dashboard" data-page="dashboard" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-primary border-b-2 border-primary">Dashboard</a>
+                            <a href="#daily-task" data-page="daily-task" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Daily Task</a>
+                            <a href="#workout" data-page="workout" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Workout</a>
+                            <a href="#mind-workout" data-page="mind-workout" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Mind Workout</a>
+                            <a href="#daily-routine" data-page="daily-routine" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Daily Routine</a>
+                            <a href="#dev-tracker" data-page="dev-tracker" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Dev Tracker</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <div class="md:hidden">
+                        <button id="mobile-menu-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#dashboard" data-page="dashboard" class="mobile-nav-link block px-3 py-2 text-primary font-medium">Dashboard</a>
+                <a href="#daily-task" data-page="daily-task" class="mobile-nav-link block px-3 py-2 text-gray-600 dark:text-gray-300">Daily Task</a>
+                <a href="#workout" data-page="workout" class="mobile-nav-link block px-3 py-2 text-gray-600 dark:text-gray-300">Workout</a>
+                <a href="#mind-workout" data-page="mind-workout" class="mobile-nav-link block px-3 py-2 text-gray-600 dark:text-gray-300">Mind Workout</a>
+                <a href="#daily-routine" data-page="daily-routine" class="mobile-nav-link block px-3 py-2 text-gray-600 dark:text-gray-300">Daily Routine</a>
+                <a href="#dev-tracker" data-page="dev-tracker" class="mobile-nav-link block px-3 py-2 text-gray-600 dark:text-gray-300">Dev Tracker</a>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: MainNavigation -->
+
+    <!-- @COMPONENT: MainContent -->
+    <main class="min-h-screen">
+        <!-- @COMPONENT: DashboardPage -->
+        <div id="dashboard-page" class="page-content">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h2>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Track your overall progress and maintain your streaks</p>
+                </div>
+
+                <!-- Top Section - Streaks and Performance -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Streak Cards -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">🔥 Streak Tracking</h3>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-primary" data-bind="streak.current">14</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Current Streak</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-secondary" data-bind="streak.highest">28</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Highest Streak</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Today's Performance -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">📊 Today's Performance</h3>
+                        <div class="chart-container">
+                            <canvas id="todayPerformanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monthly Calendar -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 mb-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">📅 Monthly Progress</h3>
+                        <div class="flex items-center space-x-2">
+                            <button id="prev-month" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="current-month" class="text-lg font-medium px-4" data-bind="calendar.currentMonth">December 2024</span>
+                            <button id="next-month" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Calendar Grid -->
+                    <div class="grid grid-cols-7 gap-2 mb-4">
+                        <div class="text-center font-medium text-gray-600 dark:text-gray-400 py-2">Sun</div>
+                        <div class="text-center font-medium text-gray-600 dark:text-gray-400 py-2">Mon</div>
+                        <div class="text-center font-medium text-gray-600 dark:text-gray-400 py-2">Tue</div>
+                        <div class="text-center font-medium text-gray-600 dark:text-gray-400 py-2">Wed</div>
+                        <div class="text-center font-medium text-gray-600 dark:text-gray-400 py-2">Thu</div>
+                        <div class="text-center font-medium text-gray-600 dark:text-gray-400 py-2">Fri</div>
+                        <div class="text-center font-medium text-gray-600 dark:text-gray-400 py-2">Sat</div>
+                    </div>
+                    <div id="calendar-dates" class="grid grid-cols-7 gap-2">
+                        <!-- @MAP: Calendar dates will be generated dynamically -->
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors bg-success text-white font-medium" data-date="2024-12-01">1</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors bg-warning text-white font-medium" data-date="2024-12-02">2</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors bg-success text-white font-medium" data-date="2024-12-03">3</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400" data-date="2024-12-04">4</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors bg-success text-white font-medium" data-date="2024-12-05">5</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors bg-warning text-white font-medium" data-date="2024-12-06">6</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors bg-success text-white font-medium" data-date="2024-12-07">7</div>
+                        <!-- Continue for other dates... -->
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-700" data-date="2024-12-08">8</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-700" data-date="2024-12-09">9</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-700" data-date="2024-12-10">10</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-700" data-date="2024-12-11">11</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-700" data-date="2024-12-12">12</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-700" data-date="2024-12-13">13</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-700" data-date="2024-12-14">14</div>
+                        <div class="calendar-day w-12 h-12 flex items-center justify-center rounded-lg cursor-pointer transition-colors bg-primary text-white font-bold ring-2 ring-primary ring-offset-2 dark:ring-offset-gray-800" data-date="2024-12-15">15</div>
+                        <!-- @END_MAP -->
+                    </div>
+                    
+                    <!-- Performance Legend -->
+                    <div class="flex items-center justify-center space-x-6 mt-6 text-sm">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-4 h-4 rounded bg-success"></div>
+                            <span class="text-gray-600 dark:text-gray-400">Excellent (80-100%)</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-4 h-4 rounded bg-warning"></div>
+                            <span class="text-gray-600 dark:text-gray-400">Good (60-79%)</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-4 h-4 rounded bg-error"></div>
+                            <span class="text-gray-600 dark:text-gray-400">Poor (<60%)</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-4 h-4 rounded bg-gray-300 dark:bg-gray-600"></div>
+                            <span class="text-gray-600 dark:text-gray-400">No Data</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Weekly Summary -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">📈 Weekly Summary</h3>
+                        <div class="chart-container">
+                            <canvas id="weeklySummaryChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Dev Progress -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">💻 Development Progress</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Weekly Goal</span>
+                                    <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="dev.weeklyProgress">85%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-success h-2 rounded-full transition-all duration-300" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Monthly Goal</span>
+                                    <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="dev.monthlyProgress">67%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-warning h-2 rounded-full transition-all duration-300" style="width: 67%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Yearly Goal</span>
+                                    <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="dev.yearlyProgress">42%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 42%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: DashboardPage -->
+
+        <!-- @COMPONENT: DailyTaskPage -->
+        <div id="daily-task-page" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Daily Tasks</h2>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Manage your daily tasks and track your progress</p>
+                </div>
+
+                <!-- Top Charts -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Task Completion Chart -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">📋 Task Completion</h3>
+                        <div class="chart-container">
+                            <canvas id="taskCompletionChart"></canvas>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="text-2xl font-bold text-primary" data-bind="tasks.completionRate">75%</span>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Completed Today</div>
+                        </div>
+                    </div>
+
+                    <!-- Water Intake Chart -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">💧 Water Intake</h3>
+                        <div class="chart-container">
+                            <canvas id="waterIntakeChart"></canvas>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="text-2xl font-bold text-secondary" data-bind="water.percentage">60%</span>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">of Daily Goal (2.4L)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks List -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Today's Tasks</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-3">
+                            <!-- @MAP: tasks.map(task => ( -->
+                            <div class="task-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group" data-task-id="1">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" data-bind="task.completed" checked>
+                                    <div class="flex-1">
+                                        <div class="text-gray-900 dark:text-white font-medium" data-bind="task.title">Complete project documentation</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400" data-bind="task.time">9:00 AM - 11:00 AM</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white" data-bind="task.status">Completed</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600" data-implementation="Should show edit/delete options">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="task-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group" data-task-id="2">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" data-bind="task.completed">
+                                    <div class="flex-1">
+                                        <div class="text-gray-900 dark:text-white font-medium" data-bind="task.title">Review code changes</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400" data-bind="task.time">2:00 PM - 3:30 PM</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-warning text-white" data-bind="task.status">In Progress</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="task-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group" data-task-id="3">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" data-bind="task.completed">
+                                    <div class="flex-1">
+                                        <div class="text-gray-900 dark:text-white font-medium" data-bind="task.title">Team standup meeting</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400" data-bind="task.time">10:00 AM - 10:30 AM</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-500 text-white" data-bind="task.status">Pending</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- @END_MAP -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Add Button -->
+                <button id="add-task-btn" class="floating-btn fixed bottom-6 right-6 w-14 h-14 bg-primary hover:bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110" data-implementation="Should open task creation modal">
+                    <i class="fas fa-plus text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: DailyTaskPage -->
+
+        <!-- @COMPONENT: WorkoutPage -->
+        <div id="workout-page" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Workout Tracker</h2>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Track your daily and weekly workout progress</p>
+                </div>
+
+                <!-- Workout Performance Chart -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">🏋️‍♂️ Workout Performance</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="chart-container">
+                            <canvas id="dailyExerciseChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="weeklyProgressChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workout Tabs -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <div class="border-b border-gray-200 dark:border-gray-700">
+                        <nav class="-mb-px flex">
+                            <button class="workout-tab active py-4 px-6 border-b-2 border-primary text-primary font-medium" data-tab="daily">
+                                🟢 Daily Workout
+                            </button>
+                            <button class="workout-tab py-4 px-6 border-b-2 border-transparent text-gray-600 dark:text-gray-400 hover:text-primary transition-colors" data-tab="weekly">
+                                🔵 Weekly Workout
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Daily Workout Tab -->
+                    <div id="daily-workout-tab" class="tab-content p-6">
+                        <div class="space-y-4">
+                            <!-- @MAP: dailyExercises.map(exercise => ( -->
+                            <div class="exercise-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                    <div class="flex-1">
+                                        <div class="text-gray-900 dark:text-white font-medium" data-bind="exercise.name">Push-ups</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span data-bind="exercise.sets">3 sets</span> × 
+                                            <span data-bind="exercise.reps">15 reps</span> • 
+                                            <span data-bind="exercise.time">10 min</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                </button>
+                            </div>
+
+                            <div class="exercise-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                    <div class="flex-1">
+                                        <div class="text-gray-900 dark:text-white font-medium line-through" data-bind="exercise.name">Morning run</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span data-bind="exercise.sets">1 set</span> × 
+                                            <span data-bind="exercise.reps">30 min</span> • 
+                                            <span data-bind="exercise.time">30 min</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                </button>
+                            </div>
+
+                            <div class="exercise-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                    <div class="flex-1">
+                                        <div class="text-gray-900 dark:text-white font-medium" data-bind="exercise.name">Planks</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span data-bind="exercise.sets">3 sets</span> × 
+                                            <span data-bind="exercise.reps">1 min hold</span> • 
+                                            <span data-bind="exercise.time">5 min</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                </button>
+                            </div>
+                            <!-- @END_MAP -->
+                        </div>
+                    </div>
+
+                    <!-- Weekly Workout Tab -->
+                    <div id="weekly-workout-tab" class="tab-content p-6 hidden">
+                        <!-- Day Tabs -->
+                        <div class="border-b border-gray-200 dark:border-gray-700 mb-6">
+                            <nav class="-mb-px flex space-x-4 overflow-x-auto">
+                                <button class="day-tab flex-shrink-0 py-2 px-4 border-b-2 border-primary text-primary font-medium text-sm" data-day="sunday">Sun</button>
+                                <button class="day-tab flex-shrink-0 py-2 px-4 border-b-2 border-transparent text-gray-600 dark:text-gray-400 hover:text-primary transition-colors text-sm" data-day="monday">Mon</button>
+                                <button class="day-tab flex-shrink-0 py-2 px-4 border-b-2 border-transparent text-gray-600 dark:text-gray-400 hover:text-primary transition-colors text-sm" data-day="tuesday">Tue</button>
+                                <button class="day-tab flex-shrink-0 py-2 px-4 border-b-2 border-transparent text-gray-600 dark:text-gray-400 hover:text-primary transition-colors text-sm" data-day="wednesday">Wed</button>
+                                <button class="day-tab flex-shrink-0 py-2 px-4 border-b-2 border-transparent text-gray-600 dark:text-gray-400 hover:text-primary transition-colors text-sm" data-day="thursday">Thu</button>
+                                <button class="day-tab flex-shrink-0 py-2 px-4 border-b-2 border-transparent text-gray-600 dark:text-gray-400 hover:text-primary transition-colors text-sm" data-day="friday">Fri</button>
+                                <button class="day-tab flex-shrink-0 py-2 px-4 border-b-2 border-transparent text-gray-600 dark:text-gray-400 hover:text-primary transition-colors text-sm" data-day="saturday">Sat</button>
+                            </nav>
+                        </div>
+
+                        <!-- Weekly Exercises -->
+                        <div class="space-y-4 mb-8">
+                            <div class="exercise-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                    <div class="flex-1">
+                                        <div class="text-gray-900 dark:text-white font-medium">Chest Day - Bench Press</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400">4 sets × 8 reps • 45 min</div>
+                                    </div>
+                                </div>
+                                <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Missed Workouts Section -->
+                        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">❌ Missed Workouts</h4>
+                            <div class="space-y-3">
+                                <div class="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+                                    <div class="text-gray-900 dark:text-white font-medium">Saturday - Leg Day</div>
+                                    <div class="text-sm text-red-600 dark:text-red-400">Missed: Squats, Lunges, Calf Raises</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Add Button -->
+                <button id="add-workout-btn" class="floating-btn fixed bottom-6 right-6 w-14 h-14 bg-primary hover:bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110" data-implementation="Should open workout creation modal">
+                    <i class="fas fa-plus text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: WorkoutPage -->
+
+        <!-- @COMPONENT: MindWorkoutPage -->
+        <div id="mind-workout-page" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Mind Workout</h2>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Structured mental exercises to enhance cognitive performance</p>
+                </div>
+
+                <!-- Mind Exercise Completion Chart -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">🧠 Mind Exercise Completion</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="chart-container">
+                            <canvas id="mindExerciseChart"></canvas>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-primary mb-2" data-bind="mind.completionRate">71%</div>
+                            <div class="text-gray-600 dark:text-gray-400">Daily Completion Rate</div>
+                            <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                                <span data-bind="mind.completed">5</span> of <span data-bind="mind.total">7</span> exercises completed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Structured Schedule -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">🕐 Daily Mind Schedule</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <!-- @MAP: mindActivities.map(activity => ( -->
+                            <div class="mind-activity flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <div class="text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded" data-bind="activity.time">5:40 AM</div>
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="activity.name">Box Breathing + Sense Drill</div>
+                                        </div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-2" data-bind="activity.description">4-4-4-4 breathing pattern + 5-4-3-2-1 grounding technique</div>
+                                        <div class="text-xs text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-2 py-1 rounded inline-block" data-bind="activity.chatgptRole">ChatGPT: Guide through breathing patterns</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mind-activity flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <div class="text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded" data-bind="activity.time">6:00 AM</div>
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="activity.name">Memory Palace Practice</div>
+                                        </div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-2" data-bind="activity.description">Memorize 5 items using visual story technique, rate memory strength</div>
+                                        <div class="text-xs text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-2 py-1 rounded inline-block" data-bind="activity.chatgptRole">ChatGPT: Generate items & review performance</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mind-activity flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <div class="text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded" data-bind="activity.time">8:00 AM</div>
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="activity.name">Micro Brain Challenge</div>
+                                        </div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-2" data-bind="activity.description">Daily hard riddle or logic puzzle to stimulate problem-solving</div>
+                                        <div class="text-xs text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-2 py-1 rounded inline-block" data-bind="activity.chatgptRole">ChatGPT: Provide challenge & hints</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mind-activity flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <div class="text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded" data-bind="activity.time">12:00 PM</div>
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="activity.name">Pattern Recognition Task</div>
+                                        </div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-2" data-bind="activity.description">Visual or scene-based pattern identification challenge</div>
+                                        <div class="text-xs text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-2 py-1 rounded inline-block" data-bind="activity.chatgptRole">ChatGPT: Provide pattern task</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mind-activity flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <div class="text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded" data-bind="activity.time">4:00 PM</div>
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="activity.name">Recall & Visualization</div>
+                                        </div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-2" data-bind="activity.description">Recall 3 sounds, 2 visual scenes, 1 specific feeling from today</div>
+                                        <div class="text-xs text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-2 py-1 rounded inline-block" data-bind="activity.chatgptRole">ChatGPT: Quiz & evaluate recall</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-warning text-white">In Progress</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mind-activity flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <div class="text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded" data-bind="activity.time">7:00 PM</div>
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="activity.name">Mental Map Review</div>
+                                        </div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-2" data-bind="activity.description">Recall and review everything learned throughout the day</div>
+                                        <div class="text-xs text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-2 py-1 rounded inline-block" data-bind="activity.chatgptRole">ChatGPT: Quiz knowledge & score performance</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-500 text-white">Pending</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mind-activity flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                <div class="flex items-center space-x-4 flex-1">
+                                    <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-3 mb-2">
+                                            <div class="text-sm font-medium text-primary bg-primary/10 px-2 py-1 rounded" data-bind="activity.time">9:30 PM</div>
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="activity.name">Mind Wind-down</div>
+                                        </div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400 mb-2" data-bind="activity.description">Self-reflection questions and mental preparation for rest</div>
+                                        <div class="text-xs text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-2 py-1 rounded inline-block" data-bind="activity.chatgptRole">ChatGPT: Guide reflection process</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-500 text-white">Pending</span>
+                                    <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- @END_MAP -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Add Button -->
+                <button id="add-mind-activity-btn" class="floating-btn fixed bottom-6 right-6 w-14 h-14 bg-primary hover:bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110" data-implementation="Should open mind activity creation modal">
+                    <i class="fas fa-plus text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: MindWorkoutPage -->
+
+        <!-- @COMPONENT: DailyRoutinePage -->
+        <div id="daily-routine-page" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Daily Routine</h2>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Manage your morning, night, and weekly routines</p>
+                </div>
+
+                <!-- Routine Completion Chart -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">🔁 Routine Completion</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="chart-container">
+                            <canvas id="routineCompletionChart"></canvas>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-primary mb-2" data-bind="routine.completionRate">82%</div>
+                            <div class="text-gray-600 dark:text-gray-400">Overall Completion Rate</div>
+                            <div class="mt-4 grid grid-cols-3 gap-4 text-sm">
+                                <div>
+                                    <div class="font-medium text-success" data-bind="routine.morning">90%</div>
+                                    <div class="text-gray-600 dark:text-gray-400">Morning</div>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-warning" data-bind="routine.night">75%</div>
+                                    <div class="text-gray-600 dark:text-gray-400">Night</div>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-primary" data-bind="routine.weekly">80%</div>
+                                    <div class="text-gray-600 dark:text-gray-400">Weekly</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Routine Sections -->
+                <div class="space-y-8">
+                    <!-- Morning Routine -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                                ☀️ Morning Routine
+                                <span class="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">(6 activities)</span>
+                            </h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-3">
+                                <!-- @MAP: morningRoutine.map(item => ( -->
+                                <div class="routine-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="routine.name">Wake up & hydrate</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">
+                                                <span data-bind="routine.time">6:00 AM</span> • 
+                                                <span data-bind="routine.duration">5 min</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Done</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="routine-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="routine.name">Morning meditation</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">
+                                                <span data-bind="routine.time">6:05 AM</span> • 
+                                                <span data-bind="routine.duration">10 min</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Done</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="routine-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="routine.name">Review daily goals</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">
+                                                <span data-bind="routine.time">6:15 AM</span> • 
+                                                <span data-bind="routine.duration">10 min</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-500 text-white">Pending</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- @END_MAP -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Night Routine -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                                🌙 Night Routine
+                                <span class="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">(4 activities)</span>
+                            </h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-3">
+                                <div class="routine-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium">Daily reflection</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">9:00 PM • 15 min</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-500 text-white">Pending</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="routine-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium">Read before bed</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">9:30 PM • 30 min</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-500 text-white">Pending</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weekly Routine -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                                📆 Weekly Routine
+                                <span class="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">(3 activities)</span>
+                            </h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-3">
+                                <div class="routine-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium">Weekly meal prep</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">
+                                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary text-white mr-2">Sunday</span>
+                                                2:00 PM • 90 min
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Done</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="routine-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium">Deep clean apartment</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">
+                                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-secondary text-white mr-2">Saturday</span>
+                                                10:00 AM • 120 min
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-500 text-white">Pending</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Add Button -->
+                <button id="add-routine-btn" class="floating-btn fixed bottom-6 right-6 w-14 h-14 bg-primary hover:bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110" data-implementation="Should open routine creation modal">
+                    <i class="fas fa-plus text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: DailyRoutinePage -->
+
+        <!-- @COMPONENT: DevTrackerPage -->
+        <div id="dev-tracker-page" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Dev Tracker</h2>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Track your development goals from weekly to yearly objectives</p>
+                </div>
+
+                <!-- Goal Sections -->
+                <div class="space-y-8">
+                    <!-- Weekly Plan -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                                    🗓️ Weekly Plan
+                                    <span class="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">(Dec 9-15, 2024)</span>
+                                </h3>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span data-bind="weekly.completed">3</span> of <span data-bind="weekly.total">5</span> goals completed
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 60%" data-bind="weekly.progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-3">
+                                <!-- @MAP: weeklyGoals.map(goal => ( -->
+                                <div class="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked data-bind="goal.completed">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="goal.title">Complete Meta Build frontend</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400" data-bind="goal.description">Finish all 6 pages with responsive design</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked data-bind="goal.completed">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="goal.title">Set up backend API structure</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400" data-bind="goal.description">Create Express server with proper routing</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked data-bind="goal.completed">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="goal.title">Implement local storage system</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400" data-bind="goal.description">Data persistence for all modules</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" data-bind="goal.completed">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="goal.title">Add Chart.js integration</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400" data-bind="goal.description">Implement all pie charts and bar graphs</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-warning text-white">In Progress</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" data-bind="goal.completed">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium" data-bind="goal.title">Deploy to production</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400" data-bind="goal.description">Set up hosting and CI/CD pipeline</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-500 text-white">Pending</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- @END_MAP -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Plan -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                                    📅 Monthly Plan
+                                    <span class="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">(December 2024)</span>
+                                </h3>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span data-bind="monthly.completed">2</span> of <span data-bind="monthly.total">4</span> goals completed
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-secondary h-2 rounded-full transition-all duration-300" style="width: 50%" data-bind="monthly.progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-3">
+                                <div class="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium">Launch Meta Build MVP</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">Complete full-stack productivity app</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded" checked>
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium">Learn advanced React patterns</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">Hooks, Context, and performance optimization</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-success text-white">Completed</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium">Build portfolio website</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">Showcase all completed projects</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-warning text-white">In Progress</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="goal-item flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group">
+                                    <div class="flex items-center space-x-4 flex-1">
+                                        <input type="checkbox" class="w-5 h-5 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded">
+                                        <div class="flex-1">
+                                            <div class="text-gray-900 dark:text-white font-medium">Start job applications</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-400">Apply to 20+ frontend developer positions</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-500 text-white">Pending</span>
+                                        <button class="three-dot-menu opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
+                                            <i class="fas fa-ellipsis-v text-gray-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yearly Goal -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                                    📈 Yearly Goal
+                                    <span class="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">(2024)</span>
+                                </h3>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span data-bind="yearly.progress">85%</span> progress
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-accent h-2 rounded-full transition-all duration-300" style="width: 85%" data-bind="yearly.progressBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-4">
+                                <div class="goal-item p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                                            <i class="fas fa-target text-white text-sm"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Land a Frontend Developer Role</div>
+                                            <div class="text-gray-600 dark:text-gray-400 mb-4">Secure a position at a tech company with competitive salary and growth opportunities</div>
+                                            
+                                            <!-- Sub-goals progress -->
+                                            <div class="space-y-2">
+                                                <div class="flex items-center justify-between text-sm">
+                                                    <span class="text-gray-700 dark:text-gray-300">Build 5+ portfolio projects</span>
+                                                    <span class="text-success font-medium">5/5 ✓</span>
+                                                </div>
+                                                <div class="flex items-center justify-between text-sm">
+                                                    <span class="text-gray-700 dark:text-gray-300">Master React & Node.js</span>
+                                                    <span class="text-success font-medium">Complete ✓</span>
+                                                </div>
+                                                <div class="flex items-center justify-between text-sm">
+                                                    <span class="text-gray-700 dark:text-gray-300">Get 3 technical certifications</span>
+                                                    <span class="text-warning font-medium">2/3</span>
+                                                </div>
+                                                <div class="flex items-center justify-between text-sm">
+                                                    <span class="text-gray-700 dark:text-gray-300">Submit 50+ applications</span>
+                                                    <span class="text-error font-medium">12/50</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Add Button -->
+                <button id="add-goal-btn" class="floating-btn fixed bottom-6 right-6 w-14 h-14 bg-primary hover:bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110" data-implementation="Should open goal creation modal">
+                    <i class="fas fa-plus text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: DevTrackerPage -->
+    </main>
+    <!-- @END_COMPONENT: MainContent -->
+
+    <!-- @COMPONENT: Modal -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full max-h-90vh overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <h3 id="modal-title" class="text-lg font-semibold text-gray-900 dark:text-white">Add New Task</h3>
+                    <button id="modal-close" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-times text-gray-500"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="modal-content" class="p-6">
+                <!-- Modal content will be inserted here dynamically -->
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Modal -->
+
+    <!-- @COMPONENT: JavaScript -->
+    <script>
+        // TODO: Implement business logic, API calls, and state management
+        (function() {
+            'use strict';
+
+            // Page navigation
+            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            const pages = document.querySelectorAll('.page-content');
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    if (page.id === pageId + '-page') {
+                        page.classList.remove('hidden');
+                    } else {
+                        page.classList.add('hidden');
+                    }
+                });
+
+                // Update active nav link
+                navLinks.forEach(link => {
+                    if (link.dataset.page === pageId) {
+                        link.classList.add('text-primary', 'border-b-2', 'border-primary');
+                        link.classList.remove('text-gray-600', 'dark:text-gray-300', 'border-transparent');
+                    } else {
+                        link.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                        link.classList.add('text-gray-600', 'dark:text-gray-300');
+                    }
+                });
+
+                // Hide mobile menu
+                mobileMenu.classList.add('hidden');
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showPage(link.dataset.page);
+                });
+            });
+
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+
+            function setTheme(theme) {
+                if (theme === 'dark') {
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    html.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            }
+
+            // Initialize theme
+            const savedTheme = localStorage.getItem('theme') || 
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            setTheme(savedTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
+                setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+            });
+
+            // Workout tabs
+            const workoutTabs = document.querySelectorAll('.workout-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            workoutTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTab = tab.dataset.tab;
+                    
+                    // Update tab styles
+                    workoutTabs.forEach(t => {
+                        if (t === tab) {
+                            t.classList.add('active', 'border-primary', 'text-primary');
+                            t.classList.remove('border-transparent', 'text-gray-600', 'dark:text-gray-400');
+                        } else {
+                            t.classList.remove('active', 'border-primary', 'text-primary');
+                            t.classList.add('border-transparent', 'text-gray-600', 'dark:text-gray-400');
+                        }
+                    });
+
+                    // Show/hide tab content
+                    tabContents.forEach(content => {
+                        if (content.id === targetTab + '-workout-tab') {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Day tabs for weekly workout
+            const dayTabs = document.querySelectorAll('.day-tab');
+
+            dayTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    dayTabs.forEach(t => {
+                        if (t === tab) {
+                            t.classList.add('border-primary', 'text-primary');
+                            t.classList.remove('border-transparent', 'text-gray-600', 'dark:text-gray-400');
+                        } else {
+                            t.classList.remove('border-primary', 'text-primary');
+                            t.classList.add('border-transparent', 'text-gray-600', 'dark:text-gray-400');
+                        }
+                    });
+                    // TODO: Load exercises for selected day
+                });
+            });
+
+            // Modal functionality
+            const modal = document.getElementById('modal-overlay');
+            const modalClose = document.getElementById('modal-close');
+            const floatingBtns = document.querySelectorAll('[id$="-btn"]');
+
+            function showModal(title, content) {
+                document.getElementById('modal-title').textContent = title;
+                document.getElementById('modal-content').innerHTML = content;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            function hideModal() {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+
+            modalClose.addEventListener('click', hideModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) hideModal();
+            });
+
+            // Calendar functionality
+            const calendarDates = document.querySelectorAll('.calendar-day');
+            
+            calendarDates.forEach(date => {
+                date.addEventListener('click', () => {
+                    // TODO: Show performance breakdown for selected date
+                    const selectedDate = date.dataset.date;
+                    showModal('Performance Breakdown', `
+                        <div class="space-y-4">
+                            <h4 class="font-semibold">Performance for ${selectedDate}</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span>Tasks</span>
+                                    <span class="text-success">85%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Workout</span>
+                                    <span class="text-warning">70%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Mind Workout</span>
+                                    <span class="text-success">90%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Routine</span>
+                                    <span class="text-warning">75%</span>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+            });
+
+            // Initialize charts
+            function initializeCharts() {
+                // Today's Performance Chart (Dashboard)
+                const todayPerformanceCtx = document.getElementById('todayPerformanceChart');
+                if (todayPerformanceCtx) {
+                    new Chart(todayPerformanceCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Tasks', 'Workout', 'Mind', 'Routine', 'Dev'],
+                            datasets: [{
+                                data: [75, 60, 85, 70, 90],
+                                backgroundColor: [
+                                    '#3B82F6',
+                                    '#10B981',
+                                    '#F59E0B',
+                                    '#EF4444',
+                                    '#8B5CF6'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: { beginAtZero: true, max: 100 }
+                            }
+                        }
+                    });
+                }
+
+                // Weekly Summary Chart (Dashboard)
+                const weeklySummaryCtx = document.getElementById('weeklySummaryChart');
+                if (weeklySummaryCtx) {
+                    new Chart(weeklySummaryCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            datasets: [{
+                                label: 'Overall Performance',
+                                data: [85, 78, 92, 85, 88, 76, 90],
+                                borderColor: '#3B82F6',
+                                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: { beginAtZero: true, max: 100 }
+                            }
+                        }
+                    });
+                }
+
+                // Task Completion Chart
+                const taskCompletionCtx = document.getElementById('taskCompletionChart');
+                if (taskCompletionCtx) {
+                    new Chart(taskCompletionCtx, {
+                        type: 'doughnut',
+                        data: {
+                            datasets: [{
+                                data: [75, 25],
+                                backgroundColor: ['#10B981', '#E5E7EB']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            cutout: '70%'
+                        }
+                    });
+                }
+
+                // Water Intake Chart
+                const waterIntakeCtx = document.getElementById('waterIntakeChart');
+                if (waterIntakeCtx) {
+                    new Chart(waterIntakeCtx, {
+                        type: 'doughnut',
+                        data: {
+                            datasets: [{
+                                data: [60, 40],
+                                backgroundColor: ['#3B82F6', '#E5E7EB']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            cutout: '70%'
+                        }
+                    });
+                }
+
+                // Daily Exercise Chart
+                const dailyExerciseCtx = document.getElementById('dailyExerciseChart');
+                if (dailyExerciseCtx) {
+                    new Chart(dailyExerciseCtx, {
+                        type: 'doughnut',
+                        data: {
+                            datasets: [{
+                                data: [65, 35],
+                                backgroundColor: ['#F59E0B', '#E5E7EB']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            cutout: '70%'
+                        }
+                    });
+                }
+
+                // Weekly Progress Chart
+                const weeklyProgressCtx = document.getElementById('weeklyProgressChart');
+                if (weeklyProgressCtx) {
+                    new Chart(weeklyProgressCtx, {
+                        type: 'doughnut',
+                        data: {
+                            datasets: [{
+                                data: [80, 20],
+                                backgroundColor: ['#10B981', '#E5E7EB']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            cutout: '70%'
+                        }
+                    });
+                }
+
+                // Mind Exercise Chart
+                const mindExerciseCtx = document.getElementById('mindExerciseChart');
+                if (mindExerciseCtx) {
+                    new Chart(mindExerciseCtx, {
+                        type: 'doughnut',
+                        data: {
+                            datasets: [{
+                                data: [71, 29],
+                                backgroundColor: ['#8B5CF6', '#E5E7EB']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            cutout: '70%'
+                        }
+                    });
+                }
+
+                // Routine Completion Chart
+                const routineCompletionCtx = document.getElementById('routineCompletionChart');
+                if (routineCompletionCtx) {
+                    new Chart(routineCompletionCtx, {
+                        type: 'doughnut',
+                        data: {
+                            datasets: [{
+                                data: [82, 18],
+                                backgroundColor: ['#EF4444', '#E5E7EB']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            cutout: '70%'
+                        }
+                    });
+                }
+            }
+
+            // Initialize everything when DOM is loaded
+            document.addEventListener('DOMContentLoaded', initializeCharts);
+        })();
+    </script>
+    <!-- @END_COMPONENT: JavaScript -->
+</body>
+</html>
