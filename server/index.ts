@@ -1,6 +1,43 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+
+// Production-safe logging function
+function log(message: string, source = "express") {
+  const formattedTime = new Date().toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+  console.log(`${formattedTime} [${source}] ${message}`);
+}
+
+// Production-safe static file serving
+function serveStaticProduction(app: express.Express) {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const distPath = path.resolve(__dirname, "..", "dist", "public");
+
+  if (!fs.existsSync(distPath)) {
+    throw new Error(
+      `Could not find the build directory: ${distPath}, make sure to build the client first`,
+    );
+  }
+
+  app.use(express.static(distPath));
+
+  // fall through to index.html if the file doesn't exist - but NOT for API routes
+  app.use("*", (req, res) => {
+    // Don't serve SPA for API routes
+    if (req.originalUrl.startsWith('/api')) {
+      return res.status(404).json({ message: 'API endpoint not found' });
+    }
+    res.sendFile(path.resolve(distPath, "index.html"));
+  });
+}
 
 const app = express();
 app.use(express.json());
@@ -51,10 +88,11 @@ app.use((req, res, next) => {
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
   if (app.get("env") === "development") {
+    const { setupVite } = await import("./vite");
     await setupVite(app, server);
   } else {
-    // In production, serve static files
-    serveStatic(app);
+    // In production, serve static files using our production-safe method
+    serveStaticProduction(app);
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT

@@ -1,0 +1,50 @@
+2025-08-06T03:48:11.988081696Z #11 6.265 computing gzip size...
+2025-08-06T03:48:11.988102107Z #11 6.288 ../dist/public/index.html                   1.55 kB │ gzip:   0.67 kB
+2025-08-06T03:48:11.988106527Z #11 6.288 ../dist/public/assets/index-DpNSjlzq.css   91.74 kB │ gzip:  14.92 kB
+2025-08-06T03:48:11.988110447Z #11 6.288 ../dist/public/assets/index-CjQro0fM.js   715.99 kB │ gzip: 216.78 kB
+2025-08-06T03:48:11.988114067Z #11 6.288 
+2025-08-06T03:48:11.988118427Z #11 6.288 (!) Some chunks are larger than 500 kB after minification. Consider:
+2025-08-06T03:48:11.988122857Z #11 6.288 - Using dynamic import() to code-split the application
+2025-08-06T03:48:11.988127127Z #11 6.288 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+2025-08-06T03:48:11.988130627Z #11 6.288 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+2025-08-06T03:48:11.988134287Z #11 6.288 ✓ built in 5.77s
+2025-08-06T03:48:11.988137858Z #11 6.353 
+2025-08-06T03:48:11.988142188Z #11 6.353   dist/index.js  48.7kb
+2025-08-06T03:48:11.988145838Z #11 6.353 
+2025-08-06T03:48:11.988149298Z #11 6.353 ⚡ Done in 4ms
+2025-08-06T03:48:12.138240132Z #11 DONE 6.4s
+2025-08-06T03:48:12.138257032Z 
+2025-08-06T03:48:12.138265782Z #12 exporting to docker image format
+2025-08-06T03:48:12.138270953Z #12 exporting layers
+2025-08-06T03:48:26.221276166Z #12 exporting layers 14.2s done
+2025-08-06T03:48:26.391861949Z #12 exporting manifest sha256:04d3760b0f71d132c1808b0d49f58659b36b1a2cb87110f438959b5f309ce2ef done
+2025-08-06T03:48:26.39189239Z #12 exporting config sha256:66c1df6824f91241f2e19c507cd64a35221e898289285b494392fc0c82d64a6b done
+2025-08-06T03:48:28.699041835Z #12 DONE 16.7s
+2025-08-06T03:48:28.699060105Z 
+2025-08-06T03:48:28.699063946Z #13 exporting cache to client directory
+2025-08-06T03:48:28.699067146Z #13 preparing build cache for export
+2025-08-06T03:48:31.048242606Z #13 writing cache manifest sha256:2a0c6e125a595014294af49ff78b04d6e92deacba1dfcfd1f1eae096dac53da6 done
+2025-08-06T03:48:31.048260817Z #13 DONE 2.3s
+2025-08-06T03:48:31.423656176Z Pushing image to registry...
+2025-08-06T03:48:37.559422449Z Upload succeeded
+2025-08-06T03:48:41.493819268Z ==> Deploying...
+2025-08-06T03:49:14.481159001Z node:internal/errors:496
+2025-08-06T03:49:14.481197213Z     ErrorCaptureStackTrace(err);
+2025-08-06T03:49:14.481200653Z     ^
+2025-08-06T03:49:14.481202723Z 
+2025-08-06T03:49:14.481205363Z TypeError [ERR_INVALID_ARG_TYPE]: The "paths[0]" argument must be of type string. Received undefined
+2025-08-06T03:49:14.481212133Z     at __node_internal_captureLargerStackTrace (node:internal/errors:496:5)
+2025-08-06T03:49:14.481214513Z     at new NodeError (node:internal/errors:405:5)
+2025-08-06T03:49:14.481216493Z     at validateString (node:internal/validators:162:11)
+2025-08-06T03:49:14.481219443Z     at Object.resolve (node:path:1115:7)
+2025-08-06T03:49:14.481221663Z     at <anonymous> (/app/vite.config.ts:21:17)
+2025-08-06T03:49:14.481223993Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-06T03:49:14.481226303Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-06T03:49:14.481228954Z     at async loadESM (node:internal/process/esm_loader:34:7)
+2025-08-06T03:49:14.481231194Z     at async handleMainPromise (node:internal/modules/run_main:106:12) {
+2025-08-06T03:49:14.481233414Z   code: 'ERR_INVALID_ARG_TYPE'
+2025-08-06T03:49:14.481235694Z }
+2025-08-06T03:49:14.481237724Z 
+2025-08-06T03:49:14.481239854Z Node.js v18.20.8
+2025-08-06T03:49:15.838636351Z ==> Exited with status 1
+2025-08-06T03:49:15.854264059Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
