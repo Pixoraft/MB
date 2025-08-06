@@ -1,0 +1,50 @@
+2025-08-05T15:45:39.66136312Z     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:404:12)
+2025-08-05T15:45:39.66136583Z     at ModuleLoader.resolve (node:internal/modules/esm/loader:373:25)
+2025-08-05T15:45:39.66136825Z     at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:250:38)
+2025-08-05T15:45:39.66137071Z     at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:76:39)
+2025-08-05T15:45:39.66137282Z     at link (node:internal/modules/esm/module_job:75:36) {
+2025-08-05T15:45:39.661375841Z   url: 'file:///app/server/routes.js',
+2025-08-05T15:45:39.66137831Z   code: 'ERR_MODULE_NOT_FOUND'
+2025-08-05T15:45:39.661381021Z }
+2025-08-05T15:45:39.661383311Z 
+2025-08-05T15:45:39.661385831Z Node.js v18.20.8
+2025-08-05T15:45:43.601505808Z ==> Exited with status 1
+2025-08-05T15:45:43.635059065Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-05T15:45:44.015441606Z node:internal/errors:496
+2025-08-05T15:45:44.015482207Z     ErrorCaptureStackTrace(err);
+2025-08-05T15:45:44.015485537Z     ^
+2025-08-05T15:45:44.015487727Z 
+2025-08-05T15:45:44.015491077Z Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/app/server/routes.js' imported from /app/server-production.js
+2025-08-05T15:45:44.015494508Z     at new NodeError (node:internal/errors:405:5)
+2025-08-05T15:45:44.015497177Z     at finalizeResolution (node:internal/modules/esm/resolve:327:11)
+2025-08-05T15:45:44.015499318Z     at moduleResolve (node:internal/modules/esm/resolve:980:10)
+2025-08-05T15:45:44.015501508Z     at defaultResolve (node:internal/modules/esm/resolve:1206:11)
+2025-08-05T15:45:44.015503648Z     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:404:12)
+2025-08-05T15:45:44.015505878Z     at ModuleLoader.resolve (node:internal/modules/esm/loader:373:25)
+2025-08-05T15:45:44.015508298Z     at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:250:38)
+2025-08-05T15:45:44.015510618Z     at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:76:39)
+2025-08-05T15:45:44.015513228Z     at link (node:internal/modules/esm/module_job:75:36) {
+2025-08-05T15:45:44.015516508Z   url: 'file:///app/server/routes.js',
+2025-08-05T15:45:44.015519368Z   code: 'ERR_MODULE_NOT_FOUND'
+2025-08-05T15:45:44.015521368Z }
+2025-08-05T15:45:44.015523278Z 
+2025-08-05T15:45:44.015525208Z Node.js v18.20.8
+2025-08-05T15:45:56.305974552Z node:internal/errors:496
+2025-08-05T15:45:56.306016433Z     ErrorCaptureStackTrace(err);
+2025-08-05T15:45:56.306019993Z     ^
+2025-08-05T15:45:56.306022113Z 
+2025-08-05T15:45:56.306025063Z Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/app/server/routes.js' imported from /app/server-production.js
+2025-08-05T15:45:56.306029273Z     at new NodeError (node:internal/errors:405:5)
+2025-08-05T15:45:56.306032423Z     at finalizeResolution (node:internal/modules/esm/resolve:327:11)
+2025-08-05T15:45:56.306034733Z     at moduleResolve (node:internal/modules/esm/resolve:980:10)
+2025-08-05T15:45:56.306037033Z     at defaultResolve (node:internal/modules/esm/resolve:1206:11)
+2025-08-05T15:45:56.306039323Z     at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:404:12)
+2025-08-05T15:45:56.306041513Z     at ModuleLoader.resolve (node:internal/modules/esm/loader:373:25)
+2025-08-05T15:45:56.306043783Z     at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:250:38)
+2025-08-05T15:45:56.306046213Z     at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:76:39)
+2025-08-05T15:45:56.306048903Z     at link (node:internal/modules/esm/module_job:75:36) {
+2025-08-05T15:45:56.306052214Z   url: 'file:///app/server/routes.js',
+2025-08-05T15:45:56.306054854Z   code: 'ERR_MODULE_NOT_FOUND'
+2025-08-05T15:45:56.306057443Z }
+2025-08-05T15:45:56.306059603Z 
+2025-08-05T15:45:56.306061974Z Node.js v18.20.8
