@@ -21,4 +21,4 @@ RUN npm run build
 EXPOSE 5000
 
 # Start the application
-CMD ["npx", "tsx", "server/index.ts"]
+CMD ["npx", "tsx", "server/production.ts"]

@@ -1,0 +1,50 @@
+2025-08-06T04:08:47.087198358Z #11 DONE 6.9s
+2025-08-06T04:08:47.087217658Z 
+2025-08-06T04:08:47.087223819Z #12 exporting to docker image format
+2025-08-06T04:08:47.087231669Z #12 exporting layers
+2025-08-06T04:09:02.869322825Z #12 exporting layers 15.7s done
+2025-08-06T04:09:02.869349966Z #12 exporting manifest sha256:74d01b3d54c022271c848691fae6d9c0d4e6a22e340c32fc146903b693f6e735 0.0s done
+2025-08-06T04:09:02.869355106Z #12 exporting config sha256:3616ec27b10fe781d4ef2c54caef4bfcd1bcf3f1e8c2cfa9144a2b0f51d44d45 done
+2025-08-06T04:09:05.469727884Z #12 DONE 18.3s
+2025-08-06T04:09:05.469747635Z 
+2025-08-06T04:09:05.469752185Z #13 exporting cache to client directory
+2025-08-06T04:09:05.469755125Z #13 preparing build cache for export
+2025-08-06T04:09:11.783223809Z #13 writing cache manifest sha256:766edf63f42643b7845c97cee9b5c855b645a8059f6f8dc187ed3b2c826c2c32
+2025-08-06T04:09:12.235479808Z #13 writing cache manifest sha256:766edf63f42643b7845c97cee9b5c855b645a8059f6f8dc187ed3b2c826c2c32 0.4s done
+2025-08-06T04:09:12.254054788Z #13 DONE 6.7s
+2025-08-06T04:09:24.916095186Z Pushing image to registry...
+2025-08-06T04:09:32.41851483Z Upload succeeded
+2025-08-06T04:09:35.852136445Z ==> Deploying...
+2025-08-06T04:10:00.322271979Z ✅ All existing data cleared
+2025-08-06T04:10:00.32232674Z 🚀 Initializing fresh sample data...
+2025-08-06T04:10:00.322332Z 📝 Creating sample tasks...
+2025-08-06T04:10:00.322886152Z 💪 Creating sample exercises...
+2025-08-06T04:10:00.323496715Z 🎯 Creating sample goals...
+2025-08-06T04:10:00.323616457Z 📅 Creating sample routine items...
+2025-08-06T04:10:00.323808681Z ✅ Server sample data initialized
+2025-08-06T04:10:10.028764896Z node:internal/errors:496
+2025-08-06T04:10:10.028805727Z     ErrorCaptureStackTrace(err);
+2025-08-06T04:10:10.028809207Z     ^
+2025-08-06T04:10:10.028811527Z 
+2025-08-06T04:10:10.028816347Z TypeError [ERR_INVALID_ARG_TYPE]: The "paths[0]" argument must be of type string. Received undefined
+2025-08-06T04:10:10.028821237Z     at __node_internal_captureLargerStackTrace (node:internal/errors:496:5)
+2025-08-06T04:10:10.028823687Z     at new NodeError (node:internal/errors:405:5)
+2025-08-06T04:10:10.028826097Z     at validateString (node:internal/validators:162:11)
+2025-08-06T04:10:10.028829077Z     at Object.resolve (node:path:1115:7)
+2025-08-06T04:10:10.028831807Z     at <anonymous> (/app/vite.config.ts:21:17)
+2025-08-06T04:10:10.028834427Z     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2025-08-06T04:10:10.028836957Z     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2025-08-06T04:10:10.028839897Z     at <anonymous> (/app/server/index.ts:91:27) {
+2025-08-06T04:10:10.028842528Z   code: 'ERR_INVALID_ARG_TYPE'
+2025-08-06T04:10:10.028845068Z }
+2025-08-06T04:10:10.028847208Z 
+2025-08-06T04:10:10.028849338Z Node.js v18.20.8
+2025-08-06T04:10:11.53347008Z ==> Exited with status 1
+2025-08-06T04:10:11.548634278Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
+2025-08-06T04:10:22.873021619Z ✅ All existing data cleared
+2025-08-06T04:10:22.873117401Z 🚀 Initializing fresh sample data...
+2025-08-06T04:10:22.873216703Z 📝 Creating sample tasks...
+2025-08-06T04:10:22.873228603Z 💪 Creating sample exercises...
+2025-08-06T04:10:22.873764074Z 🎯 Creating sample goals...
+2025-08-06T04:10:22.873901447Z 📅 Creating sample routine items...
+2025-08-06T04:10:22.874148432Z ✅ Server sample data initialized
